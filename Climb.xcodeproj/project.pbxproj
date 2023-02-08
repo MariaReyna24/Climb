@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A207E9972994062100CBBBEE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9962994062100CBBBEE /* Game.swift */; };
+		A207E9992994068000CBBBEE /* Add Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9982994068000CBBBEE /* Add Button.swift */; };
+		A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E99A299406A800CBBBEE /* Pause Menu.swift */; };
+		A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E99E299406DF00CBBBEE /* endGameMenu.swift */; };
 		A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C53298AA90100CEB479 /* ClimbApp.swift */; };
 		A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C55298AA90100CEB479 /* ContentView.swift */; };
 		A2C65C58298AA90200CEB479 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2C65C57298AA90200CEB479 /* Assets.xcassets */; };
@@ -34,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A207E9962994062100CBBBEE /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		A207E9982994068000CBBBEE /* Add Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add Button.swift"; sourceTree = "<group>"; };
+		A207E99A299406A800CBBBEE /* Pause Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pause Menu.swift"; sourceTree = "<group>"; };
+		A207E99E299406DF00CBBBEE /* endGameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = endGameMenu.swift; sourceTree = "<group>"; };
 		A2C65C50298AA90100CEB479 /* Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C65C53298AA90100CEB479 /* ClimbApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbApp.swift; sourceTree = "<group>"; };
 		A2C65C55298AA90100CEB479 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +104,10 @@
 			children = (
 				A2C65C53298AA90100CEB479 /* ClimbApp.swift */,
 				A2C65C55298AA90100CEB479 /* ContentView.swift */,
+				A207E9962994062100CBBBEE /* Game.swift */,
+				A207E9982994068000CBBBEE /* Add Button.swift */,
+				A207E99A299406A800CBBBEE /* Pause Menu.swift */,
+				A207E99E299406DF00CBBBEE /* endGameMenu.swift */,
 				A2C65C57298AA90200CEB479 /* Assets.xcassets */,
 				A2C65C59298AA90200CEB479 /* Preview Content */,
 			);
@@ -257,7 +269,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A207E9992994068000CBBBEE /* Add Button.swift in Sources */,
 				A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */,
+				A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */,
+				A207E9972994062100CBBBEE /* Game.swift in Sources */,
+				A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */,
 				A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
