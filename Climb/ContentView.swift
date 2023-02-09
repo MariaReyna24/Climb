@@ -43,6 +43,8 @@ struct ContentView: View {
                     ToolbarItem(placement: .navigationBarLeading){
                         Button{
                             showView.toggle()
+                            timer.upstream.connect().cancel()
+                            
                         }label: {
                             Text("Pause")
                                 .font(.title2)
@@ -65,7 +67,6 @@ struct ContentView: View {
                 ))
 //                if game.timeRemaining == 0 {
 //                    End_Game_menu()
-//
 //                }
                 
             }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Pause_menu: View {
+    @State private var game = Math()
     var body: some View {
         NavigationView{
             ZStack{

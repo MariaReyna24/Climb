@@ -31,14 +31,10 @@ struct Add_Button: View {
                 .foregroundColor(.white)
                 .background(backgroundColor)
                 .clipShape(Rectangle())
-            
         }
         .disabled(game.timeRemaining == 0)
-       
-      
-       
+        
     }
-    
     
 }
 
