@@ -18,6 +18,7 @@
 		A2C65C65298AA90200CEB479 /* ClimbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C64298AA90200CEB479 /* ClimbTests.swift */; };
 		A2C65C6F298AA90200CEB479 /* ClimbUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C6E298AA90200CEB479 /* ClimbUITests.swift */; };
 		A2C65C71298AA90200CEB479 /* ClimbUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C70298AA90200CEB479 /* ClimbUITestsLaunchTests.swift */; };
+		C6E49A902995477F00FBB177 /* LeaderBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E49A8F2995477F00FBB177 /* LeaderBoard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		A2C65C6A298AA90200CEB479 /* ClimbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClimbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C65C6E298AA90200CEB479 /* ClimbUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbUITests.swift; sourceTree = "<group>"; };
 		A2C65C70298AA90200CEB479 /* ClimbUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C6E49A8F2995477F00FBB177 /* LeaderBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				A207E99E299406DF00CBBBEE /* endGameMenu.swift */,
 				A2C65C57298AA90200CEB479 /* Assets.xcassets */,
 				A2C65C59298AA90200CEB479 /* Preview Content */,
+				C6E49A8F2995477F00FBB177 /* LeaderBoard.swift */,
 			);
 			path = Climb;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6E49A902995477F00FBB177 /* LeaderBoard.swift in Sources */,
 				A207E9992994068000CBBBEE /* Add Button.swift in Sources */,
 				A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */,
 				A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */,
