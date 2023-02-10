@@ -1,5 +1,5 @@
 //
-//  leaderBoard.swift
+//  newleaderBoard.swift
 //  Climb
 //
 //  Created by Maria Reyna  on 2/10/23.
@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct LeaderBoard: View {
+struct newleaderBoard: View {
     var body: some View {
         VStack {
             List{
                 Text("                      LeaderBoard")
                     .padding()
-
+                
                 HStack {
                     Text("1. Maria")
                     Spacer()
                     Text("1,000,000,000 Points")
                 }
-
+                
                 HStack{
                     Text("2. Daniel")
                     Spacer()
@@ -29,7 +29,7 @@ struct LeaderBoard: View {
                     Text("3. Delon")
                     Spacer()
                     Text("500.000 Points")
-
+                    
                 }
                 HStack{
                     Text("4. Hadi")
@@ -41,16 +41,15 @@ struct LeaderBoard: View {
                     Spacer()
                     Text("100.000 Points")
                 }
-
-
             }
+            
         }
+    }
+}
 
-        struct LeaderBoard_Previews: PreviewProvider {
-            static var previews: some View {
-                LeaderBoard()
-            }
-        }
+struct newleaderBoard_Previews: PreviewProvider {
+    static var previews: some View {
+        newleaderBoard()
     }
 }
 

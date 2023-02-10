@@ -11,6 +11,7 @@
 		A207E9992994068000CBBBEE /* Add Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9982994068000CBBBEE /* Add Button.swift */; };
 		A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E99A299406A800CBBBEE /* Pause Menu.swift */; };
 		A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E99E299406DF00CBBBEE /* endGameMenu.swift */; };
+		A282A89829967D7100BEA1A9 /* newleaderBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A282A89729967D7100BEA1A9 /* newleaderBoard.swift */; };
 		A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C53298AA90100CEB479 /* ClimbApp.swift */; };
 		A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C55298AA90100CEB479 /* ContentView.swift */; };
 		A2C65C58298AA90200CEB479 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2C65C57298AA90200CEB479 /* Assets.xcassets */; };
@@ -18,7 +19,6 @@
 		A2C65C65298AA90200CEB479 /* ClimbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C64298AA90200CEB479 /* ClimbTests.swift */; };
 		A2C65C6F298AA90200CEB479 /* ClimbUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C6E298AA90200CEB479 /* ClimbUITests.swift */; };
 		A2C65C71298AA90200CEB479 /* ClimbUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C70298AA90200CEB479 /* ClimbUITestsLaunchTests.swift */; };
-		C6E49A902995477F00FBB177 /* LeaderBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E49A8F2995477F00FBB177 /* LeaderBoard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +43,7 @@
 		A207E9982994068000CBBBEE /* Add Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add Button.swift"; sourceTree = "<group>"; };
 		A207E99A299406A800CBBBEE /* Pause Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pause Menu.swift"; sourceTree = "<group>"; };
 		A207E99E299406DF00CBBBEE /* endGameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = endGameMenu.swift; sourceTree = "<group>"; };
+		A282A89729967D7100BEA1A9 /* newleaderBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newleaderBoard.swift; sourceTree = "<group>"; };
 		A2C65C50298AA90100CEB479 /* Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C65C53298AA90100CEB479 /* ClimbApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbApp.swift; sourceTree = "<group>"; };
 		A2C65C55298AA90100CEB479 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,7 +54,6 @@
 		A2C65C6A298AA90200CEB479 /* ClimbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClimbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C65C6E298AA90200CEB479 /* ClimbUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbUITests.swift; sourceTree = "<group>"; };
 		A2C65C70298AA90200CEB479 /* ClimbUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		C6E49A8F2995477F00FBB177 /* LeaderBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,9 +110,9 @@
 				A207E9982994068000CBBBEE /* Add Button.swift */,
 				A207E99A299406A800CBBBEE /* Pause Menu.swift */,
 				A207E99E299406DF00CBBBEE /* endGameMenu.swift */,
+				A282A89729967D7100BEA1A9 /* newleaderBoard.swift */,
 				A2C65C57298AA90200CEB479 /* Assets.xcassets */,
 				A2C65C59298AA90200CEB479 /* Preview Content */,
-				C6E49A8F2995477F00FBB177 /* LeaderBoard.swift */,
 			);
 			path = Climb;
 			sourceTree = "<group>";
@@ -272,9 +272,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6E49A902995477F00FBB177 /* LeaderBoard.swift in Sources */,
 				A207E9992994068000CBBBEE /* Add Button.swift in Sources */,
 				A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */,
+				A282A89829967D7100BEA1A9 /* newleaderBoard.swift in Sources */,
 				A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */,
 				A207E9972994062100CBBBEE /* Game.swift in Sources */,
 				A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */,
