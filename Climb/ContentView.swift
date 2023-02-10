@@ -8,10 +8,8 @@ import Foundation
 import SwiftUI
 
 struct ContentView: View {
-    @State var isAnswerCorrect = false
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State private var game = Math()
-    @State var showView = false
+    @StateObject var game = Math()
     var body: some View {
         NavigationView{
             ZStack{
@@ -42,7 +40,6 @@ struct ContentView: View {
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
                         Button{
-                            showView.toggle()
                             timer.upstream.connect().cancel()
                             
                         }label: {
@@ -50,9 +47,7 @@ struct ContentView: View {
                                 .font(.title2)
                                 .foregroundColor(.red)
                         }
-                        .sheet(isPresented: $showView){
-                            Pause_menu()
-                        }
+                        Pause_menu()
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing){
@@ -82,8 +77,10 @@ struct ContentView: View {
                     game.answerCorreect(answer: game.choicearry[index])
                     game.generateAnswers()
                 } label: {
-                    Add_Button(num: game.choicearry[index], game: $game)
+                    Add_Button(num: game.choicearry[index], game: game)
                 }
+               // .disabled(game.timeRemaining == 0)
+              //.opacity(game.timeRemaining == 0 ? 0.6 : 1.0)
             }
         }
     }

@@ -10,8 +10,7 @@ import Foundation
 
 struct Add_Button: View {
     var num : Int
-    @Binding var game : Math
-    @State var isAnswerCorrect = false
+    @ObservedObject var game : Math
     @State private var backgroundColor = Color.black
     var body: some View {
         
@@ -22,8 +21,12 @@ struct Add_Button: View {
             }else{
                 backgroundColor = Color.red
             }
+            if isCorrect == true{
+                game.isAnswerCorrect = true
+            }else{
+                game.isAnswerCorrect = false
+            }
             game.generateAnswers()
-            
         } label: {
             Text("\(num)")
                 .frame(width: 90,height:50)
@@ -31,15 +34,13 @@ struct Add_Button: View {
                 .foregroundColor(.white)
                 .background(backgroundColor)
                 .clipShape(Rectangle())
-        }
-        .disabled(game.timeRemaining == 0)
-        
+        }        
     }
     
 }
 
 struct Add_Button_Previews: PreviewProvider {
     static var previews: some View {
-        Add_Button(num: 100, game: .constant(Math()))
+        Add_Button(num: 100, game: Math())
     }
 }
