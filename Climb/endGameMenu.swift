@@ -15,11 +15,11 @@ struct End_Game_menu: View {
                     .foregroundColor(.red)
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .frame(width: 201,height: 150)
+                    .frame(width: 200,height: 110)
                     .background(Rectangle().fill(Color.black))
                 HStack(spacing: 0){
                     Button("Retry"){
-                        
+                       
                     }
                     .foregroundColor(.white)
                     .frame(width: 105, height: 50)

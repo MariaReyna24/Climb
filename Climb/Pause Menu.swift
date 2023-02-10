@@ -6,22 +6,16 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct Pause_menu: View {
     @State private var game = Math()
+    @State var showingPopup = false
     var body: some View {
-        NavigationView{
-            ZStack{
-                Color.blue.ignoresSafeArea()
-            }
-            .navigationTitle("Paused")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar{
-                ToolbarItem(placement: .navigationBarLeading){
-                    Button("Back"){
-                        
-                    }
-                }
+        ZStack{
+            Color.black.opacity(0.5)
+            Button("Pause"){
+                showingPopup = true
             }
         }
     }
