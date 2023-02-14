@@ -65,6 +65,7 @@ struct MainMenuView: View {
                         .cornerRadius(10)
                 }
                 Spacer()
+                Spacer()
             }
         }
     }
