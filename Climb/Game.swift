@@ -11,6 +11,7 @@ import Foundation
 class Math: ObservableObject{
     @Published var isAnswerCorrect = false
      private(set) var correctAnswer = 0
+    var choiceSet: Set<Int> = []
    @Published var choicearry : [Int] = [0,1,2,3,4]
      private(set) var firstNum = 0
      private(set) var secondNum = 0
@@ -37,17 +38,21 @@ class Math: ObservableObject{
       }
 
       func generateAnswers(){
+          
           if self.isAnswerCorrect == false {
+              choicearry = []
+              correctAnswer =  self.firstNum + self.secondNum
               self.firstNum = Int.random(in: 0...(difficulty/2))
               self.secondNum = Int.random(in: 0...(difficulty/2))
-              var answerList = [Int]()
-              correctAnswer =  self.firstNum + self.secondNum
-              
-              for _ in 0...2{
-                  answerList.append(Int.random(in: 0...difficulty))
-              }
-              answerList.append(correctAnswer)
-              choicearry = answerList.shuffled()
+              while choiceSet.count < 4 {
+                         let randomNumber = Int.random(in: 0...difficulty)
+                         if randomNumber != correctAnswer {
+                             choiceSet.insert(randomNumber)
+                         }
+                     }
+              choiceSet.insert(correctAnswer)
+              choicearry = Array(choiceSet)
+              choicearry.shuffle()
           }
       }
   }
