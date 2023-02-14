@@ -11,7 +11,7 @@ import Foundation
 class Math: ObservableObject{
     @Published var isAnswerCorrect = false
      private(set) var correctAnswer = 0
-   @Published var choicearry : [Int] = [0,1,2,3,4]
+   @Published var choicearry : [Int] = [0,1,2,3,4,5,6,7,8,9,10,11]
      private(set) var firstNum = 0
      private(set) var secondNum = 0
      private(set) var difficulty = 150
@@ -42,8 +42,8 @@ class Math: ObservableObject{
               self.secondNum = Int.random(in: 0...(difficulty/2))
               var answerList = [Int]()
               correctAnswer =  self.firstNum + self.secondNum
-              
-              for _ in 0...2{
+                            
+              for _ in 0...11{
                   answerList.append(Int.random(in: 0...difficulty))
               }
               answerList.append(correctAnswer)
