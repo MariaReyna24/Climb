@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		47003B2D299BBFCE00577725 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47003B2C299BBFCE00577725 /* MainMenu.swift */; };
 		A207E9972994062100CBBBEE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9962994062100CBBBEE /* Game.swift */; };
-		A207E9992994068000CBBBEE /* Add Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9982994068000CBBBEE /* Add Button.swift */; };
+		A207E9992994068000CBBBEE /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9982994068000CBBBEE /* Button.swift */; };
 		A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E99A299406A800CBBBEE /* Pause Menu.swift */; };
 		A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E99E299406DF00CBBBEE /* endGameMenu.swift */; };
 		A282A89829967D7100BEA1A9 /* newleaderBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A282A89729967D7100BEA1A9 /* newleaderBoard.swift */; };
@@ -42,7 +42,7 @@
 /* Begin PBXFileReference section */
 		47003B2C299BBFCE00577725 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		A207E9962994062100CBBBEE /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		A207E9982994068000CBBBEE /* Add Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add Button.swift"; sourceTree = "<group>"; };
+		A207E9982994068000CBBBEE /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		A207E99A299406A800CBBBEE /* Pause Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pause Menu.swift"; sourceTree = "<group>"; };
 		A207E99E299406DF00CBBBEE /* endGameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = endGameMenu.swift; sourceTree = "<group>"; };
 		A282A89729967D7100BEA1A9 /* newleaderBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newleaderBoard.swift; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 				A2C65C53298AA90100CEB479 /* ClimbApp.swift */,
 				A2C65C55298AA90100CEB479 /* ContentView.swift */,
 				A207E9962994062100CBBBEE /* Game.swift */,
-				A207E9982994068000CBBBEE /* Add Button.swift */,
+				A207E9982994068000CBBBEE /* Button.swift */,
 				A207E99A299406A800CBBBEE /* Pause Menu.swift */,
 				A207E99E299406DF00CBBBEE /* endGameMenu.swift */,
 				A282A89729967D7100BEA1A9 /* newleaderBoard.swift */,
@@ -275,7 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A207E9992994068000CBBBEE /* Add Button.swift in Sources */,
+				A207E9992994068000CBBBEE /* Button.swift in Sources */,
 				A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */,
 				A282A89829967D7100BEA1A9 /* newleaderBoard.swift in Sources */,
 				47003B2D299BBFCE00577725 /* MainMenu.swift in Sources */,

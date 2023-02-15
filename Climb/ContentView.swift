@@ -17,13 +17,14 @@ struct ContentView: View {
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
                     Spacer()
-                    buttonsForAnswers(startIndex: 1, endIndex: 2)
-                    buttonsForAnswers(startIndex: 0, endIndex: 2)
-                    buttonsForAnswers(startIndex: 1, endIndex: 4)
-                    buttonsForAnswers(startIndex: 0, endIndex: 4)
+                    buttonsForAnswers(startIndex: 0, endIndex: 1)
+                    buttonsForAnswers(startIndex: 1, endIndex: 3)
+                    buttonsForAnswers(startIndex: 3, endIndex: 6)
+                    buttonsForAnswers(startIndex: 6, endIndex: 10)
                     
                     Text("\(game.firstNum) + \(game.secondNum)")
                         .font(.largeTitle)
+                        .fontWeight(.bold)
                     Spacer()
                 }.onAppear {
                     game.generateAnswers()
@@ -58,6 +59,8 @@ struct ContentView: View {
                 }
                 .background((Image("background")
                     .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
                     .frame(width: 393, height: 918)
                 ))
 //                if game.timeRemaining == 0 {
@@ -73,14 +76,9 @@ struct ContentView: View {
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
         HStack {
             ForEach(startIndex..<endIndex, id: \.self) { index in
-                Button {
-                    game.answerCorreect(answer: game.choicearry[index])
-                    game.generateAnswers()
-                } label: {
-                    Add_Button(num: game.choicearry[index], game: game)
-                }
-               // .disabled(game.timeRemaining == 0)
-              //.opacity(game.timeRemaining == 0 ? 0.6 : 1.0)
+                button(num:game.choicearry[index], game: game)
+//                .disabled(game.timeRemaining == 0)
+//              .opacity(game.timeRemaining == 0 ? 0.6 : 1.0)
             }
         }
     }

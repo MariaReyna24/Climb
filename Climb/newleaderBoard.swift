@@ -34,12 +34,12 @@ struct newleaderBoard: View {
                 HStack{
                     Text("4. Hadi")
                     Spacer()
-                    Text("250.000 Points")
+                    Text("250.00 Points")
                 }
                 HStack{
                     Text("5. Michael")
                     Spacer()
-                    Text("100.000 Points")
+                    Text("100.00 Points")
                 }
             }
             

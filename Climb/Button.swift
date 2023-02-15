@@ -8,7 +8,7 @@
 import SwiftUI
 import Foundation
 
-struct Add_Button: View {
+struct button: View {
     var num : Int
     @ObservedObject var game : Math
     @State private var backgroundColor = Color.black
@@ -23,6 +23,7 @@ struct Add_Button: View {
             }
             if isCorrect == true{
                 game.isAnswerCorrect = true
+                
             }else{
                 game.isAnswerCorrect = false
             }
@@ -34,13 +35,13 @@ struct Add_Button: View {
                 .foregroundColor(.white)
                 .background(backgroundColor)
                 .clipShape(Rectangle())
-        }        
+        }
     }
     
 }
 
-struct Add_Button_Previews: PreviewProvider {
+struct button_Previews: PreviewProvider {
     static var previews: some View {
-        Add_Button(num: 100, game: Math())
+        button(num: 100, game: Math())
     }
 }
