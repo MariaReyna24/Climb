@@ -11,9 +11,9 @@ import SwiftUI
 struct MainMenuView: View {
     @State private var username = "Hadi" // replace with user's actual name
     var body: some View {
+        
+    
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.blue, .white]), startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
                     Spacer()
@@ -24,10 +24,12 @@ struct MainMenuView: View {
                             .foregroundColor(.white)
                             .padding()
                             .frame(height:-500)
+                            Spacer()
                     }
                 }
                 Spacer()
                 Image(systemName: "person.crop.circle.fill")
+                
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 80, height: 80)
@@ -50,6 +52,7 @@ struct MainMenuView: View {
                     // handle "New Game" button action
                 }) {
                     Text("New Game")
+                    
                         .padding()
                         .background(Color.white)
                         .foregroundColor(.blue)
@@ -66,7 +69,10 @@ struct MainMenuView: View {
                 }
                 Spacer()
                 Spacer()
+                
+                
             }
+            .background(Image("mainMenuBackground"))
         }
     }
 }
