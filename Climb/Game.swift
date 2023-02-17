@@ -9,43 +9,86 @@ import Foundation
 
 
 class Math: ObservableObject{
-    @Published var isAnswerCorrect = false
-     private(set) var correctAnswer = 0
-   @Published var choicearry : [Int] = [0,1,2,3,4,5,6,7,8,9]
-     private(set) var firstNum = 0
-     private(set) var secondNum = 0
-     private(set) var difficulty = 150
-     private(set) var score = 0
     @Published var timeRemaining = 15 //this is in seconds naturally
-
+    @Published var isAnswerCorrect = false
+    @Published var choicearry : [Int] = [0,1,2,3,4,5,6,7,8,9]
+    var correctAnsArry : [Int] = []
+    private(set) var correctAnswer = 0
+    private(set) var firstNum = 0
+    private(set) var secondNum = 0
+    private(set) var difficulty = 15
+    private(set) var score = 0
+    
+    
     func answerCorreect(answer:Int) -> Bool{
-          if answer == correctAnswer {
-              self.score += 1
-              self.timeRemaining += 5
-              self.isAnswerCorrect = true
-              return true
-          }else{
-              if self.score < 1{
-                  self.score = 0
-              } else {
-                  self.score -= 1
-              }
-              self.isAnswerCorrect = false
-              return false
-          }
-      }
+        if answer == correctAnswer {
+            self.score += 1
+            self.timeRemaining += 5
+            self.isAnswerCorrect = true
+            correctAnsArry.append(correctAnswer)
+            return true
+        }else{
+            if self.score < 1{
+                self.score = 0
+            } else {
+                self.score -= 1
+            }
+            self.isAnswerCorrect = false
+            return false
+        }
+    }
+    
+    func generateAnswers(){
+        
+        self.firstNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
+        self.secondNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
+        var answerList = [Int]()
+        correctAnswer =  self.firstNum + self.secondNum
+        
+        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer){
+            self.firstNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
+            correctAnswer =  self.firstNum + self.secondNum
+        }
+        
+        for _ in 0...9{
+            answerList.append(Int.random(in: 0...difficulty, excluding: correctAnsArry))
+        }
+        
+        // create an array that holds all of the indexes for not correct answers
+        var incorrectAnswers : [Int] = []
+        for index in 0...9{
+            let currentChoice = choicearry[index]
+            
+            if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice){
+                answerList[index] = currentChoice
+            }else{
+                incorrectAnswers.append(index)
+            }
+            
 
-      func generateAnswers(){
-              self.firstNum = Int.random(in: 0...(difficulty/2))
-              self.secondNum = Int.random(in: 0...(difficulty/2))
-              var answerList = [Int]()
-              correctAnswer =  self.firstNum + self.secondNum
-                            
-              for _ in 0...9{
-                  answerList.append(Int.random(in: 0...difficulty))
-              }
-              answerList.append(correctAnswer)
-              choicearry = answerList.shuffled()
-      }
-  }
+        }
+        
+        // grab a random index from the array of wrong answer indexes
+        if let randomIndex = incorrectAnswers.randomElement() {
+            // set the new correct at that index
+            answerList[randomIndex] = correctAnswer
 
+        }
+        
+        choicearry = answerList
+    }
+}
+
+
+extension Int {
+    static func random(in range: ClosedRange<Self>, excluding numbers: [Int]) -> Int {
+        var randomInt = Int.random(in: range)
+        
+        while numbers.contains(randomInt) {
+            randomInt = Int.random(in: range)
+        }
+        
+        return randomInt
+    }
+}

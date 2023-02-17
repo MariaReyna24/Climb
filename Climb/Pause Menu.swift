@@ -10,12 +10,10 @@ import UIKit
 
 struct Pause_menu: View {
     @State private var game = Math()
-    @State var showingPopup = false
     var body: some View {
         ZStack{
-            Color.black.opacity(0.5)
+            Color.black.opacity(0.7)
             Button("Pause"){
-                showingPopup = true
             }
         }
     }
