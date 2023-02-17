@@ -73,7 +73,6 @@ struct MainMenuView: View {
                 
             }
             .background(Image("mainMenuBackground"))
-            
         }
     }
 }
