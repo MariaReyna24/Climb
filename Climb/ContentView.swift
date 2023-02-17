@@ -48,7 +48,7 @@ struct ContentView: View {
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
                         Button{
-                           // timer.upstream.connect().cancel()
+                            // timer.upstream.connect().cancel()
                             
                         }label: {
                             Text("Pause")
@@ -68,10 +68,10 @@ struct ContentView: View {
                     .ignoresSafeArea()
                     .frame(width: 393, height: 918)
                 ))
-//                if game.timeRemaining == 0 {
-//                    End_Game_menu()
-//                }
-//
+                //                if game.timeRemaining == 0 {
+                //                    End_Game_menu()
+                //                }
+                //
             }
         }
     }

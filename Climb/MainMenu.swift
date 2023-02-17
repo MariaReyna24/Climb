@@ -4,8 +4,6 @@
 //
 //  Created by Hadi Chamas  on 2/14/23.
 //
-
-
 import SwiftUI
 
 struct MainMenuView: View {
@@ -49,14 +47,14 @@ struct MainMenuView: View {
                         
                     }
                     NavigationLink(destination: ContentView(), label: {
-                            Text("New Game")
-
-                                .padding()
-                                .background(Color.white)
-                                .foregroundColor(.blue)
-                                .cornerRadius(10)
-                        }
-                        )
+                        Text("New Game")
+                        
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(.blue)
+                            .cornerRadius(10)
+                    }
+                    )
                     NavigationLink(destination: LeaderBoardView(), label: {
                         Text("Leaderboard")
                             .padding()
@@ -64,10 +62,9 @@ struct MainMenuView: View {
                             .foregroundColor(.blue)
                             .cornerRadius(10)
                     }
-                                   )
+                    )
                     Spacer()
                     Spacer()
-                    
                     
                 }
                 .background(Image("mainMenuBackground"))

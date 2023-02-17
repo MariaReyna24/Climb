@@ -66,14 +66,14 @@ class Math: ObservableObject{
                 incorrectAnswers.append(index)
             }
             
-
+            
         }
         
         // grab a random index from the array of wrong answer indexes
         if let randomIndex = incorrectAnswers.randomElement() {
             // set the new correct at that index
             answerList[randomIndex] = correctAnswer
-
+            
         }
         
         choicearry = answerList
