@@ -37,7 +37,7 @@ struct button: View {
                 .clipShape(Rectangle())
         }
 //        .disabled(game.timeRemaining == 0)
-//        .opacity(game.timeRemaining == 0 ? 0.6 : 1.0)
+//        .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
     }
     
 }

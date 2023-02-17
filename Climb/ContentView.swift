@@ -71,6 +71,7 @@ struct ContentView: View {
 //                if game.timeRemaining == 0 {
 //                    End_Game_menu()
 //                }
+//
             }
         }
     }
@@ -78,7 +79,9 @@ struct ContentView: View {
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
         HStack {
             ForEach(startIndex..<endIndex, id: \.self) { index in
-                button(num:game.choicearry[index], game: game)
+                if index < game.choicearry.count {
+                    button(num:game.choicearry[index], game: game)
+                }
             }
         }
     }
