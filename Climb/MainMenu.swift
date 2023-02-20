@@ -20,7 +20,7 @@ struct MainMenuView: View {
                             Image(systemName: "gear")
                                 .foregroundColor(.white)
                                 .padding()
-                                .frame(height:-500)
+                                .frame(height: -500)
                             Spacer()
                         }
                     }

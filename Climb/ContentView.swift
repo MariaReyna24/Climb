@@ -4,6 +4,7 @@
 //
 //  Created by Maria Reyna  on 2/1/23.
 //
+
 import Foundation
 import SwiftUI
 
@@ -41,7 +42,7 @@ struct ContentView: View {
                         game.timeRemaining -= 1
                     }
                 }
-                
+            
                 //the display for the top part of the app
                 .navigationTitle("Level 1")
                 .navigationBarTitleDisplayMode(.inline)
@@ -68,10 +69,11 @@ struct ContentView: View {
                     .ignoresSafeArea()
                     .frame(width: 393, height: 918)
                 ))
-                //                if game.timeRemaining == 0 {
-                //                    End_Game_menu()
-                //                }
-                //
+                if game.timeRemaining == 0 {
+                    End_Game_menu(game: game)
+
+                }
+                
             }
         }
     }
