@@ -11,7 +11,7 @@ import Foundation
 struct button: View {
     var num : Int
     @ObservedObject var game : Math
-    @State private var backgroundColor = Color.black
+    @State private var backgroundColor = Color.secondary
     var body: some View {
         
         Button {
@@ -33,14 +33,18 @@ struct button: View {
                 .frame(width: 90,height:50)
                 .font(.system(size: 25, weight: .bold))
                 .foregroundColor(.white)
-                .background(backgroundColor)
+                .opacity(1.0)
+                .background(
+                    backgroundColor
+                        .opacity(1.0)
+                )
                 .clipShape(Rectangle())
         }
                 .disabled(game.timeRemaining == 0)
                 .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
                 .onChange(of: game.timeRemaining) { newTime in
                     if newTime == 0{
-                        backgroundColor = Color.black
+                        backgroundColor = Color.secondary
                     }
                 }
     }

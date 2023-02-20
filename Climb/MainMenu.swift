@@ -17,11 +17,11 @@ struct MainMenuView: View {
                         Button(action: {
                             // handle setting button action
                         }) {
-                            Image(systemName: "gear")
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(height: -500)
-                            Spacer()
+//                            Image(systemName: "gear")
+//                                .foregroundColor(.white)
+//                                .padding()
+//                                .frame(height: -500)
+//                            Spacer()
                         }
                     }
                     Spacer()
@@ -46,6 +46,8 @@ struct MainMenuView: View {
                         
                         
                     }
+                    .disabled(true)
+                    .opacity(0.7)
                     NavigationLink(destination: ContentView(), label: {
                         Text("New Game")
                         
