@@ -19,6 +19,7 @@
 		A2C65C65298AA90200CEB479 /* ClimbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C64298AA90200CEB479 /* ClimbTests.swift */; };
 		A2C65C6F298AA90200CEB479 /* ClimbUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C6E298AA90200CEB479 /* ClimbUITests.swift */; };
 		A2C65C71298AA90200CEB479 /* ClimbUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C70298AA90200CEB479 /* ClimbUITestsLaunchTests.swift */; };
+		A2F6ABB129A3D9C900A14A51 /* levelCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F6ABB029A3D9C900A14A51 /* levelCompleted.swift */; };
 		C6622F23299FCA1A00592947 /* LeaderBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6622F22299FCA1A00592947 /* LeaderBoardView.swift */; };
 		C6622F25299FCA2300592947 /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6622F24299FCA2300592947 /* HighScore.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		A2C65C6A298AA90200CEB479 /* ClimbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClimbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C65C6E298AA90200CEB479 /* ClimbUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbUITests.swift; sourceTree = "<group>"; };
 		A2C65C70298AA90200CEB479 /* ClimbUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A2F6ABB029A3D9C900A14A51 /* levelCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = levelCompleted.swift; sourceTree = "<group>"; };
 		C6622F22299FCA1A00592947 /* LeaderBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderBoardView.swift; sourceTree = "<group>"; };
 		C6622F24299FCA2300592947 /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				47003B2C299BBFCE00577725 /* MainMenu.swift */,
 				A2C65C53298AA90100CEB479 /* ClimbApp.swift */,
 				A2C65C55298AA90100CEB479 /* ContentView.swift */,
+				A2F6ABB029A3D9C900A14A51 /* levelCompleted.swift */,
 				A207E9962994062100CBBBEE /* Game.swift */,
 				A207E9982994068000CBBBEE /* Button.swift */,
 				A207E99A299406A800CBBBEE /* Pause Menu.swift */,
@@ -284,6 +287,7 @@
 				C6622F25299FCA2300592947 /* HighScore.swift in Sources */,
 				C6622F23299FCA1A00592947 /* LeaderBoardView.swift in Sources */,
 				A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */,
+				A2F6ABB129A3D9C900A14A51 /* levelCompleted.swift in Sources */,
 				A207E9972994062100CBBBEE /* Game.swift in Sources */,
 				A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */,
 				A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */,

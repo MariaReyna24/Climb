@@ -42,25 +42,28 @@ struct ContentView: View {
                         game.timeRemaining -= 1
                     }
                 }
+                
             
                 //the display for the top part of the app
                 .navigationTitle("Level 1")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
-                        Button{
-                            // timer.upstream.connect().cancel()
+                        Button("Pause"){
+                            game.isPaused = true
+                            timer.upstream.connect().cancel()
                             
-                        }label: {
-                            Text("Pause")
-                                .font(.title2)
-                                .foregroundColor(.red)
-                        }
+                           
+                        }.font(.title2)
+                        .foregroundColor(.red)
+                        .disabled(true)
+                        .opacity(0.5)
                     }
                     ToolbarItem(placement: .navigationBarTrailing){
                         Text("\(game.timeRemaining)s") //shows the time on the screen
                             .font(.system(size: 30))
                             .foregroundColor(.red)
+                            .fontWeight(.bold)
                     }
                 }
                 .background((Image("background")
@@ -71,11 +74,15 @@ struct ContentView: View {
                 ))
                 if game.timeRemaining == 0 {
                     End_Game_menu(game: game)
-
                 }
-                
+                if game.isPaused == true {
+                    Pause_menu(isPaused: $game.isPaused)
+                }
+                if game.greenButtonCount == 10 {
+                    levelCompleted()
+                }
             }
-        }
+        } .navigationBarBackButtonHidden(true)
     }
     
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {

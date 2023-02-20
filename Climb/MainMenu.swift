@@ -26,13 +26,14 @@ struct MainMenuView: View {
                     }
                     Spacer()
                     Image(systemName: "person.crop.circle.fill")
-                    
+    
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 80, height: 80)
+                
                     Text("Welcome, \(username)!")
                         .font(.title)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color("textColor"))
                         .background(Rectangle())
                     Spacer()
                     Button(action: {
@@ -65,13 +66,14 @@ struct MainMenuView: View {
                             .cornerRadius(10)
                     }
                     )
+                    
                     Spacer()
                     Spacer()
                     
                 }
                 .background(Image("mainMenuBackground"))
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
