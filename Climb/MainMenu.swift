@@ -7,34 +7,15 @@
 import SwiftUI
 
 struct MainMenuView: View {
-    @State private var username = "Hadi" // replace with user's actual name
     var body: some View {
         NavigationStack{
             ZStack {
                 VStack {
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            // handle setting button action
-                        }) {
-//                            Image(systemName: "gear")
-//                                .foregroundColor(.white)
-//                                .padding()
-//                                .frame(height: -500)
-//                            Spacer()
-                        }
-                    }
                     Spacer()
-                    Image(systemName: "person.crop.circle.fill")
-    
+                    Image("logo")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 80, height: 80)
+                        .frame(width: 200, height: 150)
                 
-                    Text("Welcome, \(username)!")
-                        .font(.title)
-                        .foregroundColor(Color("textColor"))
-                        .background(Rectangle())
                     Spacer()
                     Button(action: {
                         // handle "Continue" button action
@@ -71,7 +52,12 @@ struct MainMenuView: View {
                     Spacer()
                     
                 }
-                .background(Image("mainMenuBackground"))
+                .background(Image("mainMenuBackground")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                    .frame(width: 393, height: 918))
+                    .background(Color("myColor"))
             }
         }.navigationBarBackButtonHidden(true)
     }
