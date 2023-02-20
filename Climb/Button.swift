@@ -36,8 +36,13 @@ struct button: View {
                 .background(backgroundColor)
                 .clipShape(Rectangle())
         }
-        //        .disabled(game.timeRemaining == 0)
-        //        .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
+                .disabled(game.timeRemaining == 0)
+                .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
+                .onChange(of: game.timeRemaining) { newTime in
+                    if newTime == 0{
+                        backgroundColor = Color.black
+                    }
+                }
     }
     
 }

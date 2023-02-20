@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct End_Game_menu: View {
-    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @StateObject var game = Math()
+    @ObservedObject var game : Math
     @State var gameRestarted = false
     var body: some View {
         if gameRestarted {
@@ -26,28 +25,24 @@ struct End_Game_menu: View {
                     HStack(spacing: 0) {
                         Button("Retry") {
                             gameRestarted = true
-                            
+                            game.self.score = 0 
+                            game.timeRemaining = 15
+                            game.generateAnswers()
+                            game.correctAnsArry = []
                         }
                         
                     }
-                        .foregroundColor(.white)
-                        .frame(width: 105, height: 50)
-                        .background(.black)
-                        
-                        Button("Menu") {
-                            // Show the game menu
-                        }
-                        .foregroundColor(.white)
-                        .frame(width: 96, height: 50)
-                        .background(.black)
-                    }
+                    .foregroundColor(.white)
+                    .frame(width: 200, height: 50)
+                    .background(.black)
                 }
             }
         }
     }
+}
 struct End_Game_menu_Previews: PreviewProvider {
     static var previews: some View {
-        End_Game_menu()
+        End_Game_menu(game: Math())
     }
 }
 
