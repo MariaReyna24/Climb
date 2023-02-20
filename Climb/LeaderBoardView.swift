@@ -21,45 +21,49 @@ struct LeaderBoardView: View {
     
     
     var body: some View {
-        VStack {
-            NavigationStack{
-                List{
-                    Text("LeaderBoard")
-                        .font(.largeTitle)
-                        .multilineTextAlignment(.center)
-                        .frame(width: 350)
-                    ForEach(highScores, id: \.place) { highScore in
-                        HStack {
-                            Text("\(highScore.place). \(highScore.name)")
-                            Spacer()
-                            Text("\(highScore.points) Points")
-                        }
-                        .swipeActions(allowsFullSwipe: false) {
-                            Button() {
-                                print("Friend list")
-                            } label: {
-                                Label("Add", systemImage: "plus")
+        ZStack{
+            VStack {
+                NavigationStack{
+                    List{
+                        Text("Leaderboard")
+                            .font(.largeTitle)
+                            .multilineTextAlignment(.center)
+                            .frame(width: 350)
+                        ForEach(highScores, id: \.place) { highScore in
+                            HStack {
+                                Text("\(highScore.place). \(highScore.name)")
+                                Spacer()
+                                Text("\(highScore.points) Points")
+                            }
+                            .swipeActions(allowsFullSwipe: false) {
+                                Button() {
+                                    print("Friend list")
+                                } label: {
+                                    Label("Add", systemImage: "plus")
+                                    
+                                }
+                                .tint(.green)
                                 
-                            }
-                            .tint(.green)
-                            
-                            Button(role: .destructive) {
-                                print("Deleting conversation")
-                            } label: {
-                                Label("Delete", systemImage: "trash.fill")
+                                Button(role: .destructive) {
+                                    print("Deleting conversation")
+                                } label: {
+                                    Label("Delete", systemImage: "trash.fill")
+                                }
                             }
                         }
+                        
+                    }
+                   
+                    
+
+                    Button(role: .destructive) {
+                        print("Deleting conversation")
+                    } label: {
+                        Label("Delete", systemImage: "trash.fill")
                     }
                 }
-                
-                
-                Button(role: .destructive) {
-                    print("Deleting conversation")
-                } label: {
-                    Label("Delete", systemImage: "trash.fill")
-                }
             }
-        }
+        }.background(Image("background"))
         
         .padding()
         
