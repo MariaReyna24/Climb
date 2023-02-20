@@ -18,6 +18,9 @@ class Math: ObservableObject{
     private(set) var secondNum = 0
     private(set) var difficulty = 150
     @Published var score = 0
+    @Published var isPaused = false
+    @Published var greenButtonCount = 0
+    @Published var redButtonCount = 0
     
     
     func answerCorreect(answer:Int) -> Bool{
@@ -26,6 +29,7 @@ class Math: ObservableObject{
             self.timeRemaining += 5
             self.isAnswerCorrect = true
             correctAnsArry.append(correctAnswer)
+            greenButtonCount += 1
             return true
         }else{
             if self.score < 1{
@@ -34,6 +38,7 @@ class Math: ObservableObject{
                 self.score -= 1
             }
             self.isAnswerCorrect = false
+            redButtonCount += 1
             return false
         }
     }
