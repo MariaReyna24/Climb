@@ -16,12 +16,12 @@ class Math: ObservableObject{
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
     private(set) var secondNum = 0
-    private(set) var difficulty = 150
+    private(set) var difficulty = 40
     @Published var score = 0
     @Published var isPaused = false
     @Published var greenButtonCount = 0
     @Published var redButtonCount = 0
-    
+    var levelnum = 1
     
     func answerCorreect(answer:Int) -> Bool{
         if answer == correctAnswer {
@@ -83,7 +83,25 @@ class Math: ObservableObject{
         
         choicearry = answerList
     }
+    func newLevel(){
+        correctAnsArry = []
+        greenButtonCount = 0
+        levelnum += 1
+        difficulty += 60
+        generateAnswers()
+    }
+    func retryLevel(){
+        self.score = 0
+        timeRemaining = 15
+        generateAnswers()
+        correctAnsArry = []
+        difficulty = 40
+        levelnum =  1
+        greenButtonCount = 0
+    }
 }
+
+
 
 
 extension Int {

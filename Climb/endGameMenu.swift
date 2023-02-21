@@ -25,10 +25,8 @@ struct End_Game_menu: View {
                     HStack(spacing: 0) {
                         Button(" Retry") {
                             gameRestarted = true
-                            game.self.score = 0 
-                            game.timeRemaining = 15
-                            game.generateAnswers()
-                            game.correctAnsArry = []
+                            game.retryLevel()
+                            
                         }
                         .foregroundColor(.white)
                         .frame(width: 70, height: 50)
