@@ -44,7 +44,7 @@ struct ContentView: View {
                 }
                 
                 //the display for the top part of the app
-                .navigationTitle("Level 1")
+                .navigationTitle("Level \(game.levelnum)")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
@@ -60,7 +60,8 @@ struct ContentView: View {
                     }
                     //timer in the right hand corner
                     ToolbarItem(placement: .navigationBarTrailing){
-                        Text("\(game.timeRemaining)s")                            .font(.system(size: 30))
+                        Text("\(game.timeRemaining)s")
+                            .font(.system(size: 30))
                             .foregroundColor(.red)
                             .fontWeight(.bold)
                     }
@@ -81,7 +82,7 @@ struct ContentView: View {
                 }
                 //Shows level completed screen when all squares are greeen
                 if game.greenButtonCount == 10 {
-                    levelCompleted()
+                    levelCompleted(game: game)
                 }
             }
         } .navigationBarBackButtonHidden(true)

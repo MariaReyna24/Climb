@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct levelCompleted: View {
+    @ObservedObject var game : Math
     var body: some View {
         
         NavigationStack{
@@ -20,6 +21,14 @@ struct levelCompleted: View {
                         .frame(width: 250, height: 110)
                         .background(Rectangle().fill(Color.black).opacity(0.9))
                     
+                    Button("Continue"){
+                        game.newLevel()
+                    }
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .frame(width: 250, height: 50)
+                    .background(.black)
+                    .opacity(0.9)
                     
                         NavigationLink(destination: MainMenuView(), label: {
                             Text("Main Menu")
@@ -37,7 +46,7 @@ struct levelCompleted: View {
         }
     struct levelCompleted_Previews: PreviewProvider {
         static var previews: some View {
-            levelCompleted()
+            levelCompleted(game: Math())
         }
     }
 }
