@@ -25,7 +25,7 @@ struct ContentView: View {
                     buttonsForAnswers(startIndex: 3, endIndex: 6)
                     buttonsForAnswers(startIndex: 6, endIndex: 10)
                     
-                    //this is the equation
+                    //this is the equation being displayed on screen
                     Text("\(game.firstNum) + \(game.secondNum)")
                         .font(.largeTitle)
                         .fontWeight(.bold)
@@ -43,15 +43,14 @@ struct ContentView: View {
                     }
                 }
                 
-            
                 //the display for the top part of the app
                 .navigationTitle("Level 1")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
                         Button("Pause"){
-                            game.isPaused = true
-                            timer.upstream.connect().cancel()
+//                            game.isPaused = true
+//                            timer.upstream.connect().cancel()
                             
                            
                         }.font(.title2)
@@ -59,9 +58,9 @@ struct ContentView: View {
                         .disabled(true)
                         .opacity(0.5)
                     }
+                    //timer in the right hand corner
                     ToolbarItem(placement: .navigationBarTrailing){
-                        Text("\(game.timeRemaining)s") //shows the time on the screen
-                            .font(.system(size: 30))
+                        Text("\(game.timeRemaining)s")                            .font(.system(size: 30))
                             .foregroundColor(.red)
                             .fontWeight(.bold)
                     }
@@ -72,19 +71,22 @@ struct ContentView: View {
                     .ignoresSafeArea()
                     .frame(width: 393, height: 918)
                 ))
+                //shows end game menu when time runs out
                 if game.timeRemaining == 0 {
                     End_Game_menu(game: game)
                 }
+                //code for a possible pause menu
                 if game.isPaused == true {
                     Pause_menu(isPaused: $game.isPaused)
                 }
+                //Shows level completed screen when all squares are greeen
                 if game.greenButtonCount == 10 {
                     levelCompleted()
                 }
             }
         } .navigationBarBackButtonHidden(true)
     }
-    
+    //layout for buttons
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
         HStack {
             ForEach(startIndex..<endIndex, id: \.self) { index in

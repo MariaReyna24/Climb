@@ -12,6 +12,7 @@ struct button: View {
     var num : Int
     @ObservedObject var game : Math
     @State private var backgroundColor = Color("myColor")
+    @State private var showBackgroundColor = true
     var body: some View {
         
         Button {
@@ -40,19 +41,24 @@ struct button: View {
                 )
                 .clipShape(Rectangle())
         }
-                .disabled(game.timeRemaining == 0)
-                .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
-                .onChange(of: game.timeRemaining) { newTime in
-                    if newTime == 0{
-                        backgroundColor = Color("myColor")
-                    }
+        .disabled(game.timeRemaining == 0)
+        .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
+        .onChange(of: game.timeRemaining) { newTime in
+            if newTime == 0{
+                backgroundColor = Color("myColor")
+                showBackgroundColor = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    // after 2 seconds, set showBackgroundColor to true to show the background color again
+                    showBackgroundColor = true
                 }
+            }
+        }
+        
     }
     
-}
-
-struct button_Previews: PreviewProvider {
-    static var previews: some View {
-        button(num: 100, game: Math())
+    struct button_Previews: PreviewProvider {
+        static var previews: some View {
+            button(num: 100, game: Math())
+        }
     }
 }
