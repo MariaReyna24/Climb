@@ -15,6 +15,7 @@ struct MainMenuView: View {
                     Image("logo")
                         .resizable()
                         .frame(width: 200, height: 150)
+                        .shadow(color: .black, radius: 10)
                 
                     Spacer()
                     Button(action: {
@@ -22,11 +23,9 @@ struct MainMenuView: View {
                     }) {
                         Text("Continue")
                             .padding()
-                            .background(Color.white)
-                            .foregroundColor(.blue)
+                            .background(Color("myColor"))
+                            .foregroundColor(Color("textColor"))
                             .cornerRadius(10)
-                        
-                        
                     }
                     .disabled(true)
                     .opacity(0.7)
@@ -34,16 +33,16 @@ struct MainMenuView: View {
                         Text("New Game")
                         
                             .padding()
-                            .background(Color.white)
-                            .foregroundColor(.blue)
+                            .background(Color("myColor"))
+                            .foregroundColor(Color("textColor"))
                             .cornerRadius(10)
                     }
                     )
                     NavigationLink(destination: LeaderBoardView(), label: {
                         Text("Leaderboard")
                             .padding()
-                            .background(Color.white)
-                            .foregroundColor(.blue)
+                            .background(Color("myColor"))
+                            .foregroundColor(Color("textColor"))
                             .cornerRadius(10)
                     }
                     )

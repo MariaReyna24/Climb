@@ -22,7 +22,6 @@ struct Pause_menu: View {
                 Button("Resume"){
                     isPaused = false
                     
-                   
                 }
                 .font(.title2)
                 .fontWeight(.bold)
