@@ -17,9 +17,13 @@ struct button: View {
         Button {
             let isCorrect = game.answerCorreect(answer: num)
             if isCorrect == true{
+                
                 backgroundColor = Color.green
             }else{
                 backgroundColor = Color.red
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    backgroundColor = Color("myColor")
+                        }
             }
             if isCorrect == true{
                 game.isAnswerCorrect = true
