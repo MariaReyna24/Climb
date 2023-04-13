@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct ContentView: View {
-    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @StateObject var game = Math()
+    @State private var showingSheet = false
     var body: some View {
         NavigationView{
             ZStack{
@@ -19,7 +19,10 @@ struct ContentView: View {
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
                     Spacer()
-                    
+//                    Button("Resume"){
+//                        game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+//                    }.font(.title2)
+//                        .foregroundColor(.red)
                     buttonsForAnswers(startIndex: 0, endIndex: 1)
                     buttonsForAnswers(startIndex: 1, endIndex: 3)
                     buttonsForAnswers(startIndex: 3, endIndex: 6)
@@ -37,8 +40,8 @@ struct ContentView: View {
                 }
                 
                 //this is for the timer of the app
-                .onReceive(timer) {time in   // Adds an action to perform when this view detects data emitted by the given publisher.
-                    if game.timeRemaining > 0  {   //lets the counter count down so it dosent go past 0 into negative numbers
+                .onReceive(game.timer) {time in
+                    if !game.isPaused && game.timeRemaining > 0 {
                         game.timeRemaining -= 1
                     }
                 }
@@ -49,14 +52,17 @@ struct ContentView: View {
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
                         Button("Pause"){
-//                            game.isPaused = true
-//                            timer.upstream.connect().cancel()
-                            
+                                game.timer.upstream.connect().cancel()
+                                showingSheet.toggle()
                            
                         }.font(.title2)
                         .foregroundColor(.red)
-                        .disabled(true)
-                        .opacity(0.5)
+                        .fullScreenCover(isPresented: $showingSheet) {
+                                   Pause_menu(game: game)
+                               }
+//                        .disabled(true)
+//                        .opacity(0.5)
+                       
                     }
                     //timer in the right hand corner
                     ToolbarItem(placement: .navigationBarTrailing){
@@ -78,7 +84,7 @@ struct ContentView: View {
                 }
                 //code for a possible pause menu
                 if game.isPaused == true {
-                    Pause_menu(isPaused: $game.isPaused)
+                    Pause_menu(game: game)
                 }
                 //Shows level completed screen when all squares are greeen
                 if game.greenButtonCount == 10 {
