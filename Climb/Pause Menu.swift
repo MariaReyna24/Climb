@@ -10,29 +10,63 @@ import UIKit
 import Foundation
 
 struct Pause_menu: View {
- @Binding var isPaused: Bool
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var game : Math
     var body: some View {
-        ZStack {
-            Color("pauseColor").opacity(0.7)
-                .ignoresSafeArea()
-            VStack(spacing: 20) {
-                Text("Paused")
-                    .font(.largeTitle)
-                    .foregroundColor(Color.red)
-                Button("Resume"){
-                    isPaused = false
+        NavigationView{
+            ZStack{
+                VStack{
+                    Text("Current score: \(game.score)")
+                        .font(.largeTitle)
+                        .foregroundColor(.red)
+                        .fontWeight(.bold)
+                    Button("Resume") {
+                        dismiss()
+                        game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                    }
+                    .font(.title)
+                    .padding()
+                    .background(Color("myColor"))
+                    .foregroundColor(Color("textColor"))
                     
-                }
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(Color("textColor"))
-            }.frame(width: 250,height: 150)
-                .background(Color("myColor").opacity(0.9))
+                    NavigationLink(destination: MainMenuView(), label: {
+                        Text("Main Menu")
+                            .font(.title)
+                            .padding()
+                            .background(Color("myColor"))
+                            .foregroundColor(Color("textColor"))
+                    }
+                    )}
+            } .background((Image("background")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+                .frame(width: 393, height: 918)
+            ))
         }
-    }
-    struct Pause_menu_Previews: PreviewProvider {
-        static var previews: some View {
-            Pause_menu(isPaused: .constant(true) )
+        .navigationTitle("Level \(game.levelnum)")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar{
+            ToolbarItem(placement: .navigationBarLeading){
+                Button("Paused"){
+                    
+                }.font(.title2)
+                    .foregroundColor(.red)
+            }
+            //timer in the right hand corner
+            ToolbarItem(placement: .navigationBarTrailing){
+                Text("\(game.timeRemaining)s")
+                    .font(.system(size: 30))
+                    .foregroundColor(.red)
+                    .fontWeight(.bold)
+            }
         }
     }
 }
+
+struct Pause_menu_Previews: PreviewProvider {
+    static var previews: some View {
+        Pause_menu(game: Math())
+    }
+}
+

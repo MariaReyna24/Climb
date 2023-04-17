@@ -7,10 +7,10 @@
 
 import Foundation
 
-
 class Math: ObservableObject{
     @Published var timeRemaining = 15 //this is in seconds naturally
     @Published var isAnswerCorrect = false
+    @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published var choicearry : [Int] = [0,1,2,3,4,5,6,7,8,9]
     var correctAnsArry : [Int] = []
     private(set) var correctAnswer = 0
@@ -99,6 +99,7 @@ class Math: ObservableObject{
         levelnum =  1
         greenButtonCount = 0
     }
+
 }
 
 

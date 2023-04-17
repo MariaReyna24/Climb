@@ -9,11 +9,13 @@ import SwiftUI
 
 struct levelCompleted: View {
     @ObservedObject var game : Math
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         
         NavigationStack{
             ZStack {
                 VStack(spacing: 0) {
+                    
                     Text("Level Completed!")
                         .foregroundColor(.green)
                         .font(.title)
@@ -23,6 +25,8 @@ struct levelCompleted: View {
                     
                     Button("Continue"){
                         game.newLevel()
+                        dismiss()
+                        game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                     }
                     .foregroundColor(.white)
                     .fontWeight(.bold)
