@@ -7,10 +7,10 @@
 
 import Foundation
 import SwiftUI
-
 struct ContentView: View {
     @StateObject var game = Math()
     @State private var showingSheet = false
+    @State var isshowing = false
     var body: some View {
         NavigationView{
             ZStack{
@@ -19,10 +19,7 @@ struct ContentView: View {
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
                     Spacer()
-//                    Button("Resume"){
-//                        game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-//                    }.font(.title2)
-//                        .foregroundColor(.red)
+                    
                     buttonsForAnswers(startIndex: 0, endIndex: 1)
                     buttonsForAnswers(startIndex: 1, endIndex: 3)
                     buttonsForAnswers(startIndex: 3, endIndex: 6)
@@ -33,7 +30,7 @@ struct ContentView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     Spacer()
-                    
+                     
                     //this displays the generated answers on appear.
                 }.onAppear {
                     game.generateAnswers()
@@ -44,6 +41,9 @@ struct ContentView: View {
                     if !game.isPaused && game.timeRemaining > 0 {
                         game.timeRemaining -= 1
                     }
+                    if game.greenButtonCount == 1 {
+                           game.timer.upstream.connect().cancel()
+                       }
                 }
                 
                 //the display for the top part of the app
@@ -52,17 +52,14 @@ struct ContentView: View {
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
                         Button("Pause"){
-                                game.timer.upstream.connect().cancel()
-                                showingSheet.toggle()
-                           
+                            game.timer.upstream.connect().cancel()
+                            showingSheet.toggle()
+                            
                         }.font(.title2)
-                        .foregroundColor(.red)
-                        .fullScreenCover(isPresented: $showingSheet) {
-                                   Pause_menu(game: game)
-                               }
-//                        .disabled(true)
-//                        .opacity(0.5)
-                       
+                            .foregroundColor(.red)
+                            .fullScreenCover(isPresented: $showingSheet) {
+                                Pause_menu(game: game)
+                            }
                     }
                     //timer in the right hand corner
                     ToolbarItem(placement: .navigationBarTrailing){
@@ -87,9 +84,10 @@ struct ContentView: View {
                     Pause_menu(game: game)
                 }
                 //Shows level completed screen when all squares are greeen
-                if game.greenButtonCount == 10 {
+                if game.greenButtonCount == 1 {
                     levelCompleted(game: game)
                 }
+                
             }
         } .navigationBarBackButtonHidden(true)
     }
