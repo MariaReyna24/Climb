@@ -26,7 +26,7 @@ class Math: ObservableObject{
     func answerCorreect(answer:Int) -> Bool{
         if answer == correctAnswer {
             self.score += 1
-            self.timeRemaining += 5
+            self.timeRemaining += 2
             self.isAnswerCorrect = true
             correctAnsArry.append(correctAnswer)
             greenButtonCount += 1
@@ -38,6 +38,7 @@ class Math: ObservableObject{
                 self.score -= 1
             }
             self.isAnswerCorrect = false
+            timeRemaining -= 1
             redButtonCount += 1
             return false
         }
@@ -55,6 +56,7 @@ class Math: ObservableObject{
             self.secondNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
             correctAnswer =  self.firstNum + self.secondNum
         }
+        correctAnsArry.append(correctAnswer)
         
         for _ in 0...9{
             answerList.append(Int.random(in: 0...difficulty, excluding: correctAnsArry))

@@ -27,11 +27,12 @@ struct button: View {
             }
             if isCorrect == true{
                 game.isAnswerCorrect = true
+                game.generateAnswers()
                 
             }else{
                 game.isAnswerCorrect = false
             }
-            game.generateAnswers()
+//            game.generateAnswers()
         } label: {
             Text("\(num)")
                 .frame(width: 90,height:50)
