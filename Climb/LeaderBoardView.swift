@@ -34,31 +34,8 @@ struct LeaderBoardView: View {
                                 Spacer()
                                 Text("\(highScore.points) Points")
                             }
-//                            .swipeActions(allowsFullSwipe: false) {
-//                                Button() {
-//                                    print("Friend list")
-//                                } label: {
-//                                    Label("Add", systemImage: "plus")
-//
-//                                }
-//                                .tint(.green)
-//
-//                                Button(role: .destructive) {
-//                                    print("Deleting conversation")
-//                                } label: {
-//                                    Label("Delete", systemImage: "trash.fill")
-//                                }
-//                            }
                         }
                     }.scrollContentBackground(.hidden)
-                    
-                    
-                    
-                    //                    Button(role: .destructive) {
-                    //                        print("Deleting conversation")
-                    //                    } label: {
-                    //                        Label("Delete", systemImage: "trash.fill")
-                    //                    }
             }
         }.background(Image("background")
             .resizable()

@@ -44,23 +44,7 @@ struct Pause_menu: View {
                 .frame(width: 393, height: 918)
             ))
         }
-        .navigationTitle("Level \(game.levelnum)")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar{
-            ToolbarItem(placement: .navigationBarLeading){
-                Button("Paused"){
-                    
-                }.font(.title2)
-                    .foregroundColor(.red)
-            }
-            //timer in the right hand corner
-            ToolbarItem(placement: .navigationBarTrailing){
-                Text("\(game.timeRemaining)s")
-                    .font(.system(size: 30))
-                    .foregroundColor(.red)
-                    .fontWeight(.bold)
-            }
-        }
+        
     }
 }
 

@@ -36,12 +36,13 @@ struct ContentView: View {
                     game.generateAnswers()
                 }
                 
-                //this is for the timer of the app
+                //this is for the timer of the app and where it stops the countdown from going past zero
                 .onReceive(game.timer) {time in
                     if !game.isPaused && game.timeRemaining > 0 {
                         game.timeRemaining -= 1
                     }
-                    if game.greenButtonCount == 1 {
+                    //this logic helps stop the timer when the level is complete
+                    if game.greenButtonCount == 10 {
                            game.timer.upstream.connect().cancel()
                        }
                 }
@@ -79,19 +80,20 @@ struct ContentView: View {
                 if game.timeRemaining == 0 {
                     End_Game_menu(game: game)
                 }
-                //code for a possible pause menu
+                //code for the pause menu
                 if game.isPaused == true {
                     Pause_menu(game: game)
                 }
-                //Shows level completed screen when all squares are greeen
-                if game.greenButtonCount == 1 {
+                //This logic handles the level completing action
+                if game.greenButtonCount == 10 {
                     levelCompleted(game: game)
                 }
                 
             }
+            // hides the navigation back button
         } .navigationBarBackButtonHidden(true)
     }
-    //layout for buttons
+    //func for layout for our buttons
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
         HStack {
             ForEach(startIndex..<endIndex, id: \.self) { index in
