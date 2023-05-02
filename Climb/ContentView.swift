@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var showingSheet = false
     @State var isshowing = false
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 VStack(spacing: 15){
                     //this is the score
@@ -30,7 +30,7 @@ struct ContentView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     Spacer()
-                     
+                    
                     //this displays the generated answers on appear.
                 }.onAppear {
                     game.generateAnswers()
@@ -43,8 +43,8 @@ struct ContentView: View {
                     }
                     //this logic helps stop the timer when the level is complete
                     if game.greenButtonCount == 10 {
-                           game.timer.upstream.connect().cancel()
-                       }
+                        game.timer.upstream.connect().cancel()
+                    }
                 }
                 
                 //the display for the top part of the app
@@ -70,12 +70,6 @@ struct ContentView: View {
                             .fontWeight(.bold)
                     }
                 }
-                .background((Image("background")
-                    .resizable()
-                    .scaledToFit()
-                    .ignoresSafeArea()
-                   // .frame(width: 393, height: 918)
-                ))
                 //shows end game menu when time runs out
                 if game.timeRemaining == 0 {
                     End_Game_menu(game: game)
@@ -89,12 +83,12 @@ struct ContentView: View {
                     levelCompleted(game: game)
                 }
                 
-            }.background((Image("background")
-                .resizable()
-                .scaledToFit()
-                .ignoresSafeArea()
-               // .frame(width: 393, height: 918)
-            ))
+            }
+            .ignoresSafeArea()
+            .background {
+                Image("background")
+                    .ignoresSafeArea()
+            }
             // hides the navigation back button
         } .navigationBarBackButtonHidden(true)
     }
@@ -114,6 +108,8 @@ struct ContentView: View {
             ContentView()
                 .preferredColorScheme(.dark)
                 .previewDisplayName("dark")
+            ContentView()
+                .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (4th generation)"))
         }
     }
 }
