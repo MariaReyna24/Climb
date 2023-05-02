@@ -98,10 +98,10 @@ class Math: ObservableObject{
         levelnum =  1
         greenButtonCount = 0
     }
-
+    
+    
+    
 }
-
-
 
 
 extension Int {

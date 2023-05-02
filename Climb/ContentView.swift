@@ -18,6 +18,7 @@ struct ContentView: View {
                     //this is the score
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
+                    
                     Spacer()
                     
                     buttonsForAnswers(startIndex: 0, endIndex: 1)
@@ -34,6 +35,9 @@ struct ContentView: View {
                     //this displays the generated answers on appear.
                 }.onAppear {
                     game.generateAnswers()
+                            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                            impactHeavy.impactOccurred()
+                        
                 }
                 
                 //this is for the timer of the app and where it stops the countdown from going past zero
@@ -88,6 +92,7 @@ struct ContentView: View {
             .background {
                 Image("background")
                     .ignoresSafeArea()
+                    
             }
             // hides the navigation back button
         } .navigationBarBackButtonHidden(true)

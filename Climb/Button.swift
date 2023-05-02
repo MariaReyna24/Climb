@@ -7,19 +7,25 @@
 
 import SwiftUI
 import Foundation
+import AVFoundation
 
 struct button: View {
     var num : Int
     @ObservedObject var game : Math
+    let systemSoundID: SystemSoundID = 1016
     @State private var backgroundColor = Color("myColor")
     var body: some View {
         Button {
             let isCorrect = game.answerCorreect(answer: num)
             if isCorrect == true{
-                
+                let notificationFeedback = UINotificationFeedbackGenerator()
+                notificationFeedback.notificationOccurred(.success)
+                AudioServicesPlaySystemSound(systemSoundID)
                 backgroundColor = Color.green
             }else{
                 backgroundColor = Color.red
+                let notificationFeedback = UINotificationFeedbackGenerator()
+                    notificationFeedback.notificationOccurred(.error)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     backgroundColor = Color("myColor")
                         }
@@ -32,8 +38,9 @@ struct button: View {
                 game.isAnswerCorrect = false
             }
 //            game.generateAnswers()
+            
         } label: {
-            Text("\(num)")
+             Text("\(num)")
                 .frame(width: 90,height:50)
                 .font(.system(size: 25, weight: .bold))
                 .foregroundColor(Color("textColor"))
@@ -44,6 +51,7 @@ struct button: View {
                 )
                 .clipShape(Rectangle())
                 .cornerRadius(10)
+                .shadow(color: .gray, radius: 10)  
         }
         .disabled(game.timeRemaining == 0)
         .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
