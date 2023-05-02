@@ -12,15 +12,15 @@ class Math: ObservableObject{
     @Published var isAnswerCorrect = false
     @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published var choicearry : [Int] = [0,1,2,3,4,5,6,7,8,9]
+    @Published var score = 0
+    @Published var isPaused = false
+    @Published var greenButtonCount = 0
+    //@Published var redButtonCount = 0
     var correctAnsArry : [Int] = []
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
     private(set) var secondNum = 0
     private(set) var difficulty = 40
-    @Published var score = 0
-    @Published var isPaused = false
-    @Published var greenButtonCount = 0
-    @Published var redButtonCount = 0
     var levelnum = 1
     
     func answerCorreect(answer:Int) -> Bool{
@@ -31,15 +31,15 @@ class Math: ObservableObject{
             correctAnsArry.append(correctAnswer)
             greenButtonCount += 1
             return true
-        }else{
-            if self.score < 1{
+        } else {
+            if self.score < 1 {
                 self.score = 0
             } else {
                 self.score -= 1
             }
             self.isAnswerCorrect = false
             timeRemaining -= 1
-            redButtonCount += 1
+           // redButtonCount += 1
             return false
         }
     }
@@ -72,19 +72,16 @@ class Math: ObservableObject{
             }else{
                 incorrectAnswers.append(index)
             }
-            
-            
         }
         
         // grab a random index from the array of wrong answer indexes
         if let randomIndex = incorrectAnswers.randomElement() {
-            // set the new correct at that index
+            // set the new correct answer at that index
             answerList[randomIndex] = correctAnswer
-            
         }
-        
         choicearry = answerList
     }
+    
     func newLevel(){
         correctAnsArry = []
         greenButtonCount = 0

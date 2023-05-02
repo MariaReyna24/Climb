@@ -13,7 +13,6 @@ struct button: View {
     @ObservedObject var game : Math
     @State private var backgroundColor = Color("myColor")
     var body: some View {
-        
         Button {
             let isCorrect = game.answerCorreect(answer: num)
             if isCorrect == true{

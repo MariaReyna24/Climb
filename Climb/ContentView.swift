@@ -72,9 +72,9 @@ struct ContentView: View {
                 }
                 .background((Image("background")
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
                     .ignoresSafeArea()
-                    .frame(width: 393, height: 918)
+                   // .frame(width: 393, height: 918)
                 ))
                 //shows end game menu when time runs out
                 if game.timeRemaining == 0 {
@@ -89,7 +89,12 @@ struct ContentView: View {
                     levelCompleted(game: game)
                 }
                 
-            }
+            }.background((Image("background")
+                .resizable()
+                .scaledToFit()
+                .ignoresSafeArea()
+               // .frame(width: 393, height: 918)
+            ))
             // hides the navigation back button
         } .navigationBarBackButtonHidden(true)
     }
@@ -106,6 +111,9 @@ struct ContentView: View {
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
             ContentView()
+            ContentView()
+                .preferredColorScheme(.dark)
+                .previewDisplayName("dark")
         }
     }
 }
