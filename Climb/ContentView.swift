@@ -12,14 +12,16 @@ struct ContentView: View {
     @State private var showingSheet = false
     @State var isshowing = false
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
-                VStack(spacing: 15){
+                VStack(spacing: 12){
                     //this is the score
+                   
+                    Spacer()
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
-                    Spacer()
-                    
+                       
+
                     buttonsForAnswers(startIndex: 0, endIndex: 1)
                     buttonsForAnswers(startIndex: 1, endIndex: 3)
                     buttonsForAnswers(startIndex: 3, endIndex: 6)
@@ -29,11 +31,16 @@ struct ContentView: View {
                     Text("\(game.firstNum) + \(game.secondNum)")
                         .font(.largeTitle)
                         .fontWeight(.bold)
+                        
+                   
                     Spacer()
-                     
+                    
                     //this displays the generated answers on appear.
                 }.onAppear {
                     game.generateAnswers()
+                            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                            impactHeavy.impactOccurred()
+                        
                 }
                 
                 //this is for the timer of the app and where it stops the countdown from going past zero
@@ -43,8 +50,8 @@ struct ContentView: View {
                     }
                     //this logic helps stop the timer when the level is complete
                     if game.greenButtonCount == 10 {
-                           game.timer.upstream.connect().cancel()
-                       }
+                        game.timer.upstream.connect().cancel()
+                    }
                 }
                 
                 //the display for the top part of the app
@@ -70,12 +77,6 @@ struct ContentView: View {
                             .fontWeight(.bold)
                     }
                 }
-                .background((Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                    .frame(width: 393, height: 918)
-                ))
                 //shows end game menu when time runs out
                 if game.timeRemaining == 0 {
                     End_Game_menu(game: game)
@@ -90,6 +91,12 @@ struct ContentView: View {
                 }
                 
             }
+            .ignoresSafeArea()
+            .background {
+                Image("background")
+                    .ignoresSafeArea()
+                    
+            }
             // hides the navigation back button
         } .navigationBarBackButtonHidden(true)
     }
@@ -98,7 +105,8 @@ struct ContentView: View {
         HStack {
             ForEach(startIndex..<endIndex, id: \.self) { index in
                 if index < game.choicearry.count {
-                    button(num:game.choicearry[index], game: game)
+                    ClimbButton(num:game.choicearry[index], game: game)
+
                 }
             }
         }
@@ -106,6 +114,11 @@ struct ContentView: View {
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
             ContentView()
+            ContentView()
+                .preferredColorScheme(.dark)
+                .previewDisplayName("dark")
+            ContentView()
+                .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (4th generation)"))
         }
     }
 }

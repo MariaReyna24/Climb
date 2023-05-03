@@ -6,6 +6,14 @@
 //
 import SwiftUI
 
+
+
+func Tap() {
+    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+    impactFeedback.impactOccurred()
+}
+
+
 struct MainMenuView: View {
     var body: some View {
         NavigationStack{
@@ -30,12 +38,13 @@ struct MainMenuView: View {
                     .disabled(true)
                     .opacity(0.7)
                     NavigationLink(destination: ContentView(), label: {
-                        Text("New Game")
+                        Text("New Game")                        
                         
                             .padding()
                             .background(Color("myColor"))
                             .foregroundColor(Color("textColor"))
                             .cornerRadius(10)
+                        
                     }
                     )
                     NavigationLink(destination: LeaderBoardView(), label: {
