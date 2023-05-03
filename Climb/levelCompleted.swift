@@ -43,8 +43,6 @@ struct levelCompleted: View {
                             .opacity(0.9)
                         }
                    ) }
-                    
-                    
                 }
             }
         }

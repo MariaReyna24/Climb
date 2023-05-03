@@ -14,13 +14,14 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                VStack(spacing: 15){
+                VStack(spacing: 12){
                     //this is the score
+                   
+                    Spacer()
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
-                    
-                    Spacer()
-                    
+                       
+
                     buttonsForAnswers(startIndex: 0, endIndex: 1)
                     buttonsForAnswers(startIndex: 1, endIndex: 3)
                     buttonsForAnswers(startIndex: 3, endIndex: 6)
@@ -30,6 +31,8 @@ struct ContentView: View {
                     Text("\(game.firstNum) + \(game.secondNum)")
                         .font(.largeTitle)
                         .fontWeight(.bold)
+                        
+                   
                     Spacer()
                     
                     //this displays the generated answers on appear.
@@ -102,7 +105,8 @@ struct ContentView: View {
         HStack {
             ForEach(startIndex..<endIndex, id: \.self) { index in
                 if index < game.choicearry.count {
-                    button(num:game.choicearry[index], game: game)
+                    ClimbButton(num:game.choicearry[index], game: game)
+
                 }
             }
         }

@@ -7,12 +7,12 @@
 
 import SwiftUI
 import Foundation
-import AVFoundation
+//import AVFoundation
 
-struct button: View {
+struct ClimbButton: View {
     var num : Int
     @ObservedObject var game : Math
-    let systemSoundID: SystemSoundID = 1016
+    //let systemSoundID: SystemSoundID = 1016
     @State private var backgroundColor = Color("myColor")
     var body: some View {
         Button {
@@ -20,7 +20,7 @@ struct button: View {
             if isCorrect == true{
                 let notificationFeedback = UINotificationFeedbackGenerator()
                 notificationFeedback.notificationOccurred(.success)
-                AudioServicesPlaySystemSound(systemSoundID)
+              //  AudioServicesPlaySystemSound(systemSoundID)
                 backgroundColor = Color.green
             }else{
                 backgroundColor = Color.red
@@ -67,7 +67,7 @@ struct button: View {
     
     struct button_Previews: PreviewProvider {
         static var previews: some View {
-            button(num: 100, game: Math())
+            ClimbButton(num: 100, game: Math())
         }
     }
 }
