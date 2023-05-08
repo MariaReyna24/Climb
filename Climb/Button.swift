@@ -51,7 +51,10 @@ struct ClimbButton: View {
                 )
                 .clipShape(Rectangle())
                 .cornerRadius(10)
-                .shadow(color: .gray, radius: 10)  
+                .shadow(color: .gray, radius: 10)
+                .controlSize(.large)
+            
+               
         }
         .disabled(game.timeRemaining == 0)
         .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)

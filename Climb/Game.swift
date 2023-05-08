@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class Math: ObservableObject{
     @Published var timeRemaining = 15 //this is in seconds naturally
@@ -99,7 +100,20 @@ class Math: ObservableObject{
         greenButtonCount = 0
     }
     
-    
+    func getView(for viewNumber: Int?) -> some View {
+        switch viewNumber {
+        case nil:
+            return AnyView(MainMenuView())
+        case 1:
+            return AnyView(ContentView())
+        case 2:
+            return AnyView(LeaderBoardView())
+        case 3:
+            return AnyView(Pause_menu(game: Math()))
+        default:
+            return AnyView(MainMenuView())
+        }
+    }
     
 }
 

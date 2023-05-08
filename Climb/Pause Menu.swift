@@ -13,8 +13,11 @@ struct Pause_menu: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var game : Math
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
+                Image("climbss")
+                    .resizable()
+                    .ignoresSafeArea()
                 VStack{
                     Text("Current score: \(game.score)")
                         .font(.largeTitle)
@@ -37,16 +40,12 @@ struct Pause_menu: View {
                             .foregroundColor(Color("textColor"))
                     }
                     )}
-            } .background((Image("background")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-                .frame(width: 393, height: 918)
-            ))
+            }
+        }.navigationBarBackButtonHidden(true)
         }
         
     }
-}
+
 
 struct Pause_menu_Previews: PreviewProvider {
     static var previews: some View {

@@ -5,74 +5,53 @@
 //  Created by Hadi Chamas  on 2/14/23.
 //
 import SwiftUI
-
-
-
-func Tap() {
-    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
-    impactFeedback.impactOccurred()
-}
-
-
 struct MainMenuView: View {
+    @State private var viewNumber: Int?
     var body: some View {
-        NavigationStack{
-            ZStack {
+        ZStack {
+            switch viewNumber {
+            case nil:
                 VStack {
-                    Spacer()
                     Image("logo")
                         .resizable()
                         .frame(width: 200, height: 150)
                         .shadow(color: .black, radius: 10)
-                
-                    Spacer()
-                    Button(action: {
-                        // handle "Continue" button action
-                    }) {
-                        Text("Continue")
-                            .padding()
-                            .background(Color("myColor"))
-                            .foregroundColor(Color("textColor"))
-                            .cornerRadius(10)
-                    }
-                    .disabled(true)
-                    .opacity(0.7)
-                    NavigationLink(destination: ContentView(), label: {
-                        Text("New Game")                        
-                        
-                            .padding()
-                            .background(Color("myColor"))
-                            .foregroundColor(Color("textColor"))
-                            .cornerRadius(10)
-                        
-                    }
-                    )
-                    NavigationLink(destination: LeaderBoardView(), label: {
-                        Text("Leaderboard")
-                            .padding()
-                            .background(Color("myColor"))
-                            .foregroundColor(Color("textColor"))
-                            .cornerRadius(10)
-                    }
-                    )
+                        .offset(y: -180)
                     
-                    Spacer()
-                    Spacer()
-                    
-                }
-                .background(Image("mainMenuBackground")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                    .frame(width: 393, height: 918))
+                    Button("New Game") {
+                        viewNumber = 1
+                    }
+                    .padding()
+                    .foregroundColor(Color("textColor"))
                     .background(Color("myColor"))
+                    .cornerRadius(10)
+                    
+                    Button("Leaderboard") {
+                        viewNumber = 2
+                    }
+                    .padding()
+                    .foregroundColor(Color("textColor"))
+                    .background(Color("myColor"))
+                    .cornerRadius(10)
+                }
+            case 1:
+                ContentView()
+            case 2:
+                LeaderBoardView()
+            default:
+                MainMenuView()
             }
-        }.navigationBarBackButtonHidden(true)
+        }
+        .background(Image("mainMenuBackground")
+            .resizable()
+            .scaledToFill()
+            .ignoresSafeArea()
+            .frame(width: 393, height: 918))
+        .background(Color("myColor"))
     }
 }
 
-
-struct ContentView_Previews: PreviewProvider {
+struct MainMenuView_Previews: PreviewProvider {
     static var previews: some View {
         MainMenuView()
     }
