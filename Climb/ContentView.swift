@@ -88,19 +88,14 @@ struct ContentView: View {
                 }
                 //This logic handles the level completing action
                 if game.greenButtonCount == 1 {
-                    levelCompleted(game: game)
+                    levelCompleted(game: game, scene: diffViews())
                 }
                 
             }
-//            .scaledToFill()
-//            .background {
-//                Image("climbss")
-//                    .resizable()
-//                    .ignoresSafeArea()
-//
-//            }
+
             // hides the navigation back button
-        } .navigationBarBackButtonHidden(true)
+        }
+        
     }
     //func for layout for our buttons
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {

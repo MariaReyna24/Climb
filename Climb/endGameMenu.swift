@@ -33,7 +33,7 @@ struct End_Game_menu: View {
                         .fontWeight(.bold)
                         .background(.black)
                         
-                        NavigationLink(destination: MainMenuView(), label: {
+                        NavigationLink(destination: MainMenuView(scene: diffViews()), label: {
                             Text("Main Menu")
                             .foregroundColor(.white)
                             .fontWeight(.bold)

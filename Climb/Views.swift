@@ -9,13 +9,8 @@ import Foundation
 
 class diffViews: ObservableObject{
     @Published var state = gameState.mainmenu
-    @Published var viewCounter = 0
+  
     
-    func nextView(){
-        if viewCounter == 1{
-            ContentView()
-        }
-    }
     
     enum gameState{
         case mainmenu

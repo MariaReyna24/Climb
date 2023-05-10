@@ -32,14 +32,16 @@ struct Pause_menu: View {
                     .background(Color("myColor"))
                     .foregroundColor(Color("textColor"))
                     
-                    NavigationLink(destination: MainMenuView(), label: {
-                        Text("Main Menu")
-                            .font(.title)
-                            .padding()
-                            .background(Color("myColor"))
-                            .foregroundColor(Color("textColor"))
-                    }
-                    )}
+//                    NavigationLink(destination: MainMenuView(), label: {
+//                        Text("Main Menu")
+//                            .font(.title)
+//                            .padding()
+//                            .background(Color("myColor"))
+//                            .foregroundColor(Color("textColor"))
+//                    }
+ //                   )
+                    
+                }
             }
         }.navigationBarBackButtonHidden(true)
         }

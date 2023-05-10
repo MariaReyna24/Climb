@@ -12,7 +12,7 @@ struct NewView: View {
     var body: some View {
         switch scene.state{
         case .mainmenu:
-            MainMenuView()
+            MainMenuView(scene: scene)
         case .game:
             ContentView()
         case .leaderboard:

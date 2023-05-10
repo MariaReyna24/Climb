@@ -7,7 +7,7 @@
 
 import SwiftUI
 struct MainMenuView: View {
-    @ObservedObject var scene = diffViews()
+    @ObservedObject var scene: diffViews
     var body: some View {
         ZStack {
             VStack {
@@ -47,6 +47,6 @@ struct MainMenuView: View {
   
 struct MainMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MainMenuView()
+        MainMenuView(scene: diffViews())
     }
 }
