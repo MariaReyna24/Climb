@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 class Math: ObservableObject{
+    @Published var counter = 0
     @Published var timeRemaining = 15 //this is in seconds naturally
     @Published var isAnswerCorrect = false
     @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -23,6 +24,8 @@ class Math: ObservableObject{
     private(set) var secondNum = 0
     private(set) var difficulty = 40
     var levelnum = 1
+    
+   
     
     func answerCorreect(answer:Int) -> Bool{
         if answer == correctAnswer {
@@ -114,6 +117,7 @@ class Math: ObservableObject{
             return AnyView(MainMenuView())
         }
     }
+    
     
 }
 

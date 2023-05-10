@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 struct ContentView: View {
     @StateObject var game = Math()
-    @State private var viewNumber: Int? = 1
     @State private var showingSheet = false
     @State var isshowing = false
     var body: some View {
@@ -35,9 +34,6 @@ struct ContentView: View {
                     }
                     .offset(y: 165)
                     //this is the equation being displayed on screen
-                   
-                    
-                    
                     Spacer()
                     
                     //this displays the generated answers on appear.
