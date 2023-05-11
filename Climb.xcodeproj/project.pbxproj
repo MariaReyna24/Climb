@@ -51,6 +51,7 @@
 		A207E9982994068000CBBBEE /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		A207E99A299406A800CBBBEE /* Pause Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pause Menu.swift"; sourceTree = "<group>"; };
 		A207E99E299406DF00CBBBEE /* endGameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = endGameMenu.swift; sourceTree = "<group>"; };
+		A21034FE2A0D210400B4A200 /* Climb.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Climb.entitlements; sourceTree = "<group>"; };
 		A2C65C50298AA90100CEB479 /* Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C65C53298AA90100CEB479 /* ClimbApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbApp.swift; sourceTree = "<group>"; };
 		A2C65C55298AA90100CEB479 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,6 +115,7 @@
 		A2C65C52298AA90100CEB479 /* Climb */ = {
 			isa = PBXGroup;
 			children = (
+				A21034FE2A0D210400B4A200 /* Climb.entitlements */,
 				A200365A2A0BE08F00A93A4A /* Views.swift */,
 				47003B2C299BBFCE00577725 /* MainMenu.swift */,
 				A2C65C53298AA90100CEB479 /* ClimbApp.swift */,
@@ -454,6 +456,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Climb/Climb.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Climb/Preview Content\"";
@@ -486,6 +489,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Climb/Climb.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Climb/Preview Content\"";
