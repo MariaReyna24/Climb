@@ -18,14 +18,16 @@ struct ClimbButton: View {
         Button {
             let isCorrect = game.answerCorreect(answer: num)
             if isCorrect == true{
-                let notificationFeedback = UINotificationFeedbackGenerator()
-                notificationFeedback.notificationOccurred(.success)
+                haptic(.success)
+//                let notificationFeedback = UINotificationFeedbackGenerator()
+//                notificationFeedback.notificationOccurred(.success)
               //  AudioServicesPlaySystemSound(systemSoundID)
                 backgroundColor = Color.green
             }else{
                 backgroundColor = Color.red
-                let notificationFeedback = UINotificationFeedbackGenerator()
-                    notificationFeedback.notificationOccurred(.error)
+                haptic(.error)
+//                let notificationFeedback = UINotificationFeedbackGenerator()
+//                    notificationFeedback.notificationOccurred(.error)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     backgroundColor = Color("myColor")
                         }
