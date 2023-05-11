@@ -102,6 +102,25 @@ class Math: ObservableObject{
         levelnum =  1
         greenButtonCount = 0
     }
+    func authenticateUser() {
+        GKLocalPlayer.local.authenticateHandler = { vc, error in
+            guard error == nil else {
+                print(error?.localizedDescription ?? "")
+                return
+            }
+        }
+    }
+    
+    func setScoreLeaderboard() {
+        Task{
+            try await GKLeaderboard.submitScore(
+                self.score,
+                context: 0,
+                player: GKLocalPlayer.local,
+                leaderboardIDs: [leaderboardIdentifier]
+            )
+        }
+    }
     
    
     
