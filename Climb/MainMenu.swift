@@ -26,7 +26,7 @@ struct MainMenuView: View {
                 .cornerRadius(10)
                 
                 Button("Leaderboard") {
-                    
+                    scene.state = .leaderboard
                 }
                 .padding()
                 .foregroundColor(Color("textColor"))

@@ -8,9 +8,10 @@
 import Foundation
 import SwiftUI
 struct ContentView: View {
+    @ObservedObject var scene: diffViews
     @StateObject var game = Math()
     @State private var showingSheet = false
-    @State var isshowing = false
+    @State private var showinglevelComplete = false
     var body: some View {
         NavigationStack{
             ZStack {
@@ -67,7 +68,7 @@ struct ContentView: View {
                         }.font(.title2)
                             .foregroundColor(.red)
                             .fullScreenCover(isPresented: $showingSheet) {
-                                Pause_menu(game: game)
+                                Pause_menu(scene: scene, game: game)
                             }
                     }
                     //timer in the right hand corner
@@ -80,15 +81,15 @@ struct ContentView: View {
                 }
                 //shows end game menu when time runs out
                 if game.timeRemaining == 0 {
-                    End_Game_menu(game: game)
+                    End_Game_menu(game: game, scene: scene)
                 }
                 //code for the pause menu
                 if game.isPaused == true {
-                    Pause_menu(game: game)
+                    Pause_menu(scene: scene, game: game)
                 }
                 //This logic handles the level completing action
                 if game.greenButtonCount == 1 {
-                    levelCompleted(game: game, scene: diffViews())
+                    levelCompleted(scene: scene, game: game)
                 }
                 
             }
@@ -112,7 +113,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(scene: diffViews())
         //        ContentView()
         //            .preferredColorScheme(.dark)
         //            .previewDisplayName("dark")

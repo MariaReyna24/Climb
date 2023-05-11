@@ -19,7 +19,6 @@ struct LeaderBoardView: View {
     
     let highscore = ["100 Points","75 Points","50 Points","25 Points","15 Points" ]
     
-    
     var body: some View {
         ZStack{
             VStack {

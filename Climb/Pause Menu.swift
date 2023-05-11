@@ -10,10 +10,10 @@ import UIKit
 import Foundation
 
 struct Pause_menu: View {
+    @ObservedObject var scene: diffViews
     @Environment(\.dismiss) var dismiss
     @ObservedObject var game : Math
     var body: some View {
-        NavigationStack{
             ZStack{
                 Image("climbss")
                     .resizable()
@@ -32,18 +32,18 @@ struct Pause_menu: View {
                     .background(Color("myColor"))
                     .foregroundColor(Color("textColor"))
                     
-//                    NavigationLink(destination: MainMenuView(), label: {
-//                        Text("Main Menu")
-//                            .font(.title)
-//                            .padding()
-//                            .background(Color("myColor"))
-//                            .foregroundColor(Color("textColor"))
-//                    }
- //                   )
+                    
+                    Button("Main Menu"){
+                        scene.state = .mainmenu
+                    }
+                    .font(.title)
+                    .padding()
+                    .background(Color("myColor"))
+                    .foregroundColor(Color("textColor"))
+                    
                     
                 }
             }
-        }.navigationBarBackButtonHidden(true)
         }
         
     }
@@ -51,7 +51,7 @@ struct Pause_menu: View {
 
 struct Pause_menu_Previews: PreviewProvider {
     static var previews: some View {
-        Pause_menu(game: Math())
+        Pause_menu(scene: diffViews(), game: Math())
     }
 }
 

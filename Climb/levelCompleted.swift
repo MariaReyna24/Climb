@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct levelCompleted: View {
-    @ObservedObject var game: Math
     @ObservedObject var scene: diffViews
+    @ObservedObject var game: Math
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -33,7 +33,7 @@ struct levelCompleted: View {
                 .background(.black)
                 .opacity(0.9)
 
-                Button("MainMenu") {
+                Button("Main Menu") {
                     scene.state = .mainmenu
                 }
                 .foregroundColor(.white)
@@ -48,7 +48,7 @@ struct levelCompleted: View {
 
 struct levelCompleted_Previews: PreviewProvider {
     static var previews: some View {
-        levelCompleted(game: Math(), scene: diffViews())
+        levelCompleted(scene: diffViews(), game: Math())
     }
 }
 

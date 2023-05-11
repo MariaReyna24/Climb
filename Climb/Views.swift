@@ -10,8 +10,6 @@ import Foundation
 class diffViews: ObservableObject{
     @Published var state = gameState.mainmenu
   
-    
-    
     enum gameState{
         case mainmenu
         case game
