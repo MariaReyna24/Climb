@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import GameKit
 class Math: ObservableObject{
     @Published var counter = 0
     @Published var timeRemaining = 15 //this is in seconds naturally
@@ -17,6 +17,7 @@ class Math: ObservableObject{
     @Published var score = 0
     @Published var isPaused = false
     @Published var greenButtonCount = 0
+    @Published var isAuth = false
     //@Published var redButtonCount = 0
     var correctAnsArry : [Int] = []
     private(set) var correctAnswer = 0
@@ -24,10 +25,10 @@ class Math: ObservableObject{
     private(set) var secondNum = 0
     private(set) var difficulty = 40
     var levelnum = 1
-    
+    var leaderboardIdentifier = "climb.Leaderboard"
    
     
-    func answerCorreect(answer:Int) -> Bool{
+    func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
             self.score += 1
             self.timeRemaining += 2
@@ -48,7 +49,7 @@ class Math: ObservableObject{
         }
     }
     
-    func generateAnswers(){
+    func generateAnswers() {
         
         self.firstNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
         self.secondNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
@@ -86,14 +87,14 @@ class Math: ObservableObject{
         choicearry = answerList
     }
     
-    func newLevel(){
+    func newLevel() {
         correctAnsArry = []
         greenButtonCount = 0
         levelnum += 1
         difficulty += 60
         generateAnswers()
     }
-    func retryLevel(){
+    func retryLevel() {
         self.score = 0
         timeRemaining = 15
         generateAnswers()
@@ -103,26 +104,53 @@ class Math: ObservableObject{
         greenButtonCount = 0
     }
     func authenticateUser() {
-        GKLocalPlayer.local.authenticateHandler = { vc, error in
-            guard error == nil else {
-                print(error?.localizedDescription ?? "")
-                return
+        if isAuth == false{
+            GKLocalPlayer.local.authenticateHandler = { vc, error in
+                guard error == nil else {
+                    print(error?.localizedDescription ?? "")
+                    return
+                }
             }
+        }else{
+            isAuth = false
         }
     }
     
-    func setScoreLeaderboard() {
-        Task{
-            try await GKLeaderboard.submitScore(
-                self.score,
-                context: 0,
-                player: GKLocalPlayer.local,
-                leaderboardIDs: [leaderboardIdentifier]
-            )
-        }
-    }
+//    func setScoreLeaderboard() {
+//        Task{
+//            try await GKLeaderboard.submitScore(
+//                self.score,
+//                context: 0,
+//                player: GKLocalPlayer.local,
+//                leaderboardIDs: [leaderboardIdentifier]
+//            )
+//        }
+//    }
     
-   
+    func submitScoreToLeaderboard() {
+           guard GKLocalPlayer.local.isAuthenticated else {
+               // User is not authenticated, handle accordingly
+               return
+           }
+           
+           Task {
+               do {
+                   try await GKLeaderboard.submitScore(
+                       self.score,
+                       context: 0,
+                       player: GKLocalPlayer.local,
+                       leaderboardIDs: [leaderboardIdentifier]
+                   )
+               } catch {
+                   print("Failed to submit score: \(error.localizedDescription)")
+               }
+           }
+       }
+       
+       // Call this method when the game finishes or when you want to save the score
+       func gameFinished() {
+           submitScoreToLeaderboard()
+       }
     
 }
 

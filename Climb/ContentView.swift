@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack {
                     Image("climbss")
                         .resizable()
@@ -24,7 +24,7 @@ struct ContentView: View {
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
 
-                    Group{
+                    Group {
                         buttonsForAnswers(startIndex: 0, endIndex: 1)
                         buttonsForAnswers(startIndex: 1, endIndex: 3)
                         buttonsForAnswers(startIndex: 3, endIndex: 6)
@@ -51,7 +51,7 @@ struct ContentView: View {
                         game.timeRemaining -= 1
                     }
                     //this logic helps stop the timer when the level is complete
-                    if game.greenButtonCount == 1 {
+                    if game.greenButtonCount == 10 {
                         game.timer.upstream.connect().cancel()
                     }
                 }
@@ -61,7 +61,7 @@ struct ContentView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
-                        Button("Pause"){
+                        Button("Pause") {
                             game.timer.upstream.connect().cancel()
                             showingSheet.toggle()
                             
@@ -72,7 +72,7 @@ struct ContentView: View {
                             }
                     }
                     //timer in the right hand corner
-                    ToolbarItem(placement: .navigationBarTrailing){
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         Text("\(game.timeRemaining)s")
                             .font(.system(size: 30))
                             .foregroundColor(.red)
@@ -88,7 +88,7 @@ struct ContentView: View {
                     Pause_menu(scene: scene, game: game)
                 }
                 //This logic handles the level completing action
-                if game.greenButtonCount == 1 {
+                if game.greenButtonCount == 10 {
                     levelCompleted(scene: scene, game: game)
                 }
                 

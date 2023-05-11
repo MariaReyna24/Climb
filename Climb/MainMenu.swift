@@ -8,6 +8,7 @@
 import SwiftUI
 struct MainMenuView: View {
     @ObservedObject var scene: diffViews
+    @ObservedObject var game : Math
     var body: some View {
         ZStack {
             VStack {
@@ -32,6 +33,9 @@ struct MainMenuView: View {
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
                 .cornerRadius(10)
+                
+            }.onAppear {
+                game.authenticateUser()
             }
         }.background(Image("mainMenuBackground")
             .resizable()
@@ -47,6 +51,6 @@ struct MainMenuView: View {
   
 struct MainMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MainMenuView(scene: diffViews())
+        MainMenuView(scene: diffViews(), game: Math())
     }
 }

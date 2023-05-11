@@ -19,24 +19,38 @@ struct Player: Hashable, Comparable {
 }
 
 struct LeaderBoardView: View {
-    @StateObject var game = Math()
+    @ObservedObject var scene: diffViews
+    @ObservedObject var game: Math
     @State var playersList: [Player] = []
-    var leaderboardIdentifier = "climb.Leaderboard"
     var body: some View {
-        ZStack{
+        ZStack {
+            Image("climbss")
+                .resizable()
+                .ignoresSafeArea()
             VStack {
                 Text("Leaderboard")
-                ScrollView{
+                    .foregroundColor(Color("myColor"))
+                    .font(.system(size: 25))
+                Button("Back"){
+                    scene.state = .mainmenu
+                }
+                .font(.title2)
+                .foregroundColor(.red)
+                .frame(width: 300, height: 300, alignment: .topLeading)
+                Text("Name")
+                //    .frame(width: 300, height: 300, alignment: )
+                
+                ScrollView {
                     ForEach(playersList, id: \.id) { player in
-                        Text("\(String(player.name.prefix(8))) Score: \(player.score)")
+                        Text("\(String(player.name)) Score: \(player.score)")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(.black)
-                            .font(.system(size: 15))
-                            .textCase(.uppercase)
+                            .font(.system(size: 20))
+                            
                     }
                 }
             }
-            .onAppear(){
+            .onAppear() {
                 if !GKLocalPlayer.local.isAuthenticated {
                     game.authenticateUser()
                 } else if playersList.count == 0 {
@@ -46,11 +60,7 @@ struct LeaderBoardView: View {
                 }
             }
             
-        }.background(Image("background")
-            .resizable()
-            .scaledToFill()
-            .ignoresSafeArea()
-            .frame(width: 393, height: 918))
+        }
         
         
         
@@ -59,13 +69,14 @@ struct LeaderBoardView: View {
         playersList.removeAll()
         Task{
             var playersListTemp : [Player] = []
-            let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
-            if let leaderboard = leaderboards.filter ({ $0.baseLeaderboardID == self.leaderboardIdentifier }).first {
+            let gameScore = game.score
+            let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [game.leaderboardIdentifier])
+            if let leaderboard = leaderboards.filter ({ $0.baseLeaderboardID == self.game.leaderboardIdentifier }).first {
                 let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...10))
                 if allPlayers.1.count > 0 {
-                    for leaderboardEntry in allPlayers.1 {
-                        playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.score))
-                                    print(playersListTemp)
+                        for leaderboardEntry in allPlayers.1 {
+                        // Assign the game score to the Player object
+                        playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score: gameScore))
 
                     }
                 }
@@ -82,6 +93,6 @@ struct LeaderBoardView: View {
 
 struct LeaderBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        LeaderBoardView()
+        LeaderBoardView(scene: diffViews(), game: Math())
     }
 }

@@ -14,11 +14,11 @@ struct Pause_menu: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var game : Math
     var body: some View {
-            ZStack{
+            ZStack {
                 Image("climbss")
                     .resizable()
                     .ignoresSafeArea()
-                VStack{
+                VStack {
                     Text("Current score: \(game.score)")
                         .font(.largeTitle)
                         .foregroundColor(.red)
@@ -33,7 +33,7 @@ struct Pause_menu: View {
                     .foregroundColor(Color("textColor"))
                     
                     
-                    Button("Main Menu"){
+                    Button("Main Menu") {
                         scene.state = .mainmenu
                     }
                     .font(.title)

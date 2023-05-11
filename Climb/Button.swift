@@ -17,12 +17,12 @@ struct ClimbButton: View {
     var body: some View {
         Button {
             let isCorrect = game.answerCorreect(answer: num)
-            if isCorrect == true{
+            if isCorrect == true {
                 let notificationFeedback = UINotificationFeedbackGenerator()
                 notificationFeedback.notificationOccurred(.success)
               //  AudioServicesPlaySystemSound(systemSoundID)
                 backgroundColor = Color.green
-            }else{
+            }else {
                 backgroundColor = Color.red
                 let notificationFeedback = UINotificationFeedbackGenerator()
                     notificationFeedback.notificationOccurred(.error)
@@ -30,14 +30,13 @@ struct ClimbButton: View {
                     backgroundColor = Color("myColor")
                         }
             }
-            if isCorrect == true{
+            if isCorrect == true {
                 game.isAnswerCorrect = true
                 game.generateAnswers()
                 
             }else{
                 game.isAnswerCorrect = false
             }
-//            game.generateAnswers()
             
         } label: {
              Text("\(num)")
@@ -59,11 +58,11 @@ struct ClimbButton: View {
         .disabled(game.timeRemaining == 0)
         .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
         .onChange(of: game.timeRemaining) { newTime in
-            if newTime == 0{
+            if newTime == 0 {
                 backgroundColor = Color("myColor")
             }
         }
-        .onChange(of: game.levelnum){ _ in
+        .onChange(of: game.levelnum) { _ in
            backgroundColor = Color("myColor")
         }
     }
