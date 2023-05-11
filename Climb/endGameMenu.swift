@@ -9,6 +9,7 @@ import SwiftUI
 
 struct End_Game_menu: View {
     @ObservedObject var game : Math
+    @ObservedObject var scene: diffViews
     @State var gameRestarted = false
     var body: some View {
         if gameRestarted {
@@ -33,14 +34,15 @@ struct End_Game_menu: View {
                         .fontWeight(.bold)
                         .background(.black)
                         
-                        NavigationLink(destination: MainMenuView(), label: {
-                            Text("Main Menu")
-                            .foregroundColor(.white)
-                            .fontWeight(.bold)
-                            .frame(width: 130, height: 50)
-                            .background(.black)
+                        Button("Main Menu"){
+                            scene.state = .mainmenu
                         }
-                   ) }
+                        .foregroundColor(.white)
+                        .frame(width: 130, height: 50)
+                        .fontWeight(.bold)
+                        .background(.black)
+                        
+                    }
                     }
                     
                 }
@@ -49,7 +51,7 @@ struct End_Game_menu: View {
     }
 struct End_Game_menu_Previews: PreviewProvider {
     static var previews: some View {
-        End_Game_menu(game: Math())
+        End_Game_menu(game: Math(), scene: diffViews())
     }
 }
 

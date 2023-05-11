@@ -8,39 +8,41 @@
 import Foundation
 import SwiftUI
 struct ContentView: View {
+    @ObservedObject var scene: diffViews
     @StateObject var game = Math()
     @State private var showingSheet = false
-    @State var isshowing = false
+    @State private var showinglevelComplete = false
     var body: some View {
         NavigationStack{
-            ZStack{
-                VStack(spacing: 12){
+            ZStack {
+                    Image("climbss")
+                        .resizable()
+                        .ignoresSafeArea()
+                    
+                VStack {
                     //this is the score
-                   
-                    Spacer()
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
-                       
 
-                    buttonsForAnswers(startIndex: 0, endIndex: 1)
-                    buttonsForAnswers(startIndex: 1, endIndex: 3)
-                    buttonsForAnswers(startIndex: 3, endIndex: 6)
-                    buttonsForAnswers(startIndex: 6, endIndex: 10)
-                    
+                    Group{
+                        buttonsForAnswers(startIndex: 0, endIndex: 1)
+                        buttonsForAnswers(startIndex: 1, endIndex: 3)
+                        buttonsForAnswers(startIndex: 3, endIndex: 6)
+                        buttonsForAnswers(startIndex: 6, endIndex: 10)
+                        Text("\(game.firstNum) + \(game.secondNum)")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                    }
+                    .offset(y: 165)
                     //this is the equation being displayed on screen
-                    Text("\(game.firstNum) + \(game.secondNum)")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        
-                   
                     Spacer()
                     
                     //this displays the generated answers on appear.
                 }.onAppear {
                     game.generateAnswers()
-                            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                            impactHeavy.impactOccurred()
-                        
+                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                    impactHeavy.impactOccurred()
+                    
                 }
                 
                 //this is for the timer of the app and where it stops the countdown from going past zero
@@ -49,7 +51,7 @@ struct ContentView: View {
                         game.timeRemaining -= 1
                     }
                     //this logic helps stop the timer when the level is complete
-                    if game.greenButtonCount == 10 {
+                    if game.greenButtonCount == 1 {
                         game.timer.upstream.connect().cancel()
                     }
                 }
@@ -66,7 +68,7 @@ struct ContentView: View {
                         }.font(.title2)
                             .foregroundColor(.red)
                             .fullScreenCover(isPresented: $showingSheet) {
-                                Pause_menu(game: game)
+                                Pause_menu(scene: scene, game: game)
                             }
                     }
                     //timer in the right hand corner
@@ -79,26 +81,22 @@ struct ContentView: View {
                 }
                 //shows end game menu when time runs out
                 if game.timeRemaining == 0 {
-                    End_Game_menu(game: game)
+                    End_Game_menu(game: game, scene: scene)
                 }
                 //code for the pause menu
                 if game.isPaused == true {
-                    Pause_menu(game: game)
+                    Pause_menu(scene: scene, game: game)
                 }
                 //This logic handles the level completing action
-                if game.greenButtonCount == 10 {
-                    levelCompleted(game: game)
+                if game.greenButtonCount == 1 {
+                    levelCompleted(scene: scene, game: game)
                 }
                 
             }
-            .ignoresSafeArea()
-            .background {
-                Image("background")
-                    .ignoresSafeArea()
-                    
-            }
+
             // hides the navigation back button
-        } .navigationBarBackButtonHidden(true)
+        }
+        
     }
     //func for layout for our buttons
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
@@ -106,19 +104,21 @@ struct ContentView: View {
             ForEach(startIndex..<endIndex, id: \.self) { index in
                 if index < game.choicearry.count {
                     ClimbButton(num:game.choicearry[index], game: game)
-
+                    
                 }
             }
         }
     }
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()
-            ContentView()
-                .preferredColorScheme(.dark)
-                .previewDisplayName("dark")
-            ContentView()
-                .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (4th generation)"))
-        }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(scene: diffViews())
+        //        ContentView()
+        //            .preferredColorScheme(.dark)
+        //            .previewDisplayName("dark")
+        //        ContentView()
+        //            .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (4th generation)"))
     }
 }
+

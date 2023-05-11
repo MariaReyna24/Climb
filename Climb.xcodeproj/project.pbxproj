@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		47003B2D299BBFCE00577725 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47003B2C299BBFCE00577725 /* MainMenu.swift */; };
+		A20036592A0BCF0900A93A4A /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20036582A0BCF0900A93A4A /* NewView.swift */; };
+		A200365B2A0BE08F00A93A4A /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200365A2A0BE08F00A93A4A /* Views.swift */; };
 		A207E9972994062100CBBBEE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9962994062100CBBBEE /* Game.swift */; };
 		A207E9992994068000CBBBEE /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9982994068000CBBBEE /* Button.swift */; };
 		A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E99A299406A800CBBBEE /* Pause Menu.swift */; };
@@ -43,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		47003B2C299BBFCE00577725 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		A20036582A0BCF0900A93A4A /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
+		A200365A2A0BE08F00A93A4A /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
 		A207E9962994062100CBBBEE /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		A207E9982994068000CBBBEE /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		A207E99A299406A800CBBBEE /* Pause Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pause Menu.swift"; sourceTree = "<group>"; };
@@ -110,11 +114,13 @@
 		A2C65C52298AA90100CEB479 /* Climb */ = {
 			isa = PBXGroup;
 			children = (
+				A200365A2A0BE08F00A93A4A /* Views.swift */,
 				47003B2C299BBFCE00577725 /* MainMenu.swift */,
 				A2C65C53298AA90100CEB479 /* ClimbApp.swift */,
 				A2C65C55298AA90100CEB479 /* ContentView.swift */,
 				A2F6ABB029A3D9C900A14A51 /* levelCompleted.swift */,
 				A207E9962994062100CBBBEE /* Game.swift */,
+				A20036582A0BCF0900A93A4A /* NewView.swift */,
 				A207E9982994068000CBBBEE /* Button.swift */,
 				A207E99A299406A800CBBBEE /* Pause Menu.swift */,
 				A207E99E299406DF00CBBBEE /* endGameMenu.swift */,
@@ -284,10 +290,12 @@
 				A207E9992994068000CBBBEE /* Button.swift in Sources */,
 				A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */,
 				47003B2D299BBFCE00577725 /* MainMenu.swift in Sources */,
+				A20036592A0BCF0900A93A4A /* NewView.swift in Sources */,
 				C6622F25299FCA2300592947 /* HighScore.swift in Sources */,
 				C6622F23299FCA1A00592947 /* LeaderBoardView.swift in Sources */,
 				A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */,
 				A2F6ABB129A3D9C900A14A51 /* levelCompleted.swift in Sources */,
+				A200365B2A0BE08F00A93A4A /* Views.swift in Sources */,
 				A207E9972994062100CBBBEE /* Game.swift in Sources */,
 				A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */,
 				A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */,
