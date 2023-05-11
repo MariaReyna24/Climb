@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		47003B2D299BBFCE00577725 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47003B2C299BBFCE00577725 /* MainMenu.swift */; };
 		A20036592A0BCF0900A93A4A /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20036582A0BCF0900A93A4A /* NewView.swift */; };
-		A200365B2A0BE08F00A93A4A /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200365A2A0BE08F00A93A4A /* Views.swift */; };
+		A200365B2A0BE08F00A93A4A /* diffViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200365A2A0BE08F00A93A4A /* diffViews.swift */; };
 		A207E9972994062100CBBBEE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9962994062100CBBBEE /* Game.swift */; };
 		A207E9992994068000CBBBEE /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9982994068000CBBBEE /* Button.swift */; };
 		A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E99A299406A800CBBBEE /* Pause Menu.swift */; };
 		A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E99E299406DF00CBBBEE /* endGameMenu.swift */; };
+		A21035002A0D326C00B4A200 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21034FF2A0D326C00B4A200 /* SettingsView.swift */; };
+		A21035022A0D32EF00B4A200 /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21035012A0D32EF00B4A200 /* UserDefaultKeys.swift */; };
+		A21035042A0D330D00B4A200 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21035032A0D330D00B4A200 /* HapticsManager.swift */; };
 		A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C53298AA90100CEB479 /* ClimbApp.swift */; };
 		A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C55298AA90100CEB479 /* ContentView.swift */; };
 		A2C65C58298AA90200CEB479 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2C65C57298AA90200CEB479 /* Assets.xcassets */; };
@@ -46,11 +49,14 @@
 /* Begin PBXFileReference section */
 		47003B2C299BBFCE00577725 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		A20036582A0BCF0900A93A4A /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
-		A200365A2A0BE08F00A93A4A /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
+		A200365A2A0BE08F00A93A4A /* diffViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = diffViews.swift; sourceTree = "<group>"; };
 		A207E9962994062100CBBBEE /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		A207E9982994068000CBBBEE /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		A207E99A299406A800CBBBEE /* Pause Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pause Menu.swift"; sourceTree = "<group>"; };
 		A207E99E299406DF00CBBBEE /* endGameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = endGameMenu.swift; sourceTree = "<group>"; };
+		A21034FF2A0D326C00B4A200 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A21035012A0D32EF00B4A200 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
+		A21035032A0D330D00B4A200 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		A2C65C50298AA90100CEB479 /* Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C65C53298AA90100CEB479 /* ClimbApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbApp.swift; sourceTree = "<group>"; };
 		A2C65C55298AA90100CEB479 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -91,6 +97,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A21035052A0D335D00B4A200 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A20036582A0BCF0900A93A4A /* NewView.swift */,
+				47003B2C299BBFCE00577725 /* MainMenu.swift */,
+				A2C65C55298AA90100CEB479 /* ContentView.swift */,
+				A207E99A299406A800CBBBEE /* Pause Menu.swift */,
+				A207E99E299406DF00CBBBEE /* endGameMenu.swift */,
+				A2F6ABB029A3D9C900A14A51 /* levelCompleted.swift */,
+				A21034FF2A0D326C00B4A200 /* SettingsView.swift */,
+				C6622F22299FCA1A00592947 /* LeaderBoardView.swift */,
+				A207E9982994068000CBBBEE /* Button.swift */,
+				A200365A2A0BE08F00A93A4A /* diffViews.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A21035062A0D338100B4A200 /* UserDefaultKeys */ = {
+			isa = PBXGroup;
+			children = (
+				A21035012A0D32EF00B4A200 /* UserDefaultKeys.swift */,
+			);
+			path = UserDefaultKeys;
+			sourceTree = "<group>";
+		};
+		A21035072A0D339F00B4A200 /* Haptics */ = {
+			isa = PBXGroup;
+			children = (
+				A21035032A0D330D00B4A200 /* HapticsManager.swift */,
+			);
+			path = Haptics;
+			sourceTree = "<group>";
+		};
 		A2C65C47298AA90100CEB479 = {
 			isa = PBXGroup;
 			children = (
@@ -114,17 +153,11 @@
 		A2C65C52298AA90100CEB479 /* Climb */ = {
 			isa = PBXGroup;
 			children = (
-				A200365A2A0BE08F00A93A4A /* Views.swift */,
-				47003B2C299BBFCE00577725 /* MainMenu.swift */,
 				A2C65C53298AA90100CEB479 /* ClimbApp.swift */,
-				A2C65C55298AA90100CEB479 /* ContentView.swift */,
-				A2F6ABB029A3D9C900A14A51 /* levelCompleted.swift */,
 				A207E9962994062100CBBBEE /* Game.swift */,
-				A20036582A0BCF0900A93A4A /* NewView.swift */,
-				A207E9982994068000CBBBEE /* Button.swift */,
-				A207E99A299406A800CBBBEE /* Pause Menu.swift */,
-				A207E99E299406DF00CBBBEE /* endGameMenu.swift */,
-				C6622F22299FCA1A00592947 /* LeaderBoardView.swift */,
+				A21035052A0D335D00B4A200 /* Views */,
+				A21035062A0D338100B4A200 /* UserDefaultKeys */,
+				A21035072A0D339F00B4A200 /* Haptics */,
 				C6622F24299FCA2300592947 /* HighScore.swift */,
 				A2C65C57298AA90200CEB479 /* Assets.xcassets */,
 				A2C65C59298AA90200CEB479 /* Preview Content */,
@@ -290,15 +323,18 @@
 				A207E9992994068000CBBBEE /* Button.swift in Sources */,
 				A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */,
 				47003B2D299BBFCE00577725 /* MainMenu.swift in Sources */,
+				A21035042A0D330D00B4A200 /* HapticsManager.swift in Sources */,
 				A20036592A0BCF0900A93A4A /* NewView.swift in Sources */,
 				C6622F25299FCA2300592947 /* HighScore.swift in Sources */,
 				C6622F23299FCA1A00592947 /* LeaderBoardView.swift in Sources */,
 				A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */,
 				A2F6ABB129A3D9C900A14A51 /* levelCompleted.swift in Sources */,
-				A200365B2A0BE08F00A93A4A /* Views.swift in Sources */,
+				A200365B2A0BE08F00A93A4A /* diffViews.swift in Sources */,
 				A207E9972994062100CBBBEE /* Game.swift in Sources */,
 				A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */,
 				A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */,
+				A21035022A0D32EF00B4A200 /* UserDefaultKeys.swift in Sources */,
+				A21035002A0D326C00B4A200 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

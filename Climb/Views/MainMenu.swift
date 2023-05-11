@@ -32,7 +32,17 @@ struct MainMenuView: View {
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
                 .cornerRadius(10)
+                
+                Button("Settings"){
+                    scene.state = .settings
+                }
+                .padding()
+                .foregroundColor(Color("textColor"))
+                .background(Color("myColor"))
+                .cornerRadius(10)
+                
             }
+            
         }.background(Image("mainMenuBackground")
             .resizable()
             .scaledToFill()

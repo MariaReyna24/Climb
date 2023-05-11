@@ -18,6 +18,8 @@ struct NewView: View {
             ContentView(scene: scene)
         case .leaderboard:
             LeaderBoardView()
+        case .settings:
+            SettingsView(scene: scene)
         }
         
     }
