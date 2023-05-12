@@ -17,6 +17,7 @@ struct SettingsView: View {
         NavigationStack {
             Button("Back"){
                 scene.state = .mainmenu
+                heavyHaptic()
             }
             .font(.title2)
             .foregroundColor(.red)
