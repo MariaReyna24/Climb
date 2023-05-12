@@ -26,14 +26,14 @@ struct MainMenuView: View {
                 .background(Color("myColor"))
                 .cornerRadius(10)
                 
-                Button("Leaderboard") {
-                    scene.state = .leaderboard
-                    heavyHaptic()
-                }
-                .padding()
-                .foregroundColor(Color("textColor"))
-                .background(Color("myColor"))
-                .cornerRadius(10)
+//               Button("Leaderboard") {
+//                    scene.state = .leaderboard
+//                    heavyHaptic()
+//                }
+//                .padding()
+//                .foregroundColor(Color("textColor"))
+//                .background(Color("myColor"))
+//                .cornerRadius(10)
                 
                 Button("Settings"){
                     scene.state = .settings
