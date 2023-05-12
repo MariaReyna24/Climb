@@ -23,45 +23,55 @@ struct LeaderBoardView: View {
     @ObservedObject var game: Math
     @State var playersList: [Player] = []
     var body: some View {
-        ZStack {
-            Image("climbss")
-                .resizable()
-                .ignoresSafeArea()
-            VStack {
-                Text("Leaderboard")
-                    .foregroundColor(Color("myColor"))
-                    .font(.system(size: 25))
-                Button("Back"){
-                    scene.state = .mainmenu
-                }
-                .font(.title2)
-                .foregroundColor(.red)
-                .frame(width: 300, height: 300, alignment: .topLeading)
-                Text("Name")
-                //    .frame(width: 300, height: 300, alignment: )
-                
-                ScrollView {
-                    ForEach(playersList, id: \.id) { player in
-                        Text("\(String(player.name)) Score: \(player.score)")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundColor(.black)
-                            .font(.system(size: 20))
+        NavigationStack{
+            ZStack {
+                Image("climbss")
+                    .resizable()
+                    .ignoresSafeArea()
+                VStack {
+                    HStack{
+                        Text("Name")
+                            .frame(width: 150, height: 50, alignment: .topLeading)
+                        Text("Score")
+                            .frame(width: 50, height: 50, alignment: .topLeading)
+                    }
+                    ScrollView {
+                        ForEach(playersList, id: \.id) { player in
+                            Text("\(String(player.name)) Score: \(player.score)")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .foregroundColor(.black)
+                                .font(.system(size: 20))
                             
+                        }
                     }
                 }
-            }
-            .onAppear() {
-                if !GKLocalPlayer.local.isAuthenticated {
-                    game.authenticateUser()
-                } else if playersList.count == 0 {
-                    Task{
-                        await loadLeaderboard()
+                .onAppear() {
+                    if !GKLocalPlayer.local.isAuthenticated {
+                        game.authenticateUser()
+                    } else if playersList.count == 0 {
+                        Task{
+                            await loadLeaderboard()
+                        }
                     }
                 }
-            }
+                
+            }.navigationTitle("Leaderboard")
             
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar{
+                    ToolbarItem(placement: .navigationBarLeading){
+                        Button {
+                            scene.state = .mainmenu
+                        }label: {
+                            Label("Back", systemImage: "chevron.backward")
+                        }
+                        
+                        .font(.title2)
+                        .foregroundColor(Color("myColor"))
+                    }
+                    
+                }
         }
-        
         
         
     }
@@ -74,10 +84,10 @@ struct LeaderBoardView: View {
             if let leaderboard = leaderboards.filter ({ $0.baseLeaderboardID == self.game.leaderboardIdentifier }).first {
                 let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...10))
                 if allPlayers.1.count > 0 {
-                        for leaderboardEntry in allPlayers.1 {
+                    for leaderboardEntry in allPlayers.1 {
                         // Assign the game score to the Player object
                         playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score: gameScore))
-
+                        
                     }
                 }
             }

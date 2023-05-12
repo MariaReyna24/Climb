@@ -104,17 +104,14 @@ class Math: ObservableObject{
         greenButtonCount = 0
     }
     func authenticateUser() {
-        if isAuth == false{
             GKLocalPlayer.local.authenticateHandler = { vc, error in
                 guard error == nil else {
                     print(error?.localizedDescription ?? "")
                     return
                 }
             }
-        }else{
-            isAuth = false
         }
-    }
+            
     
 //    func setScoreLeaderboard() {
 //        Task{
