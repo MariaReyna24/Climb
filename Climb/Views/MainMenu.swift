@@ -19,6 +19,7 @@ struct MainMenuView: View {
                 
                 Button("New Game") {
                     scene.state = .game
+                    heavyHaptic()
                 }
                 .padding()
                 .foregroundColor(Color("textColor"))
@@ -27,6 +28,7 @@ struct MainMenuView: View {
                 
                 Button("Leaderboard") {
                     scene.state = .leaderboard
+                    heavyHaptic()
                 }
                 .padding()
                 .foregroundColor(Color("textColor"))
@@ -35,6 +37,7 @@ struct MainMenuView: View {
                 
                 Button("Settings"){
                     scene.state = .settings
+                    heavyHaptic()
                 }
                 .padding()
                 .foregroundColor(Color("textColor"))
