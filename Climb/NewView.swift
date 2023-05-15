@@ -16,7 +16,7 @@ struct NewView: View {
         case .mainmenu:
             MainMenuView(scene: scene, game: game)
         case .game:
-            ContentView(scene: scene)
+            ContentView(scene: scene, game: game)
         case .leaderboard:
             LeaderBoardView(scene: scene, game: game)
         }

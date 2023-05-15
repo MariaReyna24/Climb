@@ -20,6 +20,7 @@ struct MainMenuView: View {
                 
                 Button("New Game") {
                     scene.state = .game
+                    game.retryLevel()
                 }
                 .padding()
                 .foregroundColor(Color("textColor"))

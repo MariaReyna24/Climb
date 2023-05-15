@@ -35,6 +35,7 @@ struct Pause_menu: View {
                     
                     Button("Main Menu") {
                         scene.state = .mainmenu
+                        game.retryLevel()
                     }
                     .font(.title)
                     .padding()

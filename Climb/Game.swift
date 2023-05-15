@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 import GameKit
+
 class Math: ObservableObject{
-    @Published var counter = 0
     @Published var timeRemaining = 15 //this is in seconds naturally
     @Published var isAnswerCorrect = false
     @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -17,8 +17,6 @@ class Math: ObservableObject{
     @Published var score = 0
     @Published var isPaused = false
     @Published var greenButtonCount = 0
-    @Published var isAuth = false
-    //@Published var redButtonCount = 0
     var correctAnsArry : [Int] = []
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0

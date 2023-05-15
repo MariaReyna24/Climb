@@ -8,22 +8,23 @@
 import Foundation
 import SwiftUI
 struct ContentView: View {
+    
     @ObservedObject var scene: diffViews
-    @StateObject var game = Math()
+    @ObservedObject var game: Math
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
     var body: some View {
         NavigationStack {
             ZStack {
-                    Image("climbss")
-                        .resizable()
-                        .ignoresSafeArea()
-                    
+                Image("climbss")
+                    .resizable()
+                    .ignoresSafeArea()
+                
                 VStack {
                     //this is the score
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
-
+                    
                     Group {
                         buttonsForAnswers(startIndex: 0, endIndex: 1)
                         buttonsForAnswers(startIndex: 1, endIndex: 3)
@@ -93,7 +94,7 @@ struct ContentView: View {
                 }
                 
             }
-
+            
             // hides the navigation back button
         }
         
@@ -113,7 +114,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(scene: diffViews())
+        ContentView(scene: diffViews(), game: Math())
         //        ContentView()
         //            .preferredColorScheme(.dark)
         //            .previewDisplayName("dark")

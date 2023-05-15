@@ -30,16 +30,16 @@ struct LeaderBoardView: View {
                     .ignoresSafeArea()
                 VStack {
                     HStack{
-                        Text("Name")
-                            .frame(width: 150, height: 50, alignment: .topLeading)
-                        Text("Score")
-                            .frame(width: 50, height: 50, alignment: .topLeading)
+//                        Text("Name")
+//                            .frame(width: 150, height: 50, alignment: .topLeading)
+//                        Text("Score")
+//                            .frame(width: 50, height: 50, alignment: .topLeading)
                     }
                     ScrollView {
                         ForEach(playersList, id: \.id) { player in
-                            Text("\(String(player.name)) Score: \(player.score)")
+                            Text("\(String(player.name)) Score: \(game.score)")
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .foregroundColor(.black)
+                                .foregroundColor(Color("myColor"))
                                 .font(.system(size: 20))
                             
                         }
@@ -92,10 +92,8 @@ struct LeaderBoardView: View {
                 }
             }
             playersList = playersListTemp
-            playersList = playersList.sorted {
-                $0.score < $1.score
-            }
-            playersList.reverse()
+           
+//            playersList.reverse()
         }
     }
 }
