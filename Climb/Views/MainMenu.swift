@@ -19,20 +19,33 @@ struct MainMenuView: View {
                 
                 Button("New Game") {
                     scene.state = .game
+                    heavyHaptic()
                 }
                 .padding()
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
                 .cornerRadius(10)
                 
-                Button("Leaderboard") {
-                    scene.state = .leaderboard
+//               Button("Leaderboard") {
+//                    scene.state = .leaderboard
+//                    heavyHaptic()
+//                }
+//                .padding()
+//                .foregroundColor(Color("textColor"))
+//                .background(Color("myColor"))
+//                .cornerRadius(10)
+                
+                Button("Settings"){
+                    scene.state = .settings
+                    heavyHaptic()
                 }
                 .padding()
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
                 .cornerRadius(10)
+                
             }
+            
         }.background(Image("mainMenuBackground")
             .resizable()
             .scaledToFill()

@@ -26,15 +26,16 @@ struct Pause_menu: View {
                     Button("Resume") {
                         dismiss()
                         game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                        heavyHaptic()
                     }
                     .font(.title)
                     .padding()
                     .background(Color("myColor"))
                     .foregroundColor(Color("textColor"))
                     
-                    
                     Button("Main Menu"){
                         scene.state = .mainmenu
+                        heavyHaptic()
                     }
                     .font(.title)
                     .padding()

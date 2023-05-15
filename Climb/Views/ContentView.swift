@@ -40,8 +40,9 @@ struct ContentView: View {
                     //this displays the generated answers on appear.
                 }.onAppear {
                     game.generateAnswers()
-                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                    impactHeavy.impactOccurred()
+                    heavyHaptic()
+//                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+//                    impactHeavy.impactOccurred()
                     
                 }
                 
@@ -51,7 +52,7 @@ struct ContentView: View {
                         game.timeRemaining -= 1
                     }
                     //this logic helps stop the timer when the level is complete
-                    if game.greenButtonCount == 1 {
+                    if game.greenButtonCount == 10 {
                         game.timer.upstream.connect().cancel()
                     }
                 }
@@ -88,7 +89,7 @@ struct ContentView: View {
                     Pause_menu(scene: scene, game: game)
                 }
                 //This logic handles the level completing action
-                if game.greenButtonCount == 1 {
+                if game.greenButtonCount == 10 {
                     levelCompleted(scene: scene, game: game)
                 }
                 
