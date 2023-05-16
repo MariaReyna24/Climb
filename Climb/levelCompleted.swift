@@ -36,6 +36,7 @@ struct levelCompleted: View {
                 Button("Main Menu") {
                     scene.state = .mainmenu
                     game.retryLevel()
+                    game.leaderboard()
                 }
                 .foregroundColor(.white)
                 .fontWeight(.bold)

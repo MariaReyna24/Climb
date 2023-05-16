@@ -29,18 +29,12 @@ struct LeaderBoardView: View {
                     .resizable()
                     .ignoresSafeArea()
                 VStack {
-                    HStack{
-//                        Text("Name")
-//                            .frame(width: 150, height: 50, alignment: .topLeading)
-//                        Text("Score")
-//                            .frame(width: 50, height: 50, alignment: .topLeading)
-                    }
                     ScrollView {
                         ForEach(playersList, id: \.id) { player in
-                            Text("\(String(player.name)) Score: \(game.score)")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .foregroundColor(Color("myColor"))
-                                .font(.system(size: 20))
+                                Text("\(String(player.name)) Score: \(player.score)")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .foregroundColor(Color("myColor"))
+                                    .font(.system(size: 25))
                             
                         }
                     }
@@ -50,7 +44,7 @@ struct LeaderBoardView: View {
                         game.authenticateUser()
                     } else if playersList.count == 0 {
                         Task{
-                            await loadLeaderboard()
+                            loadLeaderboard()
                         }
                     }
                 }
@@ -77,23 +71,22 @@ struct LeaderBoardView: View {
     }
     func loadLeaderboard() {
         playersList.removeAll()
-        Task{
-            var playersListTemp : [Player] = []
-            let gameScore = game.score
+        Task {
+            var playersListTemp: [Player] = []
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [game.leaderboardIdentifier])
-            if let leaderboard = leaderboards.filter ({ $0.baseLeaderboardID == self.game.leaderboardIdentifier }).first {
+            if let leaderboard = leaderboards.filter({ $0.baseLeaderboardID == game.leaderboardIdentifier }).first {
                 let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...10))
                 if allPlayers.1.count > 0 {
                     for leaderboardEntry in allPlayers.1 {
-                        // Assign the game score to the Player object
-                        playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score: gameScore))
-                        
+                        playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.score))
+                        print(playersListTemp)
+                        playersListTemp.sort {
+                            $0.score < $1.score
+                        }
                     }
                 }
             }
             playersList = playersListTemp
-           
-//            playersList.reverse()
         }
     }
 }

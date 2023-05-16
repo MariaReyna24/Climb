@@ -36,7 +36,7 @@ struct End_Game_menu: View {
                         
                         Button("Main Menu") {
                             scene.state = .mainmenu
-                            game.gameFinished()
+                            game.leaderboard()
                         }
                         .foregroundColor(.white)
                         .frame(width: 130, height: 50)

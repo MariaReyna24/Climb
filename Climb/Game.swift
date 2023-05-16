@@ -21,7 +21,7 @@ class Math: ObservableObject{
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
     private(set) var secondNum = 0
-    private(set) var difficulty = 40
+    private(set) var difficulty = 30
     var levelnum = 1
     var leaderboardIdentifier = "climb.Leaderboard"
    
@@ -89,7 +89,7 @@ class Math: ObservableObject{
         correctAnsArry = []
         greenButtonCount = 0
         levelnum += 1
-        difficulty += 60
+        difficulty += 10
         generateAnswers()
     }
     func retryLevel() {
@@ -97,7 +97,7 @@ class Math: ObservableObject{
         timeRemaining = 15
         generateAnswers()
         correctAnsArry = []
-        difficulty = 40
+        difficulty = 30
         levelnum =  1
         greenButtonCount = 0
     }
@@ -111,42 +111,19 @@ class Math: ObservableObject{
         }
             
     
-//    func setScoreLeaderboard() {
-//        Task{
-//            try await GKLeaderboard.submitScore(
-//                self.score,
-//                context: 0,
-//                player: GKLocalPlayer.local,
-//                leaderboardIDs: [leaderboardIdentifier]
-//            )
-//        }
-//    }
+
     
-    func submitScoreToLeaderboard() {
-           guard GKLocalPlayer.local.isAuthenticated else {
-               // User is not authenticated, handle accordingly
-               return
-           }
-           
-           Task {
-               do {
-                   try await GKLeaderboard.submitScore(
-                       self.score,
-                       context: 0,
-                       player: GKLocalPlayer.local,
-                       leaderboardIDs: [leaderboardIdentifier]
-                   )
-               } catch {
-                   print("Failed to submit score: \(error.localizedDescription)")
-               }
-           }
-       }
-       
-       // Call this method when the game finishes or when you want to save the score
-       func gameFinished() {
-           submitScoreToLeaderboard()
-       }
-    
+    func leaderboard(){
+        Task{
+             try await GKLeaderboard.submitScore(
+                score,
+                context: 0,
+                player: GKLocalPlayer.local,
+                leaderboardIDs: [leaderboardIdentifier]
+            )
+        }
+
+    }
 }
 
 
