@@ -6,50 +6,94 @@
 //
 
 import SwiftUI
+import GameKit
 
-struct LeaderBoardView: View {
-    var friends = ["Maria","Daniel","Delon","Hadi","Michael"]
-    var highScores = [
-        HighScore(place: 1, name: "Maria", points: "100"),
-        HighScore(place: 2, name: "Daniel", points: "75"),
-        HighScore(place: 3, name: "Delon", points: "50"),
-        HighScore(place: 4, name: "Hadi", points: "25"),
-        HighScore(place: 5, name: "Michael", points: "15")
-    ]
-    
-    let highscore = ["100 Points","75 Points","50 Points","25 Points","15 Points" ]
-    
-    var body: some View {
-        ZStack{
-            VStack {
-                    List{
-                        Text("Leaderboard")
-                            .font(.largeTitle)
-                            .multilineTextAlignment(.center)
-                            .frame(width: 350)
-                        ForEach(highScores, id: \.place) { highScore in
-                            HStack {
-                                Text("\(highScore.place). \(highScore.name)")
-                                Spacer()
-                                Text("\(highScore.points) Points")
-                            }
-                        }
-                    }.scrollContentBackground(.hidden)
-            }
-        }.background(Image("background")
-            .resizable()
-            .scaledToFill()
-            .ignoresSafeArea()
-            .frame(width: 393, height: 918))
-            
-            
-        
+struct Player: Hashable, Comparable {
+    static func < (lhs: Player, rhs: Player) -> Bool {
+        return rhs.score > lhs.score
     }
     
+    let id = UUID()
+    let name: String
+    let score: Int
 }
+
+struct LeaderBoardView: View {
+    @ObservedObject var scene: diffViews
+    @ObservedObject var game: Math
+    @State var playersList: [Player] = []
+    var body: some View {
+        NavigationStack{
+            ZStack {
+                Image("climbss")
+                    .resizable()
+                    .ignoresSafeArea()
+                VStack {
+                    ScrollView {
+                        ForEach(playersList, id: \.id) { player in
+                                Text("\(String(player.name)) Score: \(player.score)")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .foregroundColor(Color("myColor"))
+                                    .font(.system(size: 25))
+                                    .padding()
+                        }
+                    }
+                }
+                .onAppear() {
+                    if !GKLocalPlayer.local.isAuthenticated {
+                        game.authenticateUser()
+                    } else if playersList.count == 0 {
+                        Task{
+                            loadLeaderboard()
+                        }
+                    }
+                }
+                
+            }.navigationTitle("Leaderboard")
+            
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar{
+                    ToolbarItem(placement: .navigationBarLeading){
+                        Button {
+                            scene.state = .mainmenu
+                        }label: {
+                            Label("Back", systemImage: "chevron.backward")
+                        }
+                        
+                        .font(.title2)
+                        .foregroundColor(Color("myColor"))
+                    }
+                    
+                }
+        }
+        
+        
+    }
+    func loadLeaderboard() {
+        playersList.removeAll()
+        Task {
+            var playersListTemp: [Player] = []
+            let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [game.leaderboardIdentifier])
+            if let leaderboard = leaderboards.filter({ $0.baseLeaderboardID == game.leaderboardIdentifier }).first {
+                let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...10))
+                if allPlayers.1.count > 0 {
+                    for leaderboardEntry in allPlayers.1 {
+                        playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.score))
+                        print(playersListTemp)
+                        playersListTemp.sort {
+                            $0.score < $1.score
+                        }
+                    }
+                }
+            }
+            playersList = playersListTemp
+        }
+    }
+}
+
 
 struct LeaderBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        LeaderBoardView()
+        LeaderBoardView(scene: diffViews(), game: Math())
     }
 }
