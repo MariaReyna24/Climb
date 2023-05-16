@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  LeaderBoard
 //
-//  Created by Delon Devin Allen on 2/14/23.
+//  Created ON 2/14/23.
 //
 
 import SwiftUI

@@ -48,31 +48,35 @@ class Math: ObservableObject{
     }
     
     func generateAnswers() {
-        
-        self.firstNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
-        self.secondNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
+        self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+        self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
         var answerList = [Int]()
-        correctAnswer =  self.firstNum + self.secondNum
+        correctAnswer = self.firstNum + self.secondNum
         
-        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer){
-            self.firstNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
-            correctAnswer =  self.firstNum + self.secondNum
+        //This while loop ensures that the generated correctAnswer is not already present in the choicearry or correctAnsArry arrays. It continues generating new random numbers for firstNum and secondNum until a unique correctAnswer is obtained.
+        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
+            self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+            correctAnswer = self.firstNum + self.secondNum
         }
+        // Once we get a correctAnswer, it is appended to the correctAnsArry array
         correctAnsArry.append(correctAnswer)
         
-        for _ in 0...9{
-            answerList.append(Int.random(in: 0...difficulty, excluding: correctAnsArry))
+        //The incorrectRange is defined as a range of numbers from half of the difficulty level to the full difficulty level. This range will be used to generate incorrect answer choices.
+        let incorrectRange = (difficulty/2)...(difficulty)
+       // The for loop runs 10 times, each time appending a randomly generated number from the incorrectRange to the answerList array. The numbers are chosen to be different from the correctAnsArry.Z
+        for _ in 0...9 {
+            answerList.append(Int.random(in: incorrectRange, excluding: correctAnsArry))
         }
         
         // create an array that holds all of the indexes for not correct answers
-        var incorrectAnswers : [Int] = []
-        for index in 0...9{
+        var incorrectAnswers: [Int] = []
+        for index in 0...9 {
             let currentChoice = choicearry[index]
             
-            if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice){
+            if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
                 answerList[index] = currentChoice
-            }else{
+            } else {
                 incorrectAnswers.append(index)
             }
         }
@@ -84,6 +88,7 @@ class Math: ObservableObject{
         }
         choicearry = answerList
     }
+
     
     func newLevel() {
         correctAnsArry = []

@@ -26,6 +26,7 @@ struct Pause_menu: View {
                     Button("Resume") {
                         dismiss()
                         game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+        
                     }
                     .font(.title)
                     .padding()
