@@ -35,7 +35,7 @@ struct LeaderBoardView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .foregroundColor(Color("myColor"))
                                     .font(.system(size: 25))
-                            
+                                    .padding()
                         }
                     }
                 }

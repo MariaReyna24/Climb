@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 struct ContentView: View {
-    
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State private var showingSheet = false
