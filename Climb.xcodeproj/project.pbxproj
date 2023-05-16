@@ -26,7 +26,6 @@
 		A2C65C71298AA90200CEB479 /* ClimbUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C70298AA90200CEB479 /* ClimbUITestsLaunchTests.swift */; };
 		A2F6ABB129A3D9C900A14A51 /* levelCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F6ABB029A3D9C900A14A51 /* levelCompleted.swift */; };
 		C6622F23299FCA1A00592947 /* LeaderBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6622F22299FCA1A00592947 /* LeaderBoardView.swift */; };
-		C6622F25299FCA2300592947 /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6622F24299FCA2300592947 /* HighScore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +56,7 @@
 		A21034FF2A0D326C00B4A200 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A21035012A0D32EF00B4A200 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		A21035032A0D330D00B4A200 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		A21035082A13EF3E00B4A200 /* Climb.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Climb.entitlements; sourceTree = "<group>"; };
 		A2C65C50298AA90100CEB479 /* Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C65C53298AA90100CEB479 /* ClimbApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbApp.swift; sourceTree = "<group>"; };
 		A2C65C55298AA90100CEB479 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,7 +69,6 @@
 		A2C65C70298AA90200CEB479 /* ClimbUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A2F6ABB029A3D9C900A14A51 /* levelCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = levelCompleted.swift; sourceTree = "<group>"; };
 		C6622F22299FCA1A00592947 /* LeaderBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderBoardView.swift; sourceTree = "<group>"; };
-		C6622F24299FCA2300592947 /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,12 +152,12 @@
 		A2C65C52298AA90100CEB479 /* Climb */ = {
 			isa = PBXGroup;
 			children = (
+				A21035082A13EF3E00B4A200 /* Climb.entitlements */,
 				A2C65C53298AA90100CEB479 /* ClimbApp.swift */,
 				A207E9962994062100CBBBEE /* Game.swift */,
 				A21035052A0D335D00B4A200 /* Views */,
 				A21035062A0D338100B4A200 /* UserDefaultKeys */,
 				A21035072A0D339F00B4A200 /* Haptics */,
-				C6622F24299FCA2300592947 /* HighScore.swift */,
 				A2C65C57298AA90200CEB479 /* Assets.xcassets */,
 				A2C65C59298AA90200CEB479 /* Preview Content */,
 			);
@@ -325,7 +324,6 @@
 				47003B2D299BBFCE00577725 /* MainMenu.swift in Sources */,
 				A21035042A0D330D00B4A200 /* HapticsManager.swift in Sources */,
 				A20036592A0BCF0900A93A4A /* NewView.swift in Sources */,
-				C6622F25299FCA2300592947 /* HighScore.swift in Sources */,
 				C6622F23299FCA1A00592947 /* LeaderBoardView.swift in Sources */,
 				A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */,
 				A2F6ABB129A3D9C900A14A51 /* levelCompleted.swift in Sources */,
@@ -490,6 +488,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Climb/Climb.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Climb/Preview Content\"";
@@ -522,6 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Climb/Climb.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Climb/Preview Content\"";

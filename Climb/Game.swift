@@ -7,9 +7,9 @@
 
 import Foundation
 import SwiftUI
+import GameKit
 
 class Math: ObservableObject{
-    @Published var counter = 0
     @Published var timeRemaining = 15 //this is in seconds naturally
     @Published var isAnswerCorrect = false
     @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -17,17 +17,16 @@ class Math: ObservableObject{
     @Published var score = 0
     @Published var isPaused = false
     @Published var greenButtonCount = 0
-    //@Published var redButtonCount = 0
     var correctAnsArry : [Int] = []
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
     private(set) var secondNum = 0
-    private(set) var difficulty = 40
+    private(set) var difficulty = 30
     var levelnum = 1
-    
+    var leaderboardIdentifier = "climb.Leaderboard"
    
     
-    func answerCorreect(answer:Int) -> Bool{
+    func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
             self.score += 1
             self.timeRemaining += 2
@@ -48,7 +47,7 @@ class Math: ObservableObject{
         }
     }
     
-    func generateAnswers(){
+    func generateAnswers() {
         
         self.firstNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
         self.secondNum = Int.random(in: 0...(difficulty/2),excluding: correctAnsArry)
@@ -86,25 +85,45 @@ class Math: ObservableObject{
         choicearry = answerList
     }
     
-    func newLevel(){
+    func newLevel() {
         correctAnsArry = []
         greenButtonCount = 0
         levelnum += 1
-        difficulty += 60
+        difficulty += 10
         generateAnswers()
     }
-    func retryLevel(){
+    func retryLevel() {
         self.score = 0
         timeRemaining = 15
         generateAnswers()
         correctAnsArry = []
-        difficulty = 40
+        difficulty = 30
         levelnum =  1
         greenButtonCount = 0
     }
+    func authenticateUser() {
+            GKLocalPlayer.local.authenticateHandler = { vc, error in
+                guard error == nil else {
+                    print(error?.localizedDescription ?? "")
+                    return
+                }
+            }
+        }
+            
     
-   
+
     
+    func leaderboard(){
+        Task{
+             try await GKLeaderboard.submitScore(
+                score,
+                context: 0,
+                player: GKLocalPlayer.local,
+                leaderboardIDs: [leaderboardIdentifier]
+            )
+        }
+
+    }
 }
 
 

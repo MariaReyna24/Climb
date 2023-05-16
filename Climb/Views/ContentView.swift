@@ -9,22 +9,22 @@ import Foundation
 import SwiftUI
 struct ContentView: View {
     @ObservedObject var scene: diffViews
-    @StateObject var game = Math()
+    @ObservedObject var game: Math
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack {
-                    Image("climbss")
-                        .resizable()
-                        .ignoresSafeArea()
-                    
+                Image("climbss")
+                    .resizable()
+                    .ignoresSafeArea()
+                
                 VStack {
                     //this is the score
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
-
-                    Group{
+                    
+                    Group {
                         buttonsForAnswers(startIndex: 0, endIndex: 1)
                         buttonsForAnswers(startIndex: 1, endIndex: 3)
                         buttonsForAnswers(startIndex: 3, endIndex: 6)
@@ -40,9 +40,8 @@ struct ContentView: View {
                     //this displays the generated answers on appear.
                 }.onAppear {
                     game.generateAnswers()
-                    heavyHaptic()
-//                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-//                    impactHeavy.impactOccurred()
+                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                    impactHeavy.impactOccurred()
                     
                 }
                 
@@ -62,7 +61,7 @@ struct ContentView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
-                        Button("Pause"){
+                        Button("Pause") {
                             game.timer.upstream.connect().cancel()
                             showingSheet.toggle()
                             
@@ -73,7 +72,7 @@ struct ContentView: View {
                             }
                     }
                     //timer in the right hand corner
-                    ToolbarItem(placement: .navigationBarTrailing){
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         Text("\(game.timeRemaining)s")
                             .font(.system(size: 30))
                             .foregroundColor(.red)
@@ -94,7 +93,7 @@ struct ContentView: View {
                 }
                 
             }
-
+            
             // hides the navigation back button
         }
         
@@ -114,7 +113,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(scene: diffViews())
+        ContentView(scene: diffViews(), game: Math())
         //        ContentView()
         //            .preferredColorScheme(.dark)
         //            .previewDisplayName("dark")

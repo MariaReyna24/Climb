@@ -9,15 +9,16 @@ import SwiftUI
 
 struct NewView: View {
     @ObservedObject var scene = diffViews()
+    @ObservedObject var game: Math
     @State private var showLevelCompleted = false
     var body: some View {
-        switch scene.state{
+        switch scene.state {
         case .mainmenu:
-            MainMenuView(scene: scene)
+            MainMenuView(scene: scene, game: game)
         case .game:
-            ContentView(scene: scene)
+            ContentView(scene: scene, game: game)
         case .leaderboard:
-            LeaderBoardView()
+            LeaderBoardView(scene: scene, game: game)
         case .settings:
             SettingsView(scene: scene)
         }
@@ -30,6 +31,6 @@ struct NewView: View {
 
 struct NewView_Previews: PreviewProvider {
     static var previews: some View {
-        NewView()
+        NewView(game: Math())
     }
 }

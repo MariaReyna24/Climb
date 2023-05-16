@@ -27,7 +27,6 @@ struct End_Game_menu: View {
                         Button(" Retry") {
                             gameRestarted = true
                             game.retryLevel()
-                            heavyHaptic()
                             
                         }
                         .foregroundColor(.white)
@@ -35,9 +34,9 @@ struct End_Game_menu: View {
                         .fontWeight(.bold)
                         .background(.black)
                         
-                        Button("Main Menu"){
+                        Button("Main Menu") {
                             scene.state = .mainmenu
-                            heavyHaptic()
+                            game.leaderboard()
                         }
                         .foregroundColor(.white)
                         .frame(width: 130, height: 50)
@@ -45,7 +44,7 @@ struct End_Game_menu: View {
                         .background(.black)
                         
                     }
-                    }
+                }
                     
                 }
             }

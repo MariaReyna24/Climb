@@ -14,11 +14,11 @@ struct Pause_menu: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var game : Math
     var body: some View {
-            ZStack{
+            ZStack {
                 Image("climbss")
                     .resizable()
                     .ignoresSafeArea()
-                VStack{
+                VStack {
                     Text("Current score: \(game.score)")
                         .font(.largeTitle)
                         .foregroundColor(.red)
@@ -26,16 +26,16 @@ struct Pause_menu: View {
                     Button("Resume") {
                         dismiss()
                         game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-                        heavyHaptic()
                     }
                     .font(.title)
                     .padding()
                     .background(Color("myColor"))
                     .foregroundColor(Color("textColor"))
                     
-                    Button("Main Menu"){
+                    
+                    Button("Main Menu") {
                         scene.state = .mainmenu
-                        heavyHaptic()
+                        game.retryLevel()
                     }
                     .font(.title)
                     .padding()

@@ -8,6 +8,7 @@
 import SwiftUI
 struct MainMenuView: View {
     @ObservedObject var scene: diffViews
+    @ObservedObject var game : Math
     var body: some View {
         ZStack {
             VStack {
@@ -19,33 +20,24 @@ struct MainMenuView: View {
                 
                 Button("New Game") {
                     scene.state = .game
-                    heavyHaptic()
+                    game.retryLevel()
                 }
                 .padding()
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
                 .cornerRadius(10)
                 
-//               Button("Leaderboard") {
-//                    scene.state = .leaderboard
-//                    heavyHaptic()
-//                }
-//                .padding()
-//                .foregroundColor(Color("textColor"))
-//                .background(Color("myColor"))
-//                .cornerRadius(10)
-                
-                Button("Settings"){
-                    scene.state = .settings
-                    heavyHaptic()
+                Button("Leaderboard") {
+                    scene.state = .leaderboard
                 }
                 .padding()
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
                 .cornerRadius(10)
                 
+            }.onAppear {
+                game.authenticateUser()
             }
-            
         }.background(Image("mainMenuBackground")
             .resizable()
             .scaledToFill()
@@ -60,6 +52,6 @@ struct MainMenuView: View {
   
 struct MainMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MainMenuView(scene: diffViews())
+        MainMenuView(scene: diffViews(), game: Math())
     }
 }
