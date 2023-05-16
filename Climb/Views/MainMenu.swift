@@ -35,6 +35,16 @@ struct MainMenuView: View {
                 .background(Color("myColor"))
                 .cornerRadius(10)
                 
+                Button("Settings"){
+                    scene.state = .settings
+                    heavyHaptic()
+                }
+                .padding()
+                .foregroundColor(Color("textColor"))
+                .background(Color("myColor"))
+                .cornerRadius(10)
+            
+            
             }.onAppear {
                 game.authenticateUser()
             }

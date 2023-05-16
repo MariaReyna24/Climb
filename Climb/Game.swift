@@ -28,7 +28,7 @@ class Math: ObservableObject{
     
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
-            self.score += 1
+            self.score += 2
             self.timeRemaining += 2
             self.isAnswerCorrect = true
             correctAnsArry.append(correctAnswer)
