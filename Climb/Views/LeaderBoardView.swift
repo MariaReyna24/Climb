@@ -29,16 +29,35 @@ struct LeaderBoardView: View {
                     .resizable()
                     .ignoresSafeArea()
                 VStack {
-                    ScrollView {
-                        ForEach(playersList, id: \.id) { player in
-                                Text("\(String(player.name)) Score: \(player.score)")
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .foregroundColor(Color("myColor"))
-                                    .font(.system(size: 25))
-                                    .padding()
-                        }
+                    Group{
+                    HStack{
+                        Text("Name")
+                            .frame(width: 100, alignment: .topLeading)
+                        Text("Score")
+                            .frame(width: 110, alignment: .topTrailing)
                     }
-                }
+                        ScrollView {
+                            ForEach(playersList, id: \.id) { player in
+                                HStack{
+                                    Text("\(String(player.name.prefix(12)))")
+                                        .frame(width: 150, alignment: .topLeading)
+                                        .foregroundColor(Color("textColor"))
+                                        .font(.system(size: 24))
+                                        .padding(1)
+                                    Text("\(player.score)")
+                                        .frame(width: 50, alignment: .topTrailing)
+                                        .foregroundColor(Color("textColor"))
+                                        .font(.system(size: 24))
+                                        .padding(1)
+                                }
+                                }
+                        }.background(Rectangle()
+                            .frame(width: 350)
+                            .foregroundColor(Color("myColor"))
+                            .opacity(0.8)
+                        )
+                    }
+                    }
                 .onAppear() {
                     if !GKLocalPlayer.local.isAuthenticated {
                         game.authenticateUser()
@@ -81,7 +100,7 @@ struct LeaderBoardView: View {
                         playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.score))
                         print(playersListTemp)
                         playersListTemp.sort {
-                            $0.score < $1.score
+                            $1.score < $0.score
                         }
                     }
                 }

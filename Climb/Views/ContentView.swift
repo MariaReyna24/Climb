@@ -40,8 +40,7 @@ struct ContentView: View {
                     //this displays the generated answers on appear.
                 }.onAppear {
                     game.generateAnswers()
-                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                    impactHeavy.impactOccurred()
+                   heavyHaptic()
                     
                 }
                 

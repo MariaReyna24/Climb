@@ -64,7 +64,8 @@ class Math: ObservableObject{
         
         //The incorrectRange is defined as a range of numbers from half of the difficulty level to the full difficulty level. This range will be used to generate incorrect answer choices.
         let incorrectRange = (difficulty/2)...(difficulty)
-       // The for loop runs 10 times, each time appending a randomly generated number from the incorrectRange to the answerList array. The numbers are chosen to be different from the correctAnsArry.Z
+        
+       // The for loop runs 10 times, each time appending a randomly generated number from the incorrectRange to the answerList array. The numbers are chosen to be different from the correctAnsArry.
         for _ in 0...9 {
             answerList.append(Int.random(in: incorrectRange, excluding: correctAnsArry))
         }
@@ -115,7 +116,7 @@ class Math: ObservableObject{
             }
         }
             
-    
+   
 
     
     func leaderboard(){
