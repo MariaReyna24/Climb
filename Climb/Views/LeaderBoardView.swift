@@ -41,21 +41,18 @@ struct LeaderBoardView: View {
                                 HStack{
                                     Text("\(String(player.name.prefix(12)))")
                                         .frame(width: 150, alignment: .topLeading)
-                                        .foregroundColor(Color("textColor"))
+                                        .foregroundColor(.black)
                                         .font(.system(size: 24))
                                         .padding(1)
                                     Text("\(player.score)")
                                         .frame(width: 50, alignment: .topTrailing)
-                                        .foregroundColor(Color("textColor"))
+                                        .foregroundColor(.black)
                                         .font(.system(size: 24))
                                         .padding(1)
                                 }
                                 }
-                        }.background(Rectangle()
-                            .frame(width: 350)
-                            .foregroundColor(Color("myColor"))
-                            .opacity(0.8)
-                        )
+                        }
+                        
                     }
                     }
                 .onAppear() {
