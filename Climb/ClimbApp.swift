@@ -11,7 +11,7 @@ import SwiftUI
 struct ClimbApp: App {
     var body: some Scene {
         WindowGroup {
-            NewView(game: Math())
+           NewView(game: Math())
         }
     }
 }

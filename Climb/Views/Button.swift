@@ -7,27 +7,22 @@
 
 import SwiftUI
 import Foundation
-//import AVFoundation
 
 struct ClimbButton: View {
     var num : Int
     @ObservedObject var game : Math
-    //let systemSoundID: SystemSoundID = 1016
     @State private var backgroundColor = Color("myColor")
+    @State private var isDisabled = false
     var body: some View {
         Button {
             let isCorrect = game.answerCorreect(answer: num)
             if isCorrect == true{
                 haptic(.success)
-//                let notificationFeedback = UINotificationFeedbackGenerator()
-//                notificationFeedback.notificationOccurred(.success)
-              //  AudioServicesPlaySystemSound(systemSoundID)
                 backgroundColor = Color.green
+                disableButton()
             }else{
                 backgroundColor = Color.red
                 haptic(.error)
-//                let notificationFeedback = UINotificationFeedbackGenerator()
-//                    notificationFeedback.notificationOccurred(.error)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     backgroundColor = Color("myColor")
                         }
@@ -39,7 +34,6 @@ struct ClimbButton: View {
             }else{
                 game.isAnswerCorrect = false
             }
-//            game.generateAnswers()
             
         } label: {
              Text("\(num)")
@@ -58,7 +52,8 @@ struct ClimbButton: View {
             
                
         }
-        .disabled(game.timeRemaining == 0)
+        
+        .disabled(game.timeRemaining == 0 || isDisabled)
         .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
         .onChange(of: game.timeRemaining) { newTime in
             if newTime == 0{
@@ -69,7 +64,9 @@ struct ClimbButton: View {
            backgroundColor = Color("myColor")
         }
     }
-    
+    func disableButton() {
+           isDisabled = true
+       }
     struct button_Previews: PreviewProvider {
         static var previews: some View {
             ClimbButton(num: 100, game: Math())
