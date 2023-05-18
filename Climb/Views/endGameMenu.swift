@@ -16,37 +16,34 @@ struct End_Game_menu: View {
             // Restart the game
         } else {
             ZStack {
-                VStack(spacing: 0) {
+                VStack() {
                     Text("Game Over!")
                         .foregroundColor(.red)
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 110)
-                        .background(Rectangle().fill(Color.black))
-                    HStack(spacing: 0) {
+                        .padding()
+                    HStack() {
                         Button(" Retry") {
                             gameRestarted = true
                             game.retryLevel()
                             
                         }
                         .foregroundColor(.white)
-                        .frame(width: 70, height: 50)
                         .fontWeight(.bold)
-                        .background(.black)
+                        .padding()
                         
                         Button("Main Menu") {
                             scene.state = .mainmenu
                             game.leaderboard()
                         }
+                        .padding()
                         .foregroundColor(.white)
-                        .frame(width: 130, height: 50)
                         .fontWeight(.bold)
-                        .background(.black)
-                        
                     }
                 }
                     
-                }
+                }.background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
+                .frame(width: 300, height: 300)
             }
         }
     }

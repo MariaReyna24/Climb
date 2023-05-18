@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  LeaderBoard
 //
-//  Created ON 2/14/23.
+//  Created on 2/14/23.
 //
 
 import SwiftUI

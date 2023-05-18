@@ -15,12 +15,12 @@ struct levelCompleted: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
+                
                 Text("Level Completed!")
                     .foregroundColor(.green)
                     .font(.title)
                     .fontWeight(.bold)
-                    .frame(width: 250, height: 110)
-                    .background(Rectangle().fill(Color.black).opacity(0.9))
+                    .padding()
 
                 Button("Continue") {
                     game.newLevel()
@@ -29,22 +29,24 @@ struct levelCompleted: View {
                 }
                 .foregroundColor(.white)
                 .fontWeight(.bold)
-                .frame(width: 250, height: 50)
-                .background(.black)
                 .opacity(0.9)
+             
 
                 Button("Main Menu") {
                     scene.state = .mainmenu
                     game.retryLevel()
                     game.leaderboard()
                 }
+              
                 .foregroundColor(.white)
                 .fontWeight(.bold)
-                .frame(width: 250, height: 50)
-                .background(.black)
                 .opacity(0.9)
+                .padding()
             }
-        }
+        }.background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
+            .frame(width: 300, height: 300)
+            
+            
     }
 }
 
