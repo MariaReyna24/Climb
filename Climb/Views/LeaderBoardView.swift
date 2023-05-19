@@ -22,6 +22,8 @@ struct LeaderBoardView: View {
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State var playersList: [Player] = []
+    @State var leaderboardPlace = 0
+    
     var body: some View {
         NavigationStack{
             ZStack {
@@ -39,22 +41,26 @@ struct LeaderBoardView: View {
                         ScrollView {
                             ForEach(playersList, id: \.id) { player in
                                 HStack{
+                                    
                                     Text("\(String(player.name.prefix(12)))")
                                         .frame(width: 150, alignment: .topLeading)
                                         .foregroundColor(.black)
                                         .font(.system(size: 24))
-                                        .padding(1)
+                                    
                                     Text("\(player.score)")
                                         .frame(width: 50, alignment: .topTrailing)
                                         .foregroundColor(.black)
                                         .font(.system(size: 24))
-                                        .padding(1)
+                                        
                                 }
+                                .padding(1)
+                                Color.black
+
                                 }
                         }
-                        
                     }
-                    }
+                }
+                
                 .onAppear() {
                     if !GKLocalPlayer.local.isAuthenticated {
                         game.authenticateUser()
@@ -82,8 +88,6 @@ struct LeaderBoardView: View {
                     
                 }
         }
-        
-        
     }
     func loadLeaderboard() {
         playersList.removeAll()
