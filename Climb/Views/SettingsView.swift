@@ -7,12 +7,15 @@
 
 
 import SwiftUI
+import AVKit
 
 struct SettingsView: View {
     @ObservedObject var scene: diffViews
     
     @AppStorage(UserDefaultKeys.hapticsEnabled) private var isHapticsEnabled: Bool = true
   
+    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    
     var body: some View {
         NavigationStack {
             ZStack{
@@ -25,7 +28,7 @@ struct SettingsView: View {
                 .foregroundColor(.red)
                 Form {
                     haptics
-                    
+                    sound
                 }
                 .navigationBarTitle("Settings")
             }
@@ -37,6 +40,12 @@ private extension SettingsView {
     var haptics: some View {
         Toggle("Enable Haptics", isOn: $isHapticsEnabled)
     }
+}
+
+private extension SettingsView {
+    var sound: some View {
+        Toggle("Enable Sound", isOn: $isSoundEnabled)
+   }
 }
 
 struct SettingsView_Previews: PreviewProvider {

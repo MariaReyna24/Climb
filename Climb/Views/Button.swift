@@ -11,8 +11,10 @@ import Foundation
 struct ClimbButton: View {
     var num: Int
     @ObservedObject var game: Math
+    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
     @State private var backgroundColor = Color("myColor")
     @State private var isDisabled = false
+    
     
     var body: some View {
         Button {
@@ -20,9 +22,16 @@ struct ClimbButton: View {
             if isCorrect {
                 haptic(.success)
                 backgroundColor = Color.green
+                if isSoundEnabled{
+                    SoundManager.instance.playSound(sound: .chime)
+                }
+                
             } else {
                 backgroundColor = Color.red
                 haptic(.error)
+                if isSoundEnabled{
+                    SoundManager.instance.playSound(sound: .wrong)
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     backgroundColor = Color("myColor")
                 }

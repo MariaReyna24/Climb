@@ -10,6 +10,7 @@ import SwiftUI
 struct End_Game_menu: View {
     @ObservedObject var game : Math
     @ObservedObject var scene: diffViews
+    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
     @State var gameRestarted = false
     var body: some View {
         if gameRestarted {
@@ -22,6 +23,11 @@ struct End_Game_menu: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .padding()
+                        .onAppear{
+                            if isSoundEnabled{
+                                SoundManager.instance.playSound(sound: .fail)
+                            }
+                        }
                     HStack() {
                         Button(" Retry") {
                             gameRestarted = true
