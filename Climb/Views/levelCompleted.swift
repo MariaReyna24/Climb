@@ -11,6 +11,8 @@ struct levelCompleted: View {
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @Environment(\.dismiss) var dismiss
+    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+
 
     var body: some View {
         ZStack {
@@ -21,6 +23,12 @@ struct levelCompleted: View {
                     .font(.title)
                     .fontWeight(.bold)
                     .padding()
+                    .onAppear {
+                        if isSoundEnabled{
+                            SoundManager.instance.playSound(sound: .win)
+                        }
+                    }
+
 
                 Button("Continue") {
                     game.newLevel()
