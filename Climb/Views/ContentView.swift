@@ -19,10 +19,11 @@ struct ContentView: View {
                     .resizable()
                     .ignoresSafeArea()
                 
-                VStack {
+                VStack() {
                     //this is the score
                     Text("Score: \(game.score)")
                         .font(.largeTitle)
+                        
                     
                     Group {
                         buttonsForAnswers(startIndex: 0, endIndex: 1)
@@ -33,7 +34,8 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                     }
-                    .offset(y: 165)
+                   // .padding()
+                    .offset(y: 75)
                     //this is the equation being displayed on screen
                     Spacer()
                     

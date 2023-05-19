@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GameKit
+//import GameKit
 
 struct MainMenuView: View {
     @ObservedObject var scene: diffViews
@@ -14,12 +14,15 @@ struct MainMenuView: View {
     @State var isAuth = false
     var body: some View {
         ZStack {
+            Image("climbss")
+                .resizable()
+                .ignoresSafeArea()
             VStack {
                 Image("logo")
                     .resizable()
                     .frame(width: 200, height: 150)
                     .shadow(color: .black, radius: 10)
-                    .offset(y: -150)
+                    .offset(y: -100)
                 
                 Button("New Game") {
                     scene.state = .game
@@ -51,16 +54,11 @@ struct MainMenuView: View {
                 .cornerRadius(10)
                
                 
-            }.onAppear {
-                    game.authenticateUser()
+//            }.onAppear {
+//                    game.authenticateUser()
    
                }
-            }.background(Image("mainMenuBackground")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-                .frame(width: 393, height: 918))
-            .background(Color("myColor"))
+            }
             
         }
         
