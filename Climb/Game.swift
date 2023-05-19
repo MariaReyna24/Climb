@@ -10,6 +10,7 @@ import SwiftUI
 import GameKit
 
 class Math: ObservableObject{
+    @Published var backgroundColor = Color("myColor")
     @Published var timeRemaining = 15 //this is in seconds naturally
     @Published var isAnswerCorrect = false
     @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()

@@ -19,10 +19,10 @@ struct ContentView: View {
                     .resizable()
                     .ignoresSafeArea()
                 
-                VStack {
+                VStack() {
                     //this is the score
-                    Text("Score: \(game.score)")
-                        .font(.largeTitle)
+                        Text("Score: \(game.score)")
+                            .font(.largeTitle)
                     
                     Group {
                         buttonsForAnswers(startIndex: 0, endIndex: 1)
@@ -33,11 +33,9 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                     }
-                    .offset(y: 165)
-                    //this is the equation being displayed on screen
+                    .offset(y: 75)
                     Spacer()
                     
-                    //this displays the generated answers on appear.
                 }.onAppear {
                     game.generateAnswers()
                    heavyHaptic()

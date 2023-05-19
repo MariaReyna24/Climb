@@ -15,16 +15,20 @@ struct SettingsView: View {
   
     var body: some View {
         NavigationStack {
-            Button("Back"){
-                scene.state = .mainmenu
-                heavyHaptic()
+            ZStack{
+                
+                Button("Back"){
+                    scene.state = .mainmenu
+                    heavyHaptic()
+                }
+                .font(.title2)
+                .foregroundColor(.red)
+                Form {
+                    haptics
+                    
+                }
+                .navigationBarTitle("Settings")
             }
-            .font(.title2)
-            .foregroundColor(.red)
-            Form {
-                haptics
-            }
-            .navigationBarTitle("Settings")
         }
     }
 }
