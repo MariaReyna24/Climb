@@ -72,6 +72,7 @@ struct ContentView: View {
                         Button("Pause") {
                             game.timer.upstream.connect().cancel()
                             showingSheet.toggle()
+                            heavyHaptic()
                             
                         }.font(.custom("RoundsBlack", size: 20))
                             .foregroundColor(.black)

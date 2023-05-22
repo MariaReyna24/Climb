@@ -36,39 +36,40 @@ struct LeaderBoardView: View {
                         .foregroundColor(.white)
                         .padding()
                         
-                    Group{
-                    HStack{
+                    HStack(spacing: 128){
                         Text("Name")
-                            .frame(width: 100, alignment: .leading)
+                            .frame(width: 75, alignment: .leading)
+                            .font(.custom("RoundsBlack", size: 20))
+                            .foregroundColor(.white)
+                        
+                        Text("Score")
+                            .frame(width: 75, alignment: .center)
                             .font(.custom("RoundsBlack", size: 20))
                             .foregroundColor(.white)
                             
-                         
-                        Text("Score")
-                            .frame(width: 110, alignment: .trailing)
-                            .font(.custom("RoundsBlack", size: 20))
-                            .foregroundColor(.white)
                     }
+                   Divider()
+                        .frame(height:10)
+                        .overlay(.black)
                         ScrollView {
                             ForEach(playersList, id: \.id) { player in
-                                HStack{
+                                HStack(spacing: 76){
                                     
                                     Text("\(String(player.name.prefix(12)))")
-                                        .frame(width: 200, alignment: .topLeading)
-                                        .foregroundColor(.black)
+                                        .frame(width: 155, alignment: .leading)
+                                        .foregroundColor(.white)
                                         .font(.custom("RoundsBlack", size: 18))
-                                    
+                
                                     Text("\(player.score)")
-                                        .frame(width: 50, alignment: .trailing)
-                                        .foregroundColor(.black)
+                                        .frame(width: 50, alignment: .leading)
+                                        .foregroundColor(.white)
                                         .font(.custom("RoundsBlack", size: 24))
                                         
                                 }
                                 .padding(1)
                                 Color.black
 
-                                }
-                        }
+                           }
                     }
                 }
                 
@@ -89,6 +90,7 @@ struct LeaderBoardView: View {
                     ToolbarItem(placement: .navigationBarLeading){
                         Button {
                             scene.state = .mainmenu
+                            heavyHaptic()
                         }label: {
                             Label("Back", systemImage: "chevron.backward")
                         }

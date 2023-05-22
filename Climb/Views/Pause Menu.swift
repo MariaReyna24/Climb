@@ -27,7 +27,7 @@ struct Pause_menu: View {
                     Button("Resume") {
                         dismiss()
                         game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-        
+                        heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 25))
                     .padding()
@@ -39,6 +39,8 @@ struct Pause_menu: View {
                     Button("Main Menu") {
                         scene.state = .mainmenu
                         game.retryLevel()
+                        game.leaderboard()
+                        heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 25))
                     .padding()
