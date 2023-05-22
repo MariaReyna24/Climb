@@ -45,7 +45,7 @@ struct ClimbButton: View {
         } label: {
             Text("\(num)")
                 .frame(width: 88, height: 75)
-                .font(.system(size: 27, weight: .bold))
+                .font(.custom("RoundsBlack", size: 27))
                 .foregroundColor(Color("textColor"))
                 .background(
                     RoundedRectangle(cornerRadius: 40)

@@ -21,7 +21,7 @@ struct MainMenuView: View {
                 Image("logo")
                     .resizable()
                     .frame(width: 200, height: 150)
-                    .shadow(color: .black, radius: 10)
+                    .shadow(color: .black, radius: 20)
                     .offset(y: -100)
                 
                 Button("New Game") {
@@ -30,33 +30,35 @@ struct MainMenuView: View {
                     heavyHaptic()
                 }
                 .padding()
+                .font(.custom("RoundsBlack", size: 20))
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
-                .cornerRadius(10)
+                .cornerRadius(20)
                 
                 
                 Button("Settings"){
                     scene.state = .settings
                     heavyHaptic()
                 }
+                .font(.custom("RoundsBlack", size: 20))
                 .padding()
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
-                .cornerRadius(10)
+                .cornerRadius(20)
                 
                 Button("Leaderboard") {
                     scene.state = .leaderboard
                         heavyHaptic()
                 }
+                .font(.custom("RoundsBlack", size: 20))
                 .padding()
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
-                .cornerRadius(10)
+                .cornerRadius(20)
                
                 
-//            }.onAppear {
-//                    game.authenticateUser()
-   
+            }.onAppear {
+                    game.authenticateUser()
                }
             }
             

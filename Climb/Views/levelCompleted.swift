@@ -17,10 +17,9 @@ struct levelCompleted: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                
                 Text("Level Completed!")
+                    .font(.custom("RoundsBlack", size: 25))
                     .foregroundColor(.green)
-                    .font(.title)
                     .fontWeight(.bold)
                     .padding()
                     .onAppear {
@@ -28,7 +27,6 @@ struct levelCompleted: View {
                             SoundManager.instance.playSound(sound: .win)
                         }
                     }
-
 
                 Button("Continue") {
                     game.newLevel()
@@ -38,8 +36,8 @@ struct levelCompleted: View {
                 .foregroundColor(.white)
                 .fontWeight(.bold)
                 .opacity(0.9)
-             
-
+                .font(.custom("RoundsBlack", size: 25))
+            
                 Button("Main Menu") {
                     scene.state = .mainmenu
                     game.retryLevel()
@@ -50,10 +48,10 @@ struct levelCompleted: View {
                 .fontWeight(.bold)
                 .opacity(0.9)
                 .padding()
+                .font(.custom("RoundsBlack", size: 25))
             }
         }.background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
             .frame(width: 300, height: 300)
-            .background(.black)
             
             
     }

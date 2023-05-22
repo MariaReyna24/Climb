@@ -20,28 +20,31 @@ struct Pause_menu: View {
                     .ignoresSafeArea()
                 VStack {
                     Text("Current score: \(game.score)")
-                        .font(.largeTitle)
+                        .font(.custom("RoundsBlack", size: 25))
                         .foregroundColor(.red)
                         .fontWeight(.bold)
+                        
                     Button("Resume") {
                         dismiss()
                         game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
         
                     }
-                    .font(.title)
+                    .font(.custom("RoundsBlack", size: 25))
                     .padding()
                     .background(Color("myColor"))
                     .foregroundColor(Color("textColor"))
+                    .cornerRadius(20)
                     
                     
                     Button("Main Menu") {
                         scene.state = .mainmenu
                         game.retryLevel()
                     }
-                    .font(.title)
+                    .font(.custom("RoundsBlack", size: 25))
                     .padding()
                     .background(Color("myColor"))
                     .foregroundColor(Color("textColor"))
+                    .cornerRadius(20)
                     
                     
                 }
