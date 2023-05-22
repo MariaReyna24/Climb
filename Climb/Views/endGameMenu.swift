@@ -29,10 +29,10 @@ struct End_Game_menu: View {
                             }
                         }
                     HStack() {
-                        Button(" Retry") {
+                        Button("Retry") {
                             gameRestarted = true
                             game.retryLevel()
-                            
+                            heavyHaptic()
                         }
                         .foregroundColor(.white)
                         .fontWeight(.bold)
@@ -42,6 +42,7 @@ struct End_Game_menu: View {
                         Button("Main Menu") {
                             scene.state = .mainmenu
                             game.leaderboard()
+                            heavyHaptic()
                         }
                         .font(.custom("RoundsBlack", size: 20))
                         .padding()

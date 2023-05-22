@@ -32,6 +32,7 @@ struct levelCompleted: View {
                     game.newLevel()
                     dismiss()
                     game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                    heavyHaptic()
                 }
                 .foregroundColor(.white)
                 .fontWeight(.bold)
@@ -42,6 +43,7 @@ struct levelCompleted: View {
                     scene.state = .mainmenu
                     game.retryLevel()
                     game.leaderboard()
+                    heavyHaptic()
                 }
               
                 .foregroundColor(.white)
