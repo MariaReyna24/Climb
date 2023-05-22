@@ -52,13 +52,13 @@ struct ClimbButton: View {
                         .fill(backgroundColor)
                         .overlay(
                             RoundedRectangle(cornerRadius: 40)
-                                .stroke(Color.white, lineWidth: 2)
+                                .stroke(Color.black, lineWidth: 2)
                                 .shadow(color: .black, radius: 1, x: 2, y: 2)
                         )
                         .padding(4) // Add padding for the bevel effect
                         .clipShape(RoundedRectangle(cornerRadius: 40))
                 )
-                .shadow(color: .gray, radius: 12)
+                .shadow(color: .gray, radius: 40)
                 .controlSize(.large)
         }
         .disabled(game.timeRemaining == 0 || isDisabled)

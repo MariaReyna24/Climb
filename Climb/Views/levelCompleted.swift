@@ -52,6 +52,7 @@ struct levelCompleted: View {
             }
         }.background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
             .frame(width: 300, height: 300)
+            .foregroundColor(.black)
             
             
     }

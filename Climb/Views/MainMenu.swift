@@ -33,7 +33,7 @@ struct MainMenuView: View {
                 .font(.custom("RoundsBlack", size: 20))
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
-                .cornerRadius(20)
+                .cornerRadius(40)
                 
                 
                 Button("Settings"){
@@ -44,7 +44,7 @@ struct MainMenuView: View {
                 .padding()
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
-                .cornerRadius(20)
+                .cornerRadius(40)
                 
                 Button("Leaderboard") {
                     scene.state = .leaderboard
@@ -54,7 +54,7 @@ struct MainMenuView: View {
                 .padding()
                 .foregroundColor(Color("textColor"))
                 .background(Color("myColor"))
-                .cornerRadius(20)
+                .cornerRadius(40)
                
                 
             }.onAppear {

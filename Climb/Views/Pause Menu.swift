@@ -21,7 +21,7 @@ struct Pause_menu: View {
                 VStack {
                     Text("Current score: \(game.score)")
                         .font(.custom("RoundsBlack", size: 25))
-                        .foregroundColor(.red)
+                        .foregroundColor(.white)
                         .fontWeight(.bold)
                         
                     Button("Resume") {
@@ -33,7 +33,7 @@ struct Pause_menu: View {
                     .padding()
                     .background(Color("myColor"))
                     .foregroundColor(Color("textColor"))
-                    .cornerRadius(20)
+                    .cornerRadius(40)
                     
                     
                     Button("Main Menu") {
@@ -44,7 +44,7 @@ struct Pause_menu: View {
                     .padding()
                     .background(Color("myColor"))
                     .foregroundColor(Color("textColor"))
-                    .cornerRadius(20)
+                    .cornerRadius(40)
                     
                     
                 }
