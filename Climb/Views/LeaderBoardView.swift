@@ -39,11 +39,13 @@ struct LeaderBoardView: View {
                     Group{
                     HStack{
                         Text("Name")
-                            .frame(width: 100, alignment: .topLeading)
+                            .frame(width: 100, alignment: .leading)
                             .font(.custom("RoundsBlack", size: 20))
                             .foregroundColor(.white)
+                            
+                         
                         Text("Score")
-                            .frame(width: 110, alignment: .topTrailing)
+                            .frame(width: 110, alignment: .trailing)
                             .font(.custom("RoundsBlack", size: 20))
                             .foregroundColor(.white)
                     }
@@ -57,7 +59,7 @@ struct LeaderBoardView: View {
                                         .font(.custom("RoundsBlack", size: 18))
                                     
                                     Text("\(player.score)")
-                                        .frame(width: 50, alignment: .topTrailing)
+                                        .frame(width: 50, alignment: .trailing)
                                         .foregroundColor(.black)
                                         .font(.custom("RoundsBlack", size: 24))
                                         
