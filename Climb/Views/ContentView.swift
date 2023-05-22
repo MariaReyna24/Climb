@@ -67,14 +67,14 @@ struct ContentView: View {
 //                .navigationBarTitle("Level \(game.levelnum)", displayMode: .inline)
 //                           .font(Font.custom("RoundsBlack", size: 25))
 
-                .toolbar{
-                    ToolbarItem(placement: .navigationBarLeading){
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
                         Button("Pause") {
                             game.timer.upstream.connect().cancel()
                             showingSheet.toggle()
                             
                         }.font(.custom("RoundsBlack", size: 20))
-                            .foregroundColor(.red)
+                            .foregroundColor(.black)
                             .fullScreenCover(isPresented: $showingSheet) {
                                 Pause_menu(scene: scene, game: game)
                             }
@@ -83,8 +83,9 @@ struct ContentView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Text("\(game.timeRemaining)s")
                             .font(.custom("RoundsBlack", size: 30))
-                            .foregroundColor(.red)
+                            .foregroundColor(.black)
                             .fontWeight(.bold)
+                            
                     }
                 }
                 //shows end game menu when time runs out
@@ -99,10 +100,7 @@ struct ContentView: View {
                 if game.greenButtonCount == 10 {
                     levelCompleted(scene: scene, game: game)
                 }
-                
             }
-            
-            // hides the navigation back button
         }
         
     }
