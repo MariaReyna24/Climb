@@ -20,7 +20,7 @@ struct End_Game_menu: View {
                 VStack() {
                     Text("Game Over!")
                         .foregroundColor(.red)
-                        .font(.largeTitle)
+                        .font(.custom("RoundsBlack", size: 40))
                         .fontWeight(.bold)
                         .padding()
                         .onAppear{
@@ -37,11 +37,13 @@ struct End_Game_menu: View {
                         .foregroundColor(.white)
                         .fontWeight(.bold)
                         .padding()
+                        .font(.custom("RoundsBlack", size: 20))
                         
                         Button("Main Menu") {
                             scene.state = .mainmenu
                             game.leaderboard()
                         }
+                        .font(.custom("RoundsBlack", size: 20))
                         .padding()
                         .foregroundColor(.white)
                         .fontWeight(.bold)

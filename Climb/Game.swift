@@ -11,7 +11,7 @@ import GameKit
 
 class Math: ObservableObject{
     @Published var backgroundColor = Color("myColor")
-    @Published var timeRemaining = 15 //this is in seconds naturally
+    @Published var timeRemaining = 20 //this is in seconds naturally
     @Published var isAnswerCorrect = false
     @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published var choicearry : [Int] = [0,1,2,3,4,5,6,7,8,9]
@@ -54,21 +54,26 @@ class Math: ObservableObject{
         var answerList = [Int]()
         correctAnswer = self.firstNum + self.secondNum
         
-        //This while loop ensures that the generated correctAnswer is not already present in the choicearry or correctAnsArry arrays. It continues generating new random numbers for firstNum and secondNum until a unique correctAnswer is obtained.
+        // This while loop ensures that the generated correctAnswer is not already present in the choicearry or correctAnsArry arrays. It continues generating new random numbers for firstNum and secondNum until a unique correctAnswer is obtained.
         while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
             self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
             self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
             correctAnswer = self.firstNum + self.secondNum
         }
+        
         // Once we get a correctAnswer, it is appended to the correctAnsArry array
         correctAnsArry.append(correctAnswer)
         
-        //The incorrectRange is defined as a range of numbers from half of the difficulty level to the full difficulty level. This range will be used to generate incorrect answer choices.
+        // The incorrectRange is defined as a range of numbers from half of the difficulty level to the full difficulty level. This range will be used to generate incorrect answer choices.
         let incorrectRange = (difficulty/2)...(difficulty)
         
-       // The for loop runs 10 times, each time appending a randomly generated number from the incorrectRange to the answerList array. The numbers are chosen to be different from the correctAnsArry.
+        // The for loop runs 10 times, each time appending a randomly generated number from the incorrectRange to the answerList array. The numbers are chosen to be different from the correctAnsArry.
         for _ in 0...9 {
-            answerList.append(Int.random(in: incorrectRange, excluding: correctAnsArry))
+            var randomIncorrectAnswer: Int
+            repeat {
+                randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
+            } while answerList.contains(randomIncorrectAnswer)
+            answerList.append(randomIncorrectAnswer)
         }
         
         // create an array that holds all of the indexes for not correct answers
@@ -88,6 +93,7 @@ class Math: ObservableObject{
             // set the new correct answer at that index
             answerList[randomIndex] = correctAnswer
         }
+        
         choicearry = answerList
     }
 

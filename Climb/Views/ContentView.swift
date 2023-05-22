@@ -7,12 +7,16 @@
 
 import Foundation
 import SwiftUI
+
 struct ContentView: View {
+   
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
+    
     var body: some View {
+        
         NavigationStack {
             ZStack {
                 Image("climbss")
@@ -21,8 +25,14 @@ struct ContentView: View {
                 
                 VStack() {
                     //this is the score
+                    Text("Level \(game.levelnum)")
+                        
+                        .frame(alignment: .top)
+                        .font(.custom("RoundsBlack", size: 15))
+                        .padding()
                         Text("Score: \(game.score)")
-                            .font(.largeTitle)
+                        .font(.custom("RoundsBlack", size: 25))
+                       
                     
                     Group {
                         buttonsForAnswers(startIndex: 0, endIndex: 1)
@@ -30,8 +40,8 @@ struct ContentView: View {
                         buttonsForAnswers(startIndex: 3, endIndex: 6)
                         buttonsForAnswers(startIndex: 6, endIndex: 10)
                         Text("\(game.firstNum) + \(game.secondNum)")
-                            .font(.largeTitle)
                             .fontWeight(.bold)
+                            .font(.custom("RoundsBlack", size: 40))
                     }
                     .offset(y: 75)
                     Spacer()
@@ -54,15 +64,16 @@ struct ContentView: View {
                 }
                 
                 //the display for the top part of the app
-                .navigationTitle("Level \(game.levelnum)")
-                .navigationBarTitleDisplayMode(.inline)
+//                .navigationBarTitle("Level \(game.levelnum)", displayMode: .inline)
+//                           .font(Font.custom("RoundsBlack", size: 25))
+
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading){
                         Button("Pause") {
                             game.timer.upstream.connect().cancel()
                             showingSheet.toggle()
                             
-                        }.font(.title2)
+                        }.font(.custom("RoundsBlack", size: 20))
                             .foregroundColor(.red)
                             .fullScreenCover(isPresented: $showingSheet) {
                                 Pause_menu(scene: scene, game: game)
@@ -71,7 +82,7 @@ struct ContentView: View {
                     //timer in the right hand corner
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Text("\(game.timeRemaining)s")
-                            .font(.system(size: 30))
+                            .font(.custom("RoundsBlack", size: 30))
                             .foregroundColor(.red)
                             .fontWeight(.bold)
                     }

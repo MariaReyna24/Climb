@@ -30,6 +30,7 @@
 		A21035002A0D326C00B4A200 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21034FF2A0D326C00B4A200 /* SettingsView.swift */; };
 		A21035022A0D32EF00B4A200 /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21035012A0D32EF00B4A200 /* UserDefaultKeys.swift */; };
 		A21035042A0D330D00B4A200 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21035032A0D330D00B4A200 /* HapticsManager.swift */; };
+		A22B34262A17EEB100B06AAD /* RoundsBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = A22B34252A17EEB100B06AAD /* RoundsBlack.otf */; };
 		A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C53298AA90100CEB479 /* ClimbApp.swift */; };
 		A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C55298AA90100CEB479 /* ContentView.swift */; };
 		A2C65C58298AA90200CEB479 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2C65C57298AA90200CEB479 /* Assets.xcassets */; };
@@ -75,6 +76,8 @@
 		A21035012A0D32EF00B4A200 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		A21035032A0D330D00B4A200 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		A21035082A13EF3E00B4A200 /* Climb.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Climb.entitlements; sourceTree = "<group>"; };
+		A22B34252A17EEB100B06AAD /* RoundsBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RoundsBlack.otf; sourceTree = "<group>"; };
+		A22B34272A17EF5C00B06AAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A2C65C50298AA90100CEB479 /* Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C65C53298AA90100CEB479 /* ClimbApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbApp.swift; sourceTree = "<group>"; };
 		A2C65C55298AA90100CEB479 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -182,7 +185,9 @@
 		A2C65C52298AA90100CEB479 /* Climb */ = {
 			isa = PBXGroup;
 			children = (
+				A22B34272A17EF5C00B06AAD /* Info.plist */,
 				A21035082A13EF3E00B4A200 /* Climb.entitlements */,
+				A22B34252A17EEB100B06AAD /* RoundsBlack.otf */,
 				A2C65C53298AA90100CEB479 /* ClimbApp.swift */,
 				A207E9962994062100CBBBEE /* Game.swift */,
 				15F4C2C22A17CD1300D87EB1 /* Sounds */,
@@ -330,6 +335,7 @@
 				A2C65C5B298AA90200CEB479 /* Preview Assets.xcassets in Resources */,
 				A2C65C58298AA90200CEB479 /* Assets.xcassets in Resources */,
 				15F4C2CA2A17CD6C00D87EB1 /* win.mp3 in Resources */,
+				A22B34262A17EEB100B06AAD /* RoundsBlack.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +545,8 @@
 				DEVELOPMENT_TEAM = 895F6NWJ4A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Climb/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -572,11 +580,13 @@
 				DEVELOPMENT_TEAM = 895F6NWJ4A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Climb/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

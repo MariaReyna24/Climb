@@ -31,26 +31,35 @@ struct LeaderBoardView: View {
                     .resizable()
                     .ignoresSafeArea()
                 VStack {
+                    Text("Leaderboard")
+                        .font(.custom("RoundsBlack", size: 30))
+                        .foregroundColor(.white)
+                        .padding()
+                        
                     Group{
                     HStack{
                         Text("Name")
                             .frame(width: 100, alignment: .topLeading)
+                            .font(.custom("RoundsBlack", size: 20))
+                            .foregroundColor(.white)
                         Text("Score")
                             .frame(width: 110, alignment: .topTrailing)
+                            .font(.custom("RoundsBlack", size: 20))
+                            .foregroundColor(.white)
                     }
                         ScrollView {
                             ForEach(playersList, id: \.id) { player in
                                 HStack{
                                     
                                     Text("\(String(player.name.prefix(12)))")
-                                        .frame(width: 150, alignment: .topLeading)
+                                        .frame(width: 200, alignment: .topLeading)
                                         .foregroundColor(.black)
-                                        .font(.system(size: 24))
+                                        .font(.custom("RoundsBlack", size: 18))
                                     
                                     Text("\(player.score)")
                                         .frame(width: 50, alignment: .topTrailing)
                                         .foregroundColor(.black)
-                                        .font(.system(size: 24))
+                                        .font(.custom("RoundsBlack", size: 24))
                                         
                                 }
                                 .padding(1)
@@ -71,7 +80,7 @@ struct LeaderBoardView: View {
                     }
                 }
                 
-            }.navigationTitle("Leaderboard")
+            }
             
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar{
