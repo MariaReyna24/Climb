@@ -9,31 +9,26 @@ import Foundation
 import SwiftUI
 
 struct ContentView: View {
-   
+
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
-    
+
     var body: some View {
-        
+
         NavigationStack {
             ZStack {
                 Image("climbss")
                     .resizable()
                     .ignoresSafeArea()
-                
+
                 VStack() {
-                    //this is the score
-                    Text("Level \(game.levelnum)")
-                        
-                        .frame(alignment: .top)
-                        .font(.custom("RoundsBlack", size: 15))
-                        .padding()
-                        Text("Score: \(game.score)")
+                    // Score title
+                    Text("Score: \(game.score)")
                         .font(.custom("RoundsBlack", size: 25))
-                       
-                    
+                        .padding(37) // Adjusted padding to push it closer to the buttons
+
                     Group {
                         buttonsForAnswers(startIndex: 0, endIndex: 1)
                         buttonsForAnswers(startIndex: 1, endIndex: 3)
@@ -43,29 +38,22 @@ struct ContentView: View {
                             .fontWeight(.bold)
                             .font(.custom("RoundsBlack", size: 40))
                     }
-                    .offset(y: 75)
+                    .offset(y: 0)
                     Spacer()
-                    
-                }.onAppear {
+
+                }
+                .onAppear {
                     game.generateAnswers()
-                   heavyHaptic()
-                    
+                    heavyHaptic()
+
                 }
+
+                // Timer logic
+
+                // Display for the top part of the app
                 
-                //this is for the timer of the app and where it stops the countdown from going past zero
-                .onReceive(game.timer) {time in
-                    if !game.isPaused && game.timeRemaining > 0 {
-                        game.timeRemaining -= 1
-                    }
-                    //this logic helps stop the timer when the level is complete
-                    if game.greenButtonCount == 10 {
-                        game.timer.upstream.connect().cancel()
-                    }
-                }
-                
-                //the display for the top part of the app
-//                .navigationBarTitle("Level \(game.levelnum)", displayMode: .inline)
-//                           .font(Font.custom("RoundsBlack", size: 25))
+                .navigationBarTitle("Level \(game.levelnum)", displayMode: .inline)
+                .font(Font.custom("RoundsBlack", size: 30)) // Increased font size for the level title
 
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -73,45 +61,51 @@ struct ContentView: View {
                             game.timer.upstream.connect().cancel()
                             showingSheet.toggle()
                             heavyHaptic()
-                            
-                        }.font(.custom("RoundsBlack", size: 20))
-                            .foregroundColor(.black)
-                            .fullScreenCover(isPresented: $showingSheet) {
-                                Pause_menu(scene: scene, game: game)
-                            }
+
+                        }
+                        .font(.custom("RoundsBlack", size: 20))
+                        .foregroundColor(Color("myColor"))
+                        .fullScreenCover(isPresented: $showingSheet) {
+                            Pause_menu(scene: scene, game: game)
+                        }
                     }
-                    //timer in the right hand corner
+
+                    // Timer in the right-hand corner
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Text("\(game.timeRemaining)s")
                             .font(.custom("RoundsBlack", size: 30))
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("myColor"))
                             .fontWeight(.bold)
-                            
+
                     }
                 }
-                //shows end game menu when time runs out
+
+                // End game menu when time runs out
                 if game.timeRemaining == 0 {
                     End_Game_menu(game: game, scene: scene)
                 }
-                //code for the pause menu
+
+                // Code for the pause menu
                 if game.isPaused == true {
                     Pause_menu(scene: scene, game: game)
                 }
-                //This logic handles the level completing action
+
+                // Logic for completing a level
                 if game.greenButtonCount == 10 {
                     levelCompleted(scene: scene, game: game)
                 }
             }
         }
-        
+
     }
-    //func for layout for our buttons
+
+    // Function for layout for our buttons
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
         HStack {
             ForEach(startIndex..<endIndex, id: \.self) { index in
                 if index < game.choicearry.count {
-                    ClimbButton(num:game.choicearry[index], game: game)
-                    
+                    ClimbButton(num: game.choicearry[index], game: game)
+
                 }
             }
         }
@@ -121,11 +115,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(scene: diffViews(), game: Math())
-        //        ContentView()
-        //            .preferredColorScheme(.dark)
-        //            .previewDisplayName("dark")
-        //        ContentView()
-        //            .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (4th generation)"))
     }
 }
-

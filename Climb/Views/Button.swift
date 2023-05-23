@@ -48,19 +48,22 @@ struct ClimbButton: View {
                 .font(.custom("RoundsBlack", size: 27))
                 .foregroundColor(Color("textColor"))
                 .background(
-                    RoundedRectangle(cornerRadius: 40)
+                    RoundedRectangle(cornerRadius: 35)
                         .fill(backgroundColor)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 40)
-                                .stroke(Color.black, lineWidth: 2)
-                                .shadow(color: .black, radius: 1, x: 2, y: 2)
+                            RoundedRectangle(cornerRadius: 35)
+                                .stroke(Color("WhiteDM"), lineWidth: 5) // Added white outline
+                                .shadow(color: .black, radius: 5, x: 0, y: 0)
                         )
-                        .padding(4) // Add padding for the bevel effect
-                        .clipShape(RoundedRectangle(cornerRadius: 40))
+                        .padding(4)
+                        .clipShape(RoundedRectangle(cornerRadius: 50)) // Aligned clip shape correctly
                 )
-                .shadow(color: .gray, radius: 40)
+                .shadow(color: .gray, radius: 10, x: 0, y: 2) // Added shadow behind the button
+                .padding(0.5)
                 .controlSize(.large)
         }
+
+
         .disabled(game.timeRemaining == 0 || isDisabled)
         .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
         .onChange(of: game.timeRemaining) { newTime in

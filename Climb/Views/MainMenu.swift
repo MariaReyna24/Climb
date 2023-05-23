@@ -86,7 +86,7 @@ struct MainMenuView: View {
                         scene.state = .leaderboard
                         heavyHaptic()
                     }
-                    .font(.custom("RoundsBlack", size: 21))
+                    .font(.custom("RoundsBlack", size: 20))
                     .foregroundColor(.white)
                     .frame(width: 200, height: 60) // Adjusted width
                     .background(
