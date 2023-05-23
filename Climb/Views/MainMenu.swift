@@ -34,19 +34,13 @@ struct MainMenuView: View {
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 23))
-                    .foregroundColor(.white)
-                    .frame(width: 200, height: 60)
-                    .background(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.black, Color.gray]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
+                    .foregroundColor(Color("textColor"))                    .frame(width: 200, height: 60)
+                    .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color.white, lineWidth: 6) // Thicker outline
+                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
+                        
                     )
                     .shadow(
                         color: Color.black.opacity(0.5),
@@ -61,19 +55,13 @@ struct MainMenuView: View {
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 25))
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("textColor"))
                     .frame(width: 200, height: 60) // Adjusted width
-                    .background(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.black, Color.gray]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
+                    .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color.white, lineWidth: 6) // Thicker outline
+                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
                     )
                     .shadow(
                         color: Color.black.opacity(0.5),
@@ -87,19 +75,13 @@ struct MainMenuView: View {
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 20))
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("textColor"))
                     .frame(width: 200, height: 60) // Adjusted width
-                    .background(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.black, Color.gray]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
+                    .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color.white, lineWidth: 6) // Thicker outline
+                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
                     )
                     .shadow(
                         color: Color.black.opacity(0.5),
