@@ -24,38 +24,90 @@ struct MainMenuView: View {
                     .shadow(color: .black, radius: 20)
                     .offset(y: -100)
                 
-                Button("New Game") {
-                    scene.state = .game
-                    game.retryLevel()
-                    heavyHaptic()
-                }
-                .padding()
-                .font(.custom("RoundsBlack", size: 20))
-                .foregroundColor(Color("textColor"))
-                .background(Color("myColor"))
-                .cornerRadius(40)
-                
-                
-                Button("Settings"){
-                    scene.state = .settings
-                    heavyHaptic()
-                }
-                .font(.custom("RoundsBlack", size: 20))
-                .padding()
-                .foregroundColor(Color("textColor"))
-                .background(Color("myColor"))
-                .cornerRadius(40)
-                
-                Button("Leaderboard") {
-                    scene.state = .leaderboard
+                VStack (spacing: 20) {
+                    
+                    
+                    
+                    Button("New Game") {
+                        scene.state = .game
+                        game.retryLevel()
                         heavyHaptic()
+                    }
+                    .font(.custom("RoundsBlack", size: 23))
+                    .foregroundColor(.white)
+                    .frame(width: 200, height: 60)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.black, Color.gray]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .cornerRadius(25)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color.white, lineWidth: 6) // Thicker outline
+                    )
+                    .shadow(
+                        color: Color.black.opacity(0.5),
+                        radius: 6,
+                        x: 0,
+                        y: 0
+                    )
+                    
+                    Button("setting") {
+                        scene.state = .game
+                        game.retryLevel()
+                        heavyHaptic()
+                    }
+                    .font(.custom("RoundsBlack", size: 25))
+                    .foregroundColor(.white)
+                    .frame(width: 200, height: 60) // Adjusted width
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.black, Color.gray]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .cornerRadius(25)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color.white, lineWidth: 6) // Thicker outline
+                    )
+                    .shadow(
+                        color: Color.black.opacity(0.5),
+                        radius: 6,
+                        x: 0,
+                        y: 0
+                    )
+                    
+                    Button("Leaderboard") {
+                        scene.state = .leaderboard
+                        heavyHaptic()
+                    }
+                    .font(.custom("RoundsBlack", size: 21))
+                    .foregroundColor(.white)
+                    .frame(width: 200, height: 60) // Adjusted width
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.black, Color.gray]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .cornerRadius(25)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color.white, lineWidth: 6) // Thicker outline
+                    )
+                    .shadow(
+                        color: Color.black.opacity(0.5),
+                        radius: 6,
+                        x: 0,
+                        y: 0
+                    )
                 }
-                .font(.custom("RoundsBlack", size: 20))
-                .padding()
-                .foregroundColor(Color("textColor"))
-                .background(Color("myColor"))
-                .cornerRadius(40)
-               
                 
             }.onAppear {
                     game.authenticateUser()
