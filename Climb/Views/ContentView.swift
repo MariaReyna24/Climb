@@ -14,7 +14,6 @@ struct ContentView: View {
     @ObservedObject var game: Math
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
-
     var body: some View {
 
         NavigationStack {
@@ -49,7 +48,15 @@ struct ContentView: View {
                 }
 
                 // Timer logic
-
+                .onReceive(game.timer) {time in
+                    if !game.isPaused && game.timeRemaining > 0 {
+                        game.timeRemaining -= 1
+                    }
+                    //this logic helps stop the timer when the level is complete
+                    if game.greenButtonCount == 10 {
+                        game.timer.upstream.connect().cancel()
+                    }
+                }
                 // Display for the top part of the app
                 
                 .navigationBarTitle("Level \(game.levelnum)", displayMode: .inline)

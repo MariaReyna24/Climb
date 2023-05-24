@@ -24,7 +24,6 @@ struct SettingsView: View {
                         .font(.custom("RoundsBlack", size: 40))
                     .frame(maxWidth: .infinity, alignment: .top)
                     Form {
-                        
                         haptics
                         sound
                     }.scrollContentBackground(.hidden)
