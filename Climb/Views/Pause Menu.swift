@@ -39,7 +39,6 @@ struct Pause_menu: View {
                     Button("Main Menu") {
                         scene.state = .mainmenu
                         game.retryLevel()
-                        game.leaderboard()
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 25))

@@ -41,7 +41,6 @@ struct levelCompleted: View {
             
                 Button("Main Menu") {
                     scene.state = .mainmenu
-                    game.retryLevel()
                     game.leaderboard()
                     heavyHaptic()
                 }

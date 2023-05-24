@@ -59,6 +59,7 @@ struct MainMenuView: View {
                 
             }.onAppear {
                     game.authenticateUser()
+                    game.retryLevel()
                }
             }
             
