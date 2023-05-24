@@ -12,8 +12,6 @@ struct levelCompleted: View {
     @ObservedObject var game: Math
     @Environment(\.dismiss) var dismiss
     @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
-
-
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -41,7 +39,6 @@ struct levelCompleted: View {
             
                 Button("Main Menu") {
                     scene.state = .mainmenu
-                    game.retryLevel()
                     game.leaderboard()
                     heavyHaptic()
                 }
