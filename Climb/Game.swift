@@ -118,7 +118,6 @@ class Math: ObservableObject{
         levelnum += 1
         difficulty += 10
         generateAnswers()
-//        timeRemaining = 20
     }
     
     func retryLevel() {
@@ -139,9 +138,6 @@ class Math: ObservableObject{
             }
         }
             
-   
-
-    
     func leaderboard(){
         Task{
              try await GKLeaderboard.submitScore(

@@ -29,7 +29,7 @@ struct ContentView: View {
                     Text("Score: \(game.score)")
                         .font(.custom("RoundsBlack", size: 30))
                         .padding(37) // Adjusted padding to push it closer to the buttons
-                    
+                        
                     Group {
                         buttonsForAnswers(startIndex: 0, endIndex: 1)
                         buttonsForAnswers(startIndex: 1, endIndex: 3)
@@ -44,9 +44,8 @@ struct ContentView: View {
                     
                 } .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
                 .onAppear {
-                    game.generateAnswers()
-                    heavyHaptic()
-                    
+                        game.generateAnswers()
+                        heavyHaptic()
                 }
                 
                 // Timer logic
@@ -88,11 +87,13 @@ struct ContentView: View {
                 }
                 
                 // End game menu when time runs out
+                
                 if game.timeRemaining == 0 {
-                    End_Game_menu(game: game, scene: scene)
-                        .onAppear {
-                            game.isGameMenuShowing = true
-                        }
+                        End_Game_menu(game: game, scene: scene)
+                            .onAppear {
+                                game.isGameMenuShowing = true
+                                
+                            }
                 }
                 
                 // Code for the pause menu
@@ -116,10 +117,12 @@ struct ContentView: View {
     // Function for layout for our buttons
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
         HStack {
-            ForEach(startIndex..<endIndex, id: \.self) { index in
-                if index < game.choicearry.count {
-                    ClimbButton(num: game.choicearry[index], game: game)
-                    
+            withAnimation(.easeIn(duration: 0.5)){
+                ForEach(startIndex..<endIndex, id: \.self) { index in
+                    if index < game.choicearry.count {
+                        ClimbButton(num: game.choicearry[index], game: game)
+                        
+                    }
                 }
             }
         }

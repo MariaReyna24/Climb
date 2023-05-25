@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//import GameKit
+import GameKit
 
 struct MainMenuView: View {
     @ObservedObject var scene: diffViews
