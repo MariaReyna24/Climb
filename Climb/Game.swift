@@ -10,6 +10,8 @@ import SwiftUI
 import GameKit
 
 class Math: ObservableObject{
+    @Published var isGameMenuShowing =  false
+    @Published var isLevelComplete =  false
     @Published var backgroundColor = Color("myColor")
     @Published var timeRemaining = 20 //this is in seconds naturally
     @Published var isAnswerCorrect = false
@@ -25,12 +27,15 @@ class Math: ObservableObject{
     private(set) var difficulty = 30
     var levelnum = 1
     var leaderboardIdentifier = "climb.Leaderboard"
-   
-    
+  
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
             self.score += 1
-            self.timeRemaining += 2
+            if self.timeRemaining <= 28 {
+                self.timeRemaining += 2
+            }else{
+                self.timeRemaining += 0
+            }
             self.isAnswerCorrect = true
             correctAnsArry.append(correctAnswer)
             greenButtonCount += 1
@@ -46,6 +51,7 @@ class Math: ObservableObject{
            // redButtonCount += 1
             return false
         }
+       
     }
     
     func generateAnswers() {
@@ -112,6 +118,7 @@ class Math: ObservableObject{
         levelnum += 1
         difficulty += 10
         generateAnswers()
+//        timeRemaining = 20
     }
     
     func retryLevel() {
