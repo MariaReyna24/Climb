@@ -10,8 +10,8 @@ import SwiftUI
 import AVKit
 struct SettingsView: View {
     @ObservedObject var scene: diffViews
-    @AppStorage(UserDefaultKeys.hapticsEnabled) private var isHapticsEnabled: Bool = true
-    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.hapticsEnabled)  var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled)  var isSoundEnabled: Bool = true
     var body: some View {
         NavigationStack{
             ZStack {
