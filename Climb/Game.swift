@@ -23,7 +23,7 @@ class Math: ObservableObject{
     private(set) var firstNum = 0
     private(set) var secondNum = 0
     private(set) var difficulty = 30
-    var levelnum = 0
+    var levelnum = 1
     var leaderboardIdentifier = "climb.Leaderboard"
    
     
@@ -65,7 +65,7 @@ class Math: ObservableObject{
         correctAnsArry.append(correctAnswer)
         
         // The incorrectRange is defined as a range of numbers from half of the difficulty level to the full difficulty level. This range will be used to generate incorrect answer choices.
-        let incorrectRange = (difficulty/2)...(difficulty)
+        let incorrectRange = (difficulty/3)...(difficulty)
         
         // The for loop runs 10 times, each time appending a randomly generated number from the incorrectRange to the answerList array. The numbers are chosen to be different from the correctAnsArry.
         for _ in 0...9 {

@@ -27,7 +27,6 @@ struct MainMenuView: View {
                 VStack (spacing: 20) {
                     
                     Button("New Game") {
-                        game.newLevel()
                         scene.state = .game
                         heavyHaptic()
                     }
