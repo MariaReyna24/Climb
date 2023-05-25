@@ -42,7 +42,9 @@ struct End_Game_menu: View {
                         Button("Main Menu") {
                             scene.state = .mainmenu
                             game.leaderboard()
+                            game.endGame()
                             heavyHaptic()
+                           
                         }
                         .font(.custom("RoundsBlack", size: 20))
                         .padding()

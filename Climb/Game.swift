@@ -23,7 +23,7 @@ class Math: ObservableObject{
     private(set) var firstNum = 0
     private(set) var secondNum = 0
     private(set) var difficulty = 30
-    var levelnum = 1
+    var levelnum = 0
     var leaderboardIdentifier = "climb.Leaderboard"
    
     
@@ -96,7 +96,15 @@ class Math: ObservableObject{
         
         choicearry = answerList
     }
-
+    
+    func endGame(){
+        self.score = 0
+        timeRemaining = 20
+        correctAnsArry = []
+        difficulty = 30
+        levelnum =  1
+        greenButtonCount = 0
+    }
     
     func newLevel() {
         correctAnsArry = []
@@ -105,9 +113,10 @@ class Math: ObservableObject{
         difficulty += 10
         generateAnswers()
     }
+    
     func retryLevel() {
         self.score = 0
-        timeRemaining = 15
+        timeRemaining = 20
         generateAnswers()
         correctAnsArry = []
         difficulty = 30

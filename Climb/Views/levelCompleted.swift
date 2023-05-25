@@ -40,7 +40,10 @@ struct levelCompleted: View {
                 Button("Main Menu") {
                     scene.state = .mainmenu
                     game.leaderboard()
+                    game.endGame()
                     heavyHaptic()
+                    
+                    
                 }
               
                 .foregroundColor(.white)

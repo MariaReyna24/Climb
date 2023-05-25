@@ -26,15 +26,14 @@ struct MainMenuView: View {
                 
                 VStack (spacing: 20) {
                     
-                    
-                    
                     Button("New Game") {
+                        game.newLevel()
                         scene.state = .game
-                        game.retryLevel()
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 23))
-                    .foregroundColor(Color("textColor"))                    .frame(width: 200, height: 60)
+                    .foregroundColor(Color("textColor"))
+                    .frame(width: 200, height: 60)
                     .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
@@ -49,9 +48,8 @@ struct MainMenuView: View {
                         y: 0
                     )
                     
-                    Button("setting") {
-                        scene.state = .game
-                        game.retryLevel()
+                    Button("Settings") {
+                        scene.state = .settings
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 25))

@@ -47,6 +47,7 @@ struct Pause_menu: View {
                 
                 
                 Button("Main Menu") {
+                    game.endGame()
                     scene.state = .mainmenu
                     heavyHaptic()
                 }
