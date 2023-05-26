@@ -10,6 +10,7 @@ import GameKit
 
 struct MainMenuView: View {
     @ObservedObject var scene: diffViews
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
     @ObservedObject var game : Math
     @State var isAuth = false
     var body: some View {
