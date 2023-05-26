@@ -88,14 +88,18 @@ struct MainMenuView: View {
                 }
                 
             }.onAppear {
-                    game.authenticateUser()
-                   game.retryLevel()
-               }
+                game.authenticateUser()
+                game.retryLevel()
+                if UserDefaults.standard.object(forKey: UserDefaultKeys.hapticsEnabled) == nil {
+                    UserDefaults.standard.set(true, forKey: UserDefaultKeys.hapticsEnabled)
+                    
+                }
             }
-            
         }
         
     }
+    
+}
 
 
 struct MainMenuView_Previews: PreviewProvider {

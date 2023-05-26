@@ -11,8 +11,8 @@ import AVFoundation
    
 struct ClimbApp: App {
     init() {
-           configureAudioSession()
-       }
+        configureAudioSession()
+    }
        
     var body: some Scene {
         WindowGroup {

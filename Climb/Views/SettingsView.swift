@@ -10,8 +10,8 @@ import SwiftUI
 import AVKit
 struct SettingsView: View {
     @ObservedObject var scene: diffViews
-    @AppStorage(UserDefaultKeys.hapticsEnabled)  var isHapticsEnabled: Bool = true
-    @AppStorage(UserDefaultKeys.soundEnabled)  var isSoundEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     var body: some View {
         NavigationStack{
             ZStack {
@@ -34,6 +34,7 @@ struct SettingsView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         scene.state = .mainmenu
+                        heavyHaptic()
                     }label: {
                         Label("Back", systemImage: "chevron.backward")
                     }
@@ -67,6 +68,5 @@ private extension SettingsView {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(scene: diffViews())
-        SettingsView(scene: diffViews()).preferredColorScheme(.dark)
     }
 }
