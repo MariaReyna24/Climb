@@ -34,6 +34,7 @@ struct SettingsView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         scene.state = .mainmenu
+                        heavyHaptic()
                     }label: {
                         Label("Back", systemImage: "chevron.backward")
                     }
