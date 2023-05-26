@@ -39,6 +39,7 @@ class Math: ObservableObject{
             self.isAnswerCorrect = true
             correctAnsArry.append(correctAnswer)
             greenButtonCount += 1
+            leaderboard() 
             return true
         } else {
             if self.score < 1 {

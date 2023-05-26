@@ -44,8 +44,6 @@ struct levelCompleted: View {
                     game.endGame()
                     heavyHaptic()
                     game.isLevelComplete = false
-                    
-                    
                 }
               
                 .foregroundColor(.white)
