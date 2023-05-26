@@ -10,6 +10,8 @@ import SwiftUI
 import GameKit
 
 class Math: ObservableObject{
+    @Published var isGameMenuShowing =  false
+    @Published var isLevelComplete =  false
     @Published var backgroundColor = Color("myColor")
     @Published var timeRemaining = 20 //this is in seconds naturally
     @Published var isAnswerCorrect = false
@@ -25,15 +27,19 @@ class Math: ObservableObject{
     private(set) var difficulty = 30
     var levelnum = 1
     var leaderboardIdentifier = "climb.Leaderboard"
-   
-    
+  
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
             self.score += 1
-            self.timeRemaining += 2
+            if self.timeRemaining <= 28 {
+                self.timeRemaining += 2
+            }else{
+                self.timeRemaining += 0
+            }
             self.isAnswerCorrect = true
             correctAnsArry.append(correctAnswer)
             greenButtonCount += 1
+            leaderboard() 
             return true
         } else {
             if self.score < 1 {
@@ -46,6 +52,7 @@ class Math: ObservableObject{
            // redButtonCount += 1
             return false
         }
+       
     }
     
     func generateAnswers() {
@@ -65,7 +72,7 @@ class Math: ObservableObject{
         correctAnsArry.append(correctAnswer)
         
         // The incorrectRange is defined as a range of numbers from half of the difficulty level to the full difficulty level. This range will be used to generate incorrect answer choices.
-        let incorrectRange = (difficulty/2)...(difficulty)
+        let incorrectRange = (difficulty/3)...(difficulty)
         
         // The for loop runs 10 times, each time appending a randomly generated number from the incorrectRange to the answerList array. The numbers are chosen to be different from the correctAnsArry.
         for _ in 0...9 {
@@ -96,7 +103,15 @@ class Math: ObservableObject{
         
         choicearry = answerList
     }
-
+    
+    func endGame(){
+        self.score = 0
+        timeRemaining = 20
+        correctAnsArry = []
+        difficulty = 30
+        levelnum =  1
+        greenButtonCount = 0
+    }
     
     func newLevel() {
         correctAnsArry = []
@@ -105,9 +120,10 @@ class Math: ObservableObject{
         difficulty += 10
         generateAnswers()
     }
+    
     func retryLevel() {
         self.score = 0
-        timeRemaining = 15
+        timeRemaining = 20
         generateAnswers()
         correctAnsArry = []
         difficulty = 30
@@ -123,9 +139,6 @@ class Math: ObservableObject{
             }
         }
             
-   
-
-    
     func leaderboard(){
         Task{
              try await GKLeaderboard.submitScore(

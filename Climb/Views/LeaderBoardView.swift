@@ -19,6 +19,7 @@ struct Player: Hashable, Comparable {
 }
 
 struct LeaderBoardView: View {
+    @State private var isLeaderboardLoaded = false
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State var playersList: [Player] = []
@@ -74,14 +75,12 @@ struct LeaderBoardView: View {
                 }
                 
                 .onAppear() {
-                    if !GKLocalPlayer.local.isAuthenticated {
-                        game.authenticateUser()
-                    } else if playersList.count == 0 {
-                        Task{
-                            loadLeaderboard()
-                        }
-                    }
-                }
+                           if !GKLocalPlayer.local.isAuthenticated {
+                               game.authenticateUser()
+                           } else if playersList.isEmpty && !isLeaderboardLoaded {
+                               loadLeaderboard()
+                           }
+                       }
                 
             }
             
@@ -120,6 +119,7 @@ struct LeaderBoardView: View {
                 }
             }
             playersList = playersListTemp
+            isLeaderboardLoaded = true 
         }
     }
 }
