@@ -9,6 +9,7 @@ import Foundation
 
 class diffViews: ObservableObject{
     @Published var state = gameState.mainmenu
+    @Published var selectedOperation: Math.Operation = .addition // Default operation
   
     enum gameState{
         case mainmenu

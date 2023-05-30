@@ -25,6 +25,13 @@ struct MainMenuView: View {
                     .offset(y: -100)
                 
                 VStack (spacing: 20) {
+                    Picker("Select Game Mode", selection: $game.selectedOperation) {
+                        Text("Addition").tag(Math.Operation.addition)
+                        Text("Subtraction").tag(Math.Operation.subtraction)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+                    
                     Button("New Game") {
                         scene.state = .game
                         heavyHaptic()

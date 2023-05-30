@@ -15,21 +15,19 @@ struct ClimbButton: View {
     @State private var backgroundColor = Color("myColor")
     @State private var isDisabled = false
     
-    
     var body: some View {
         Button {
             let isCorrect = game.answerCorreect(answer: num)
             if isCorrect {
                 haptic(.success)
                 backgroundColor = Color.green
-                if isSoundEnabled{
+                if isSoundEnabled {
                     SoundManager.instance.playSound(sound: .chime)
                 }
-                
             } else {
                 backgroundColor = Color.red
                 haptic(.error)
-                if isSoundEnabled{
+                if isSoundEnabled {
                     SoundManager.instance.playSound(sound: .wrong)
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -38,7 +36,7 @@ struct ClimbButton: View {
             }
             if isCorrect {
                 game.isAnswerCorrect = true
-                game.generateAnswers()
+                game.generateAnswers(state: diffViews())
             } else {
                 game.isAnswerCorrect = false
             }
@@ -52,18 +50,16 @@ struct ClimbButton: View {
                         .fill(backgroundColor)
                         .overlay(
                             RoundedRectangle(cornerRadius: 35)
-                                .stroke(Color("WhiteDM"), lineWidth: 5) // Added white outline
+                                .stroke(Color("WhiteDM"), lineWidth: 5)
                                 .shadow(color: .black, radius: 5, x: 0, y: 0)
                         )
                         .padding(4)
-                        .clipShape(RoundedRectangle(cornerRadius: 50)) // Aligned clip shape correctly
+                        .clipShape(RoundedRectangle(cornerRadius: 50))
                 )
-                .shadow(color: .gray, radius: 10, x: 0, y: 2) // Added shadow behind the button
+                .shadow(color: .gray, radius: 10, x: 0, y: 2)
                 .padding(0.5)
                 .controlSize(.large)
         }
-
-
         .disabled(game.timeRemaining == 0 || isDisabled)
         .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
         .onChange(of: game.timeRemaining) { newTime in
@@ -74,13 +70,16 @@ struct ClimbButton: View {
         .onChange(of: game.levelnum) { _ in
             backgroundColor = Color("myColor")
         }
+        .onChange(of: game.selectedOperation) { _ in
+            game.generateAnswers(state: diffViews())
+        }
     }
-    
-   
+}
+
     
     struct Button_Previews: PreviewProvider {
         static var previews: some View {
             ClimbButton(num: 100, game: Math())
         }
     }
-}
+

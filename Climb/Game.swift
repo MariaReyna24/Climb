@@ -10,6 +10,7 @@ import SwiftUI
 import GameKit
 
 class Math: ObservableObject{
+    @Published var selectedOperation: Operation = .addition
     @Published var isGameMenuShowing =  false
     @Published var isLevelComplete =  false
     @Published var backgroundColor = Color("myColor")
@@ -27,7 +28,12 @@ class Math: ObservableObject{
     private(set) var difficulty = 30
     var levelnum = 1
     var leaderboardIdentifier = "climb.Leaderboard"
-  
+    
+    enum Operation {
+        case addition
+        case subtraction
+    }
+
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
             self.score += 1
@@ -55,24 +61,57 @@ class Math: ObservableObject{
        
     }
     
-    func generateAnswers() {
+    func generateAnswers(state: diffViews) {
         self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
         self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
         var answerList = [Int]()
-        correctAnswer = self.firstNum + self.secondNum
+        
+        switch state.selectedOperation {
+        case .addition:
+            correctAnswer = self.firstNum + self.secondNum
+        case .subtraction:
+            // Ensure that the first number is greater than or equal to the second number to avoid negative results
+            if self.firstNum < self.secondNum {
+                swap(&self.firstNum, &self.secondNum)
+            }
+            correctAnswer = self.firstNum - self.secondNum
+        }
+        
+        // Rest of the code remains the same...
+        // ...
+
+
         
         // This while loop ensures that the generated correctAnswer is not already present in the choicearry or correctAnsArry arrays. It continues generating new random numbers for firstNum and secondNum until a unique correctAnswer is obtained.
-        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-            self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-            correctAnswer = self.firstNum + self.secondNum
+        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) || firstNum < secondNum {
+            switch selectedOperation {
+            case .addition:
+                firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+                secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+            case .subtraction:
+                firstNum = Int.random(in: 0...(difficulty), excluding: correctAnsArry)
+                secondNum = Int.random(in: 0...(firstNum), excluding: correctAnsArry)
+            }
+            
+            switch selectedOperation {
+            case .addition:
+                correctAnswer = firstNum + secondNum
+            case .subtraction:
+                correctAnswer = firstNum - secondNum
+            }
         }
         
         // Once we get a correctAnswer, it is appended to the correctAnsArry array
         correctAnsArry.append(correctAnswer)
         
-        // The incorrectRange is defined as a range of numbers from half of the difficulty level to the full difficulty level. This range will be used to generate incorrect answer choices.
-        let incorrectRange = (difficulty/3)...(difficulty)
+        // The incorrectRange is defined based on the selected operation.
+        let incorrectRange: ClosedRange<Int>
+        switch selectedOperation {
+        case .addition:
+            incorrectRange = (difficulty/3)...(difficulty)
+        case .subtraction:
+            incorrectRange = (0)...(difficulty/3)
+        }
         
         // The for loop runs 10 times, each time appending a randomly generated number from the incorrectRange to the answerList array. The numbers are chosen to be different from the correctAnsArry.
         for _ in 0...9 {
@@ -103,7 +142,7 @@ class Math: ObservableObject{
         
         choicearry = answerList
     }
-    
+
     func endGame(){
         self.score = 0
         timeRemaining = 20
@@ -118,13 +157,13 @@ class Math: ObservableObject{
         greenButtonCount = 0
         levelnum += 1
         difficulty += 10
-        generateAnswers()
+        generateAnswers(state: diffViews())
     }
     
     func retryLevel() {
         self.score = 0
         timeRemaining = 20
-        generateAnswers()
+        generateAnswers(state: diffViews())
         correctAnsArry = []
         difficulty = 30
         levelnum =  1
