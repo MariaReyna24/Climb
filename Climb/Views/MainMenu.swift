@@ -90,7 +90,7 @@ struct MainMenuView: View {
             }.onAppear {
                 game.isOperationSelected = false
                 game.authenticateUser()
-                game.retryLevel()
+                game.endGame()
                 if UserDefaults.standard.object(forKey: UserDefaultKeys.hapticsEnabled) == nil {
                     UserDefaults.standard.set(true, forKey: UserDefaultKeys.hapticsEnabled)
                     

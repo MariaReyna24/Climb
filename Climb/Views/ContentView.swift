@@ -71,6 +71,7 @@ struct ContentView: View {
                             .disabled(game.isGameMenuShowing || game.isLevelComplete)
                             .font(.custom("RoundsBlack", size: 20))
                             .foregroundColor(Color("myColor"))
+                            .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
                             .fullScreenCover(isPresented: $showingSheet) {
                                 Pause_menu(scene: scene, game: game)
                             }
