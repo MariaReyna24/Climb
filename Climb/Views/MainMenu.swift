@@ -26,7 +26,7 @@ struct MainMenuView: View {
                 
                 VStack (spacing: 20) {
                     Button("New Game") {
-                        scene.state = .game
+                        scene.state = .OperationsView
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 23))

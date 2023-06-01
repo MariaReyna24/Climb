@@ -21,6 +21,8 @@ struct NewView: View {
             LeaderBoardView(scene: scene, game: game)
         case .settings:
             SettingsView(scene: scene)
+        case .OperationsView:
+            OperationsView(scene: scene, game: game)
         }
         
     }
