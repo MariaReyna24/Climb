@@ -26,7 +26,7 @@ struct MainMenuView: View {
                 
                 VStack (spacing: 20) {
                     Button("New Game") {
-                        scene.state = .OperationsView
+                        scene.state = .game
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 23))
@@ -88,6 +88,7 @@ struct MainMenuView: View {
                 }
                 
             }.onAppear {
+                game.isOperationSelected = false
                 game.authenticateUser()
                 game.retryLevel()
                 if UserDefaults.standard.object(forKey: UserDefaultKeys.hapticsEnabled) == nil {

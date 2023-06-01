@@ -38,7 +38,7 @@ struct ClimbButton: View {
             }
             if isCorrect {
                 game.isAnswerCorrect = true
-                game.generateAnswers(state: diffViews())
+                game.generateAnswers()
             } else {
                 game.isAnswerCorrect = false
             }
@@ -75,7 +75,7 @@ struct ClimbButton: View {
             backgroundColor = Color("myColor")
         }
         .onChange(of: game.operation) { _ in
-            game.generateAnswers(state: diffViews())
+            game.generateAnswers()
         }
     }
     

@@ -13,7 +13,6 @@ struct ContentView: View {
     @ObservedObject var game: Math
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -21,41 +20,95 @@ struct ContentView: View {
                     .resizable()
                     .ignoresSafeArea()
                     .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
-                
-                VStack {
-                    Text("Level \(game.levelnum)")
-                        .font(Font.custom("RoundsBlack", size: 20))
-                    
-                    Text("Score: \(game.score)")
-                        .font(.custom("RoundsBlack", size: 30))
-                        .padding(37)
-                    
-                    OperationsView(scene: scene, game: game) // Add OperationsView to display the operation selection buttons
-                    
-                    Group {
-                        buttonsForAnswers(startIndex: 0, endIndex: 1)
-                        buttonsForAnswers(startIndex: 1, endIndex: 3)
-                        buttonsForAnswers(startIndex: 3, endIndex: 6)
-                        buttonsForAnswers(startIndex: 6, endIndex: 10)
-                        Text("\(game.firstNum) \(operationSymbol(for: game.operation)) \(game.secondNum)") // Use operationSymbol() to display the correct symbol based on the operation
-                            .fontWeight(.bold)
-                            .font(.custom("RoundsBlack", size: 40))
+                if game.isOperationSelected {
+                    VStack {
+                        Text("Level \(game.levelnum)")
+                            .font(Font.custom("RoundsBlack", size: 20))
+                        
+                        Text("Score: \(game.score)")
+                            .font(.custom("RoundsBlack", size: 30))
+                            .padding(37)
+                        
+                        Group {
+                            buttonsForAnswers(startIndex: 0, endIndex: 1)
+                            buttonsForAnswers(startIndex: 1, endIndex: 3)
+                            buttonsForAnswers(startIndex: 3, endIndex: 6)
+                            buttonsForAnswers(startIndex: 6, endIndex: 10)
+                            //TEXT FOR PROBLEMS
+                            Text("\(game.firstNum) \(operationSymbol(for: game.operation)) \(game.secondNum)")
+                                .fontWeight(.bold)
+                                .font(.custom("RoundsBlack", size: 40))
+                        }
+                        .offset(y: 0)
+                        Spacer()
+                        
+                    }
+                    .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
+                    .onAppear {
+                        game.generateAnswers()
+                        heavyHaptic()
                     }
                     
-                    Spacer()
+                    // Timer logic
+                    .onReceive(game.timer) { time in
+                        if !game.isPaused && game.timeRemaining > 0 {
+                            game.timeRemaining -= 1
+                        }
+                        // Stop the timer when the level is complete
+                        if game.greenButtonCount == 10 {
+                            game.timer.upstream.connect().cancel()
+                        }
+                    }
+                    
+                    // Display for the top part of the app
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Pause") {
+                                game.timer.upstream.connect().cancel()
+                                showingSheet.toggle()
+                                heavyHaptic()
+                            }
+                            .disabled(game.isGameMenuShowing || game.isLevelComplete)
+                            .font(.custom("RoundsBlack", size: 20))
+                            .foregroundColor(Color("myColor"))
+                            .fullScreenCover(isPresented: $showingSheet) {
+                                Pause_menu(scene: scene, game: game)
+                            }
+                        }
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Text("\(game.timeRemaining)s")
+                                .font(.custom("RoundsBlack", size: 30))
+                                .foregroundColor(Color("myColor"))
+                                .fontWeight(.bold)
+                                .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
+                        }
+                    }
+                    
+                    if game.timeRemaining == 0 {
+                        End_Game_menu(game: game, scene: scene)
+                            .onAppear {
+                                game.isGameMenuShowing = true
+                            }
+                    }
+                    
+                    if game.isPaused {
+                        Pause_menu(scene: scene, game: game)
+                    }
+                    
+                    if game.greenButtonCount == 10 {
+                        levelCompleted(scene: scene, game: game)
+                            .onAppear {
+                                game.isLevelComplete = true
+                            }
+                    }
+                } else {
+                    OperationsView(scene: scene, game: game)
                 }
-                .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
-                .onAppear {
-                    game.generateAnswers(state: diffViews())
-                    heavyHaptic()
-                }
-                
-                // Rest of your code...
             }
         }
-    }
+   }
     
-    // Function for layout for the answer buttons
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
         HStack {
             withAnimation(.easeIn(duration: 0.5)) {
@@ -78,6 +131,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

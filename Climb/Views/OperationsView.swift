@@ -12,9 +12,10 @@ struct OperationsView: View {
     @ObservedObject var game: Math
     
     var body: some View {
-        HStack(spacing: 20) {
+        VStack(spacing: 20) {
             Button("Addition") {
                 game.operation = .addition
+                game.isOperationSelected = true
                 heavyHaptic()
             }
             .font(.custom("RoundsBlack", size: 23))
@@ -35,6 +36,7 @@ struct OperationsView: View {
             
             Button("Subtraction") {
                 game.operation = .subtraction
+                game.isOperationSelected = true
                 heavyHaptic()
             }
             .font(.custom("RoundsBlack", size: 23))

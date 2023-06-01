@@ -10,6 +10,7 @@ import SwiftUI
 import GameKit
 
 class Math: ObservableObject{
+    @Published var isOperationSelected = false 
     @Published var operation: Operation = .addition
     @Published var isGameMenuShowing =  false
     @Published var isLevelComplete =  false
@@ -21,7 +22,6 @@ class Math: ObservableObject{
     @Published var score = 0
     @Published var isPaused = false
     @Published var greenButtonCount = 0
-    @Published var isOperationSelected = false
     var correctAnsArry : [Int] = []
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
@@ -61,7 +61,7 @@ class Math: ObservableObject{
        
     }
     
-    func generateAnswers(state: diffViews) {
+    func generateAnswers() {
         var answerList = [Int]()
         switch operation {
         case .addition:
@@ -159,13 +159,13 @@ class Math: ObservableObject{
         greenButtonCount = 0
         levelnum += 1
         difficulty += 10
-        generateAnswers(state: diffViews())
+        generateAnswers()
     }
     
     func retryLevel() {
         self.score = 0
         timeRemaining = 20
-        generateAnswers(state: diffViews())
+        generateAnswers()
         correctAnsArry = []
         difficulty = 30
         levelnum =  1
