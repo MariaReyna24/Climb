@@ -28,7 +28,8 @@ class Math: ObservableObject{
     private(set) var secondNum = 0
     private(set) var difficulty = 30
     var levelnum = 1
-    var leaderboardIdentifier = "climb.Leaderboard"
+    var leaderboardIdentifierAdd = "climb.Leaderboard"
+    var leaderboardIdentiferSub = "climbSubtraction.Leaderboard"
     
     enum Operation {
         case addition
@@ -180,19 +181,28 @@ class Math: ObservableObject{
             }
         }
             
-    func leaderboard(){
-        Task{
-             try await GKLeaderboard.submitScore(
+    func leaderboard() {
+        let leaderboardIdentifier: String
+
+        switch operation {
+        case .addition:
+            leaderboardIdentifier = leaderboardIdentifierAdd
+        case .subtraction:
+            leaderboardIdentifier = leaderboardIdentiferSub
+        }
+
+        Task {
+            // Capture the leaderboardIdentifier explicitly in the closure
+            let identifier = leaderboardIdentifier
+            try await GKLeaderboard.submitScore(
                 score,
                 context: 0,
                 player: GKLocalPlayer.local,
-                leaderboardIDs: [leaderboardIdentifier]
+                leaderboardIDs: [identifier]
             )
         }
-
     }
 }
-
 
 extension Int {
     static func random(in range: ClosedRange<Self>, excluding numbers: [Int]) -> Int {
