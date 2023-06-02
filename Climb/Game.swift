@@ -10,7 +10,8 @@ import SwiftUI
 import GameKit
 
 class Math: ObservableObject{
-    @Published var isOperationSelected = false 
+    
+    @Published var isOperationSelected = false
     @Published var operation: Operation = .addition
     @Published var isGameMenuShowing =  false
     @Published var isLevelComplete =  false
@@ -28,7 +29,8 @@ class Math: ObservableObject{
     private(set) var secondNum = 0
     private(set) var difficulty = 30
     var levelnum = 1
-    var leaderboardIdentifier = "climb.Leaderboard"
+    var leaderboardIdentifierAdd = "climb.Leaderboard"
+    var leaderboardIdentiferSub = "climbSubtraction.Leaderboard"
     
     enum Operation {
         case addition
@@ -46,7 +48,7 @@ class Math: ObservableObject{
             self.isAnswerCorrect = true
             correctAnsArry.append(correctAnswer)
             greenButtonCount += 1
-            leaderboard() 
+            leaderboard()
             return true
         } else {
             if self.score < 1 {
@@ -58,7 +60,7 @@ class Math: ObservableObject{
             timeRemaining -= 1
             return false
         }
-       
+        
     }
     
     func generateAnswers() {
@@ -106,7 +108,7 @@ class Math: ObservableObject{
         case .subtraction:
             self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
             self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-
+            
             correctAnswer = self.firstNum - self.secondNum
             
             while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) || firstNum < secondNum {
@@ -142,16 +144,16 @@ class Math: ObservableObject{
             
             choicearry = answerList
         }
-      
+        
     }
     
     func endGame(){
-            self.score = 0
-            timeRemaining = 20
-            correctAnsArry = []
-            difficulty = 30
-            levelnum =  1
-            greenButtonCount = 0
+        self.score = 0
+        timeRemaining = 20
+        correctAnsArry = []
+        difficulty = 30
+        levelnum =  1
+        greenButtonCount = 0
     }
     
     func newLevel() {
@@ -172,24 +174,34 @@ class Math: ObservableObject{
         greenButtonCount = 0
     }
     func authenticateUser() {
-            GKLocalPlayer.local.authenticateHandler = { vc, error in
-                guard error == nil else {
-                    print(error?.localizedDescription ?? "")
-                    return
-                }
+        GKLocalPlayer.local.authenticateHandler = { vc, error in
+            guard error == nil else {
+                print(error?.localizedDescription ?? "")
+                return
             }
         }
-            
-    func leaderboard(){
-        Task{
-             try await GKLeaderboard.submitScore(
+    }
+    
+    func leaderboard() {
+        let leaderboardIdentifier: String
+
+        switch operation {
+        case .addition:
+            leaderboardIdentifier = leaderboardIdentifierAdd
+        case .subtraction:
+            leaderboardIdentifier = leaderboardIdentiferSub
+        }
+
+        Task {
+            // Capture the leaderboardIdentifier explicitly in the closure
+            let identifier = leaderboardIdentifier
+            try await GKLeaderboard.submitScore(
                 score,
                 context: 0,
                 player: GKLocalPlayer.local,
-                leaderboardIDs: [leaderboardIdentifier]
+                leaderboardIDs: [identifier]
             )
         }
-
     }
 }
 

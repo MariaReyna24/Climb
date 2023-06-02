@@ -23,15 +23,29 @@ struct LeaderBoardView: View {
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State var playersList: [Player] = []
-    @State var leaderboardPlace = 0
-    
     var body: some View {
         NavigationStack{
             ZStack {
                 Image("climbss")
                     .resizable()
                     .ignoresSafeArea()
+               
                 VStack {
+                    Picker(selection: $game.operation, label: Text("Operation")) {
+                        Text("Addition").tag(Math.Operation.addition)
+                        Text("Subtraction").tag(Math.Operation.subtraction)
+                    }
+                    .onChange(of: game.operation) { _ in
+                                    loadLeaderboard()
+                                }
+                    .onChange(of: game.operation) { newValue in
+                        if playersList.isEmpty && isLeaderboardLoaded {
+                            loadLeaderboard()
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(20)
+
                     Text("Leaderboard")
                         .font(.custom("RoundsBlack", size: 30))
                         .foregroundColor(.white)
@@ -99,29 +113,42 @@ struct LeaderBoardView: View {
                     }
                     
                 }
+                
         }
     }
     func loadLeaderboard() {
-        playersList.removeAll()
         Task {
             var playersListTemp: [Player] = []
-            let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [game.leaderboardIdentifier])
-            if let leaderboard = leaderboards.filter({ $0.baseLeaderboardID == game.leaderboardIdentifier }).first {
+            let leaderboardIdentifier: String
+
+            switch game.operation {
+            case .addition:
+                leaderboardIdentifier = game.leaderboardIdentifierAdd
+            case .subtraction:
+                leaderboardIdentifier = game.leaderboardIdentiferSub
+            }
+
+            let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
+
+            if let leaderboard = leaderboards.first(where: { $0.baseLeaderboardID == leaderboardIdentifier }) {
                 let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...10))
                 if allPlayers.1.count > 0 {
                     for leaderboardEntry in allPlayers.1 {
-                        playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.score))
-                        print(playersListTemp)
-                        playersListTemp.sort {
-                            $1.score < $0.score
-                        }
+                        playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score: leaderboardEntry.score))
+                    }
+                    playersListTemp.sort {
+                        $1.score < $0.score
                     }
                 }
             }
-            playersList = playersListTemp
-            isLeaderboardLoaded = true 
+
+            DispatchQueue.main.async {
+                playersList = playersListTemp
+                isLeaderboardLoaded = true
+            }
         }
     }
+
 }
 
 
