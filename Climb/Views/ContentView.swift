@@ -13,121 +13,169 @@ struct ContentView: View {
     @ObservedObject var game: Math
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
-  
     var body: some View {
         NavigationStack {
+            
             ZStack {
-                Image("climbss")
-                    .resizable()
-                    .ignoresSafeArea()
-                    .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0  )
-                   
-                VStack() {
-                    Text("Level \(game.levelnum)")
-                        .font(Font.custom("RoundsBlack", size: 20)) // Increased font size for the level title
-                    // Score title
-                    Text("Score: \(game.score)")
-                        .font(.custom("RoundsBlack", size: 30))
-                        .padding(37) // Adjusted padding to push it closer to the buttons
+                GameBackground()
+                    .offset(y:-50)
+                
+//                if game.isOperationSelected {
+                    VStack {
                         
-                    Group {
-                        buttonsForAnswers(startIndex: 0, endIndex: 1)
-                        buttonsForAnswers(startIndex: 1, endIndex: 3)
-                        buttonsForAnswers(startIndex: 3, endIndex: 6)
-                        buttonsForAnswers(startIndex: 6, endIndex: 10)
-                        Text("\(game.firstNum) + \(game.secondNum)")
-                            .fontWeight(.bold)
-                            .font(.custom("RoundsBlack", size: 40))
+                        
+                        Text("Level \(game.levelnum)")
+                            
+                            .font(Font.custom("RoundsBlack", size: 20))
+                            .offset(y:-25)
+                        
+//                            .overlay(
+//                                       RoundedRectangle(cornerRadius: 10)
+//                                           .stroke(Color("myColor"), lineWidth: 8)
+//                                           .frame(width: 200, height: 75)
+//                                           //.background(Color("textColor"))
+//                                           .cornerRadius(10)
+//                                           .offset(y:79)
+//
+//                                   )
+                        Text("Score: \(game.score)")
+                            .font(Font.custom("RoundsBlack", size: 30))
+                            .padding(40)
+                            
+                                    //.frame(width: 200, height: 50)
+                        
+                        
+                        
+                        
+                            
+                            
+                          
+
+                            
+                        
+                        Group {
+                            buttonsForAnswers(startIndex: 0, endIndex: 1)
+                            buttonsForAnswers(startIndex: 1, endIndex: 3)
+                            buttonsForAnswers(startIndex: 3, endIndex: 6)
+                            buttonsForAnswers(startIndex: 6, endIndex: 10)
+                                
+                                
+                            //TEXT FOR PROBLEMS
+                            
+//                                .overlay(
+//                                           RoundedRectangle(cornerRadius: 10)
+//                                               .stroke(Color("myColor"), lineWidth: 4)
+//                                               .frame(width: 175, height: 65)
+//                                               .background(Color.black .opacity(0.45))
+//                                               .offset(y:110)
+//
+//                                       )
+                            Text("\(game.firstNum) \(operationSymbol(for: game.operation)) \(game.secondNum)")
+                                .fontWeight(.bold)
+                                .font(.custom("RoundsBlack", size: 40))
+                                .offset(y:30)
+                               
+                        }
+                        .offset(y:0)
+                        Spacer()
+                        
                     }
-                    .offset(y: 0)
-                    Spacer()
-                    
-                } .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
-                .onAppear {
+                    .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
+                    .onAppear {
                         game.generateAnswers()
                         heavyHaptic()
-                }
-                
-                // Timer logic
-                .onReceive(game.timer) {time in
-                    if !game.isPaused && game.timeRemaining > 0 {
-                        game.timeRemaining -= 1
                     }
-                    //this logic helps stop the timer when the level is complete
-                    if game.greenButtonCount == 10 {
-                        game.timer.upstream.connect().cancel()
-                    }
-                }
-                // Display for the top part of the app
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Pause") {
-                            game.timer.upstream.connect().cancel()
-                            showingSheet.toggle()
-                            heavyHaptic()
-                            
+                    
+                    // Timer logic
+                    .onReceive(game.timer) { time in
+                        if !game.isPaused && game.timeRemaining > 0 {
+                            game.timeRemaining -= 1
                         }
-                        .disabled(game.isGameMenuShowing || game.isLevelComplete == true)
-                        .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
-                        .font(.custom("RoundsBlack", size: 20))
-                        .foregroundColor(Color("myColor"))
-                        .fullScreenCover(isPresented: $showingSheet) {
-                            Pause_menu(scene: scene, game: game)
+                        // Stop the timer when the level is complete
+                        if game.greenButtonCount == 10 {
+                            game.timer.upstream.connect().cancel()
                         }
                     }
                     
-                    // Timer in the right-hand corner
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Text("\(game.timeRemaining)s")
-                            .font(.custom("RoundsBlack", size: 30))
-                            .foregroundColor(Color("myColor"))
-                            .fontWeight(.bold)
-                            .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
-                    }
-                }
-                
-                // End game menu when time runs out
-                
-                if game.timeRemaining == 0 {
-                        End_Game_menu(game: game, scene: scene)
-                            .onAppear {
-                                game.isGameMenuShowing = true
+                    // Display for the top part of the app
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Pause") {
+                                game.timer.upstream.connect().cancel()
+                                showingSheet.toggle()
+                                heavyHaptic()
                                 
                             }
-                }
-                
-                // Code for the pause menu
-                if game.isPaused == true {
-                    Pause_menu(scene: scene, game: game)
-                }
-                
-                // Logic for completing a level
-                if game.greenButtonCount == 10 {
-                    levelCompleted(scene: scene, game: game)
-                        .onAppear {
-                            game.isLevelComplete = true
+                            .disabled(game.isGameMenuShowing || game.isLevelComplete)
+                            .font(.custom("RoundsBlack", size: 20))
+                            .offset(x: 15, y:-20)
+                            .foregroundColor(Color("myColor"))
+                            .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
+                            .fullScreenCover(isPresented: $showingSheet) {
+                                Pause_menu(scene: scene, game: game)
+                            }
                         }
-                }
-                
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Text("\(game.timeRemaining)s")
+                                .font(.custom("RoundsBlack", size: 30))
+                                .offset(x: -15, y:-19)
+                                .foregroundColor(Color("myColor"))
+                                .fontWeight(.bold)
+                                .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
+                        }
+                    }
+                  
+                    
+//                    if game.timeRemaining == 0 {
+//                        End_Game_menu(game: game, scene: scene)
+//                            .onAppear {
+//                                game.isGameMenuShowing = true
+//                            }
+//                    }
+                    
+                    if game.isPaused {
+                        Pause_menu(scene: scene, game: game)
+                    }
+                    
+                    if game.greenButtonCount == 10 {
+                        levelCompleted(scene: scene, game: game)
+                            .onAppear {
+                                game.isLevelComplete = true
+                            }
+                    }
+//                } else {
+//                    OperationsView(scene: scene, game: game)
+//                }
             }
+           
         }
-        
-    }
+      
+   }
     
-    // Function for layout for our buttons
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
         HStack {
-            withAnimation(.easeIn(duration: 0.5)){
+            withAnimation(.easeIn(duration: 0.5)) {
                 ForEach(startIndex..<endIndex, id: \.self) { index in
                     if index < game.choicearry.count {
                         ClimbButton(num: game.choicearry[index], game: game)
-                        
                     }
                 }
             }
         }
     }
+    
+    // Function to get the symbol corresponding to the operation
+    func operationSymbol(for operation: Math.Operation) -> String {
+        switch operation {
+        case .addition:
+            return "+"
+        case .subtraction:
+            return "-"
+        }
+    }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

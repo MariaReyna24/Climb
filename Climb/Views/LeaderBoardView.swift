@@ -28,9 +28,8 @@ struct LeaderBoardView: View {
     var body: some View {
         NavigationStack{
             ZStack {
-                Image("climbss")
-                    .resizable()
-                    .ignoresSafeArea()
+                PlainBackground()
+                    .offset(y:-50)
                 VStack {
                     Text("Leaderboard")
                         .font(.custom("RoundsBlack", size: 30))
@@ -50,8 +49,9 @@ struct LeaderBoardView: View {
                             
                     }
                    Divider()
-                        .frame(height:10)
+                        .frame(height:5)
                         .overlay(.black)
+                        .opacity(0.5)
                         ScrollView {
                             ForEach(playersList, id: \.id) { player in
                                 HStack(spacing: 76){

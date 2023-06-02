@@ -13,7 +13,7 @@ struct End_Game_menu: View {
                 VStack(spacing: 20) {
                     Text("Game Over!")
                         .foregroundColor(.red)
-                        .font(.custom("RoundsBlack", size: 45))
+                        .font(.custom("RoundsBlack", size: 48))
                         .fontWeight(.bold)
                         .padding()
                         .onAppear {
@@ -21,6 +21,16 @@ struct End_Game_menu: View {
                                 SoundManager.instance.playSound(sound: .fail)
                             }
                         }
+                    HStack{
+                        Text("Your final Score: ")
+                            .foregroundColor(.white)
+                            .font(.custom("RoundsBlack", size: 25))
+                            .fontWeight(.bold)
+                        Text("\(game.score)")
+                            .foregroundColor(.yellow)
+                            .font(.custom("RoundsBlack", size: 25))
+                            .fontWeight(.bold)
+                    }
                     HStack {
                         Button("Retry") {
                             gameRestarted = true

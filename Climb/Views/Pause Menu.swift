@@ -15,14 +15,14 @@ struct Pause_menu: View {
     @ObservedObject var game : Math
     var body: some View {
         ZStack {
-            Image("climbss")
-                .resizable()
-                .ignoresSafeArea()
+            PlainBackground()
+            
             VStack (spacing: 20){
                 Text("Current score: \(game.score)")
                     .font(.custom("RoundsBlack", size: 25))
                     .foregroundColor(.white)
                     .fontWeight(.bold)
+                    .offset(y:-25)
                 
                 Button("Resume") {
                     dismiss()
@@ -31,7 +31,7 @@ struct Pause_menu: View {
                 }
                 .font(.custom("RoundsBlack", size: 25))
                 .foregroundColor(Color("textColor"))
-                .frame(width: 200, height: 60) // Adjusted width
+                .frame(width: 255, height: 80) // Adjusted width
                 .background(Color("pauseColor"))
                 .cornerRadius(25)
                 .overlay(
@@ -50,7 +50,7 @@ struct Pause_menu: View {
                 }
                 .font(.custom("RoundsBlack", size: 25))
                 .foregroundColor(Color("textColor"))
-                .frame(width: 200, height: 60) // Adjusted width
+                .frame(width: 255, height: 80) // Adjusted width
                 .background(Color("pauseColor"))
                             
                     .cornerRadius(25)
@@ -71,7 +71,7 @@ struct Pause_menu: View {
                 }
                 .font(.custom("RoundsBlack", size: 25))
                 .foregroundColor(Color("textColor"))
-                .frame(width: 200, height: 60) // Adjusted width
+                .frame(width: 255, height: 80) // Adjusted width
                 .background(Color("pauseColor"))
                             
                     .cornerRadius(25)

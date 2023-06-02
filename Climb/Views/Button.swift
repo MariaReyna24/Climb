@@ -58,7 +58,7 @@ struct ClimbButton: View {
                         .padding(4)
                         .clipShape(RoundedRectangle(cornerRadius: 50)) // Aligned clip shape correctly
                 )
-                .shadow(color: .gray, radius: 10, x: 0, y: 2) // Added shadow behind the button
+                .shadow(color: Color("pauseColor"), radius: 4, x: 0, y: 2.5) // Added shadow behind the button
                 .padding(0.5)
                 .controlSize(.large)
         }
@@ -73,6 +73,9 @@ struct ClimbButton: View {
         }
         .onChange(of: game.levelnum) { _ in
             backgroundColor = Color("myColor")
+        }
+        .onChange(of: game.operation) { _ in
+            game.generateAnswers()
         }
     }
     

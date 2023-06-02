@@ -21,6 +21,12 @@
 		15F4C2D32A17CD7D00D87EB1 /* fail.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15F4C2D12A17CD7D00D87EB1 /* fail.mp3 */; };
 		15F4C2D42A17CD7D00D87EB1 /* fail.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15F4C2D12A17CD7D00D87EB1 /* fail.mp3 */; };
 		47003B2D299BBFCE00577725 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47003B2C299BBFCE00577725 /* MainMenu.swift */; };
+		47DE012B2A2A1A57001FE226 /* DMBackgroundGame.mov in Resources */ = {isa = PBXBuildFile; fileRef = 47DE012A2A2A1A57001FE226 /* DMBackgroundGame.mov */; };
+		47DE012D2A2A1A63001FE226 /* DMBackgroundPlain.mov in Resources */ = {isa = PBXBuildFile; fileRef = 47DE012C2A2A1A63001FE226 /* DMBackgroundPlain.mov */; };
+		47DE012F2A2A1A6E001FE226 /* LMBackgroundGame.mov in Resources */ = {isa = PBXBuildFile; fileRef = 47DE012E2A2A1A6E001FE226 /* LMBackgroundGame.mov */; };
+		47DE01312A2A1A88001FE226 /* LMBackgroundPlain.mov in Resources */ = {isa = PBXBuildFile; fileRef = 47DE01302A2A1A88001FE226 /* LMBackgroundPlain.mov */; };
+		47DE01332A2A1A9C001FE226 /* GameBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE01322A2A1A9C001FE226 /* GameBackground.swift */; };
+		47DE01352A2A1CCE001FE226 /* PlainBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE01342A2A1CCE001FE226 /* PlainBackground.swift */; };
 		A20036592A0BCF0900A93A4A /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20036582A0BCF0900A93A4A /* NewView.swift */; };
 		A200365B2A0BE08F00A93A4A /* diffViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200365A2A0BE08F00A93A4A /* diffViews.swift */; };
 		A207E9972994062100CBBBEE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207E9962994062100CBBBEE /* Game.swift */; };
@@ -30,6 +36,7 @@
 		A21035002A0D326C00B4A200 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21034FF2A0D326C00B4A200 /* SettingsView.swift */; };
 		A21035022A0D32EF00B4A200 /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21035012A0D32EF00B4A200 /* UserDefaultKeys.swift */; };
 		A21035042A0D330D00B4A200 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21035032A0D330D00B4A200 /* HapticsManager.swift */; };
+		A21980F82A27782000819DE3 /* OperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21980F72A27782000819DE3 /* OperationsView.swift */; };
 		A22B34262A17EEB100B06AAD /* RoundsBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = A22B34252A17EEB100B06AAD /* RoundsBlack.otf */; };
 		A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C53298AA90100CEB479 /* ClimbApp.swift */; };
 		A2C65C56298AA90100CEB479 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C65C55298AA90100CEB479 /* ContentView.swift */; };
@@ -66,6 +73,12 @@
 		15F4C2CD2A17CD7400D87EB1 /* wrong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrong.mp3; sourceTree = "<group>"; };
 		15F4C2D12A17CD7D00D87EB1 /* fail.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fail.mp3; sourceTree = "<group>"; };
 		47003B2C299BBFCE00577725 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		47DE012A2A2A1A57001FE226 /* DMBackgroundGame.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = DMBackgroundGame.mov; sourceTree = "<group>"; };
+		47DE012C2A2A1A63001FE226 /* DMBackgroundPlain.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = DMBackgroundPlain.mov; sourceTree = "<group>"; };
+		47DE012E2A2A1A6E001FE226 /* LMBackgroundGame.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = LMBackgroundGame.mov; sourceTree = "<group>"; };
+		47DE01302A2A1A88001FE226 /* LMBackgroundPlain.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = LMBackgroundPlain.mov; sourceTree = "<group>"; };
+		47DE01322A2A1A9C001FE226 /* GameBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBackground.swift; sourceTree = "<group>"; };
+		47DE01342A2A1CCE001FE226 /* PlainBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainBackground.swift; sourceTree = "<group>"; };
 		A20036582A0BCF0900A93A4A /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
 		A200365A2A0BE08F00A93A4A /* diffViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = diffViews.swift; sourceTree = "<group>"; };
 		A207E9962994062100CBBBEE /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -76,6 +89,7 @@
 		A21035012A0D32EF00B4A200 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		A21035032A0D330D00B4A200 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		A21035082A13EF3E00B4A200 /* Climb.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Climb.entitlements; sourceTree = "<group>"; };
+		A21980F72A27782000819DE3 /* OperationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsView.swift; sourceTree = "<group>"; };
 		A22B34252A17EEB100B06AAD /* RoundsBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RoundsBlack.otf; sourceTree = "<group>"; };
 		A22B34272A17EF5C00B06AAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A2C65C50298AA90100CEB479 /* Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climb.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,11 +143,23 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		47DE01292A2A1A3E001FE226 /* MotionBackgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				47DE012A2A2A1A57001FE226 /* DMBackgroundGame.mov */,
+				47DE012C2A2A1A63001FE226 /* DMBackgroundPlain.mov */,
+				47DE012E2A2A1A6E001FE226 /* LMBackgroundGame.mov */,
+				47DE01302A2A1A88001FE226 /* LMBackgroundPlain.mov */,
+			);
+			path = MotionBackgrounds;
+			sourceTree = "<group>";
+		};
 		A21035052A0D335D00B4A200 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				A20036582A0BCF0900A93A4A /* NewView.swift */,
 				47003B2C299BBFCE00577725 /* MainMenu.swift */,
+				A21980F72A27782000819DE3 /* OperationsView.swift */,
 				A2C65C55298AA90100CEB479 /* ContentView.swift */,
 				A207E99A299406A800CBBBEE /* Pause Menu.swift */,
 				A207E99E299406DF00CBBBEE /* endGameMenu.swift */,
@@ -142,6 +168,8 @@
 				C6622F22299FCA1A00592947 /* LeaderBoardView.swift */,
 				A207E9982994068000CBBBEE /* Button.swift */,
 				A200365A2A0BE08F00A93A4A /* diffViews.swift */,
+				47DE01322A2A1A9C001FE226 /* GameBackground.swift */,
+				47DE01342A2A1CCE001FE226 /* PlainBackground.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				A22B34272A17EF5C00B06AAD /* Info.plist */,
+				47DE01292A2A1A3E001FE226 /* MotionBackgrounds */,
 				A21035082A13EF3E00B4A200 /* Climb.entitlements */,
 				A22B34252A17EEB100B06AAD /* RoundsBlack.otf */,
 				A2C65C53298AA90100CEB479 /* ClimbApp.swift */,
@@ -329,13 +358,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47DE01312A2A1A88001FE226 /* LMBackgroundPlain.mov in Resources */,
 				15F4C2CE2A17CD7400D87EB1 /* wrong.mp3 in Resources */,
 				15F4C2C62A17CD6300D87EB1 /* chime.mp3 in Resources */,
 				15F4C2D22A17CD7D00D87EB1 /* fail.mp3 in Resources */,
+				47DE012F2A2A1A6E001FE226 /* LMBackgroundGame.mov in Resources */,
 				A2C65C5B298AA90200CEB479 /* Preview Assets.xcassets in Resources */,
+				47DE012D2A2A1A63001FE226 /* DMBackgroundPlain.mov in Resources */,
 				A2C65C58298AA90200CEB479 /* Assets.xcassets in Resources */,
 				15F4C2CA2A17CD6C00D87EB1 /* win.mp3 in Resources */,
 				A22B34262A17EEB100B06AAD /* RoundsBlack.otf in Resources */,
+				47DE012B2A2A1A57001FE226 /* DMBackgroundGame.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,14 +407,17 @@
 				A21035042A0D330D00B4A200 /* HapticsManager.swift in Sources */,
 				A20036592A0BCF0900A93A4A /* NewView.swift in Sources */,
 				C6622F23299FCA1A00592947 /* LeaderBoardView.swift in Sources */,
+				47DE01352A2A1CCE001FE226 /* PlainBackground.swift in Sources */,
 				A207E99B299406A800CBBBEE /* Pause Menu.swift in Sources */,
 				15F4C2C42A17CD3B00D87EB1 /* SoundsManager.swift in Sources */,
 				A2F6ABB129A3D9C900A14A51 /* levelCompleted.swift in Sources */,
 				A200365B2A0BE08F00A93A4A /* diffViews.swift in Sources */,
 				A207E9972994062100CBBBEE /* Game.swift in Sources */,
+				47DE01332A2A1A9C001FE226 /* GameBackground.swift in Sources */,
 				A207E99F299406DF00CBBBEE /* endGameMenu.swift in Sources */,
 				A2C65C54298AA90100CEB479 /* ClimbApp.swift in Sources */,
 				A21035022A0D32EF00B4A200 /* UserDefaultKeys.swift in Sources */,
+				A21980F82A27782000819DE3 /* OperationsView.swift in Sources */,
 				A21035002A0D326C00B4A200 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,7 +576,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Climb/Climb.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Climb/Preview Content\"";
 				DEVELOPMENT_TEAM = 895F6NWJ4A;
 				ENABLE_PREVIEWS = YES;
@@ -575,7 +611,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Climb/Climb.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Climb/Preview Content\"";
 				DEVELOPMENT_TEAM = 895F6NWJ4A;
 				ENABLE_PREVIEWS = YES;

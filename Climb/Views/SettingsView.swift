@@ -15,9 +15,9 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack{
             ZStack {
-                Image("climbss")
-                    .resizable()
-                    .ignoresSafeArea()
+                PlainBackground()
+                    .offset(y:-50)
+                
                 VStack {
                     Text("Settings")
                         .foregroundColor(.white)

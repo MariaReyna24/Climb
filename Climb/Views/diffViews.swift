@@ -15,5 +15,6 @@ class diffViews: ObservableObject{
         case game
         case leaderboard
         case settings
+        case OperationsView
     }
 }
