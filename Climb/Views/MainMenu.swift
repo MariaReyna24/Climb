@@ -27,9 +27,9 @@ struct MainMenuView: View {
                         scene.state = .game
                         heavyHaptic()
                     }
-                    .font(.custom("RoundsBlack", size: 30))
+                    .font(.custom("RoundsBlack", size: 28))
                     .foregroundColor(Color("textColor"))
-                    .frame(width: 275, height: 80)
+                    .frame(width: 255, height: 80)
                     .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
@@ -38,8 +38,8 @@ struct MainMenuView: View {
                         
                     )
                     .shadow(
-                        color: Color.white.opacity(0.5),
-                        radius: 6,
+                        color: Color.black.opacity(0.5),
+                        radius: 8,
                         x: 0,
                         y: 0
                     )
@@ -50,7 +50,7 @@ struct MainMenuView: View {
                     }
                     .font(.custom("RoundsBlack", size: 30))
                     .foregroundColor(Color("textColor"))
-                    .frame(width: 275, height: 80) // Adjusted width
+                    .frame(width: 255, height: 80) // Adjusted width
                     .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
@@ -58,8 +58,8 @@ struct MainMenuView: View {
                             .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
                     )
                     .shadow(
-                        color: Color.white.opacity(0.5),
-                        radius: 6,
+                        color: Color.black.opacity(0.5),
+                        radius: 8,
                         x: 0,
                         y: 0
                     )
@@ -68,9 +68,9 @@ struct MainMenuView: View {
                         scene.state = .leaderboard
                         heavyHaptic()
                     }
-                    .font(.custom("RoundsBlack", size: 30))
+                    .font(.custom("RoundsBlack", size: 25))
                     .foregroundColor(Color("textColor"))
-                    .frame(width: 275, height: 80) // Adjusted width
+                    .frame(width: 255, height: 80) // Adjusted width
                     .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
@@ -78,8 +78,8 @@ struct MainMenuView: View {
                             .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
                     )
                     .shadow(
-                        color: Color.white.opacity(0.5),
-                        radius: 6,
+                        color: Color.black.opacity(0.5),
+                        radius: 8,
                         x: 0,
                         y: 0
                     )
