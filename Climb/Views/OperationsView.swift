@@ -59,12 +59,12 @@ struct OperationsView: View {
                         x: 0,
                         y: 0
                     )
-                    Button("x") {
+                    Button("🔒") {
                         game.operation = .subtraction
                         game.isOperationSelected = true
                         heavyHaptic()
                     }
-                    .font(.custom("RoundsBlack", size: 45))
+                    .font(.custom("RoundsBlack", size: 55))
                     .foregroundColor(Color("textColor"))
                     .frame(width: 250, height: 80)
                     .background(Color("pauseColor"))
@@ -83,7 +83,7 @@ struct OperationsView: View {
                     .disabled(true)
                     .opacity(0.5)
                     
-                    Button("÷") {
+                    Button("🔒") {
                         game.operation = .subtraction
                         game.isOperationSelected = true
                         heavyHaptic()
@@ -96,7 +96,6 @@ struct OperationsView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
                             .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                        
                     )
                     .shadow(
                         color: Color.white.opacity(0.5),
@@ -109,6 +108,7 @@ struct OperationsView: View {
                     .opacity(0.5)
                     
                 }
+                
             }.toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
                     Button {
