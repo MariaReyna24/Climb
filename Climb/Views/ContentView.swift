@@ -15,11 +15,11 @@ struct ContentView: View {
     @State private var showinglevelComplete = false
     var body: some View {
         NavigationStack {
+            
             ZStack {
-                Image("climbss")
-                    .resizable()
-                    .ignoresSafeArea()
-                    .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
+                GameBackground()
+                    .offset(y:-50)
+                
                 if game.isOperationSelected {
                     VStack {
                         Text("Level \(game.levelnum)")
@@ -85,6 +85,7 @@ struct ContentView: View {
                                 .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
                         }
                     }
+                  
                     
                     if game.timeRemaining == 0 {
                         End_Game_menu(game: game, scene: scene)
@@ -107,7 +108,9 @@ struct ContentView: View {
                     OperationsView(scene: scene, game: game)
                 }
             }
+           
         }
+      
    }
     
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {

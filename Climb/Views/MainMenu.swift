@@ -14,24 +14,22 @@ struct MainMenuView: View {
     @State var isAuth = false
     var body: some View {
         ZStack {
-            Image("climbss")
-                .resizable()
-                .ignoresSafeArea()
+            PlainBackground()
             VStack {
                 Image("logo")
                     .resizable()
                     .frame(width: 200, height: 150)
-                    .shadow(color: .black, radius: 20)
-                    .offset(y: -100)
+                    //.shadow(color: .white, radius: )
+                    .offset(y: -30)
                 
-                VStack (spacing: 20) {
+                VStack (spacing: 25) {
                     Button("New Game") {
                         scene.state = .game
                         heavyHaptic()
                     }
-                    .font(.custom("RoundsBlack", size: 23))
+                    .font(.custom("RoundsBlack", size: 30))
                     .foregroundColor(Color("textColor"))
-                    .frame(width: 200, height: 60)
+                    .frame(width: 275, height: 80)
                     .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
@@ -40,7 +38,7 @@ struct MainMenuView: View {
                         
                     )
                     .shadow(
-                        color: Color.black.opacity(0.5),
+                        color: Color.white.opacity(0.5),
                         radius: 6,
                         x: 0,
                         y: 0
@@ -50,9 +48,9 @@ struct MainMenuView: View {
                         scene.state = .settings
                         heavyHaptic()
                     }
-                    .font(.custom("RoundsBlack", size: 25))
+                    .font(.custom("RoundsBlack", size: 30))
                     .foregroundColor(Color("textColor"))
-                    .frame(width: 200, height: 60) // Adjusted width
+                    .frame(width: 275, height: 80) // Adjusted width
                     .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
@@ -60,7 +58,7 @@ struct MainMenuView: View {
                             .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
                     )
                     .shadow(
-                        color: Color.black.opacity(0.5),
+                        color: Color.white.opacity(0.5),
                         radius: 6,
                         x: 0,
                         y: 0
@@ -70,9 +68,9 @@ struct MainMenuView: View {
                         scene.state = .leaderboard
                         heavyHaptic()
                     }
-                    .font(.custom("RoundsBlack", size: 20))
+                    .font(.custom("RoundsBlack", size: 30))
                     .foregroundColor(Color("textColor"))
-                    .frame(width: 200, height: 60) // Adjusted width
+                    .frame(width: 275, height: 80) // Adjusted width
                     .background(Color("pauseColor"))
                     .cornerRadius(25)
                     .overlay(
@@ -80,7 +78,7 @@ struct MainMenuView: View {
                             .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
                     )
                     .shadow(
-                        color: Color.black.opacity(0.5),
+                        color: Color.white.opacity(0.5),
                         radius: 6,
                         x: 0,
                         y: 0
