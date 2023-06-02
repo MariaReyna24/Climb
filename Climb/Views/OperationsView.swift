@@ -11,9 +11,7 @@ struct OperationsView: View {
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     var body: some View {
-        
         ZStack {
-            
             PlainBackground()
             
             VStack(spacing: 30) {

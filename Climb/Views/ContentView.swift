@@ -20,61 +20,30 @@ struct ContentView: View {
                 GameBackground()
                     .offset(y:-50)
                 
-//                if game.isOperationSelected {
+                if game.isOperationSelected {
                     VStack {
-                        
-                        
                         Text("Level \(game.levelnum)")
-                            
+                        
                             .font(Font.custom("RoundsBlack", size: 20))
                             .offset(y:-25)
                         
-//                            .overlay(
-//                                       RoundedRectangle(cornerRadius: 10)
-//                                           .stroke(Color("myColor"), lineWidth: 8)
-//                                           .frame(width: 200, height: 75)
-//                                           //.background(Color("textColor"))
-//                                           .cornerRadius(10)
-//                                           .offset(y:79)
-//
-//                                   )
                         Text("Score: \(game.score)")
                             .font(Font.custom("RoundsBlack", size: 30))
                             .padding(40)
-                            
-                                    //.frame(width: 200, height: 50)
-                        
-                        
-                        
-                        
-                            
-                            
-                          
-
-                            
-                        
+                        //.frame(width: 200, height: 50)
                         Group {
                             buttonsForAnswers(startIndex: 0, endIndex: 1)
                             buttonsForAnswers(startIndex: 1, endIndex: 3)
                             buttonsForAnswers(startIndex: 3, endIndex: 6)
                             buttonsForAnswers(startIndex: 6, endIndex: 10)
-                                
-                                
                             //TEXT FOR PROBLEMS
                             
-//                                .overlay(
-//                                           RoundedRectangle(cornerRadius: 10)
-//                                               .stroke(Color("myColor"), lineWidth: 4)
-//                                               .frame(width: 175, height: 65)
-//                                               .background(Color.black .opacity(0.45))
-//                                               .offset(y:110)
-//
-//                                       )
+                            
                             Text("\(game.firstNum) \(operationSymbol(for: game.operation)) \(game.secondNum)")
                                 .fontWeight(.bold)
                                 .font(.custom("RoundsBlack", size: 40))
                                 .offset(y:30)
-                               
+                            
                         }
                         .offset(y:0)
                         Spacer()
@@ -125,14 +94,14 @@ struct ContentView: View {
                                 .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
                         }
                     }
-                  
                     
-//                    if game.timeRemaining == 0 {
-//                        End_Game_menu(game: game, scene: scene)
-//                            .onAppear {
-//                                game.isGameMenuShowing = true
-//                            }
-//                    }
+                    
+                    if game.timeRemaining == 0 {
+                        End_Game_menu(game: game, scene: scene)
+                            .onAppear {
+                                game.isGameMenuShowing = true
+                            }
+                    }
                     
                     if game.isPaused {
                         Pause_menu(scene: scene, game: game)
@@ -144,14 +113,14 @@ struct ContentView: View {
                                 game.isLevelComplete = true
                             }
                     }
-//                } else {
-//                    OperationsView(scene: scene, game: game)
-//                }
+                } else {
+                    OperationsView(scene: scene, game: game)
+                }
             }
-           
+            
         }
-      
-   }
+        
+    }
     
     func buttonsForAnswers(startIndex: Int, endIndex: Int) -> some View {
         HStack {
