@@ -95,6 +95,7 @@ struct MainMenuView: View {
                     UserDefaults.standard.set(true, forKey: UserDefaultKeys.hapticsEnabled)
                     
                 }
+                
             }
         }
         

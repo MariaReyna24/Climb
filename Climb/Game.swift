@@ -115,7 +115,7 @@ class Math: ObservableObject{
                 correctAnswer = self.firstNum - self.secondNum
             }
             correctAnsArry.append(correctAnswer)
-            let incorrectRange = (difficulty/3)...(difficulty)
+            let incorrectRange = (correctAnswer - 3)...(correctAnswer + 15)
             for _ in 0...9 {
                 var randomIncorrectAnswer: Int
                 repeat {

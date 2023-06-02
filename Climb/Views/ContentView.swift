@@ -13,14 +13,16 @@ struct ContentView: View {
     @ObservedObject var game: Math
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
-    var body: some View {
+        var body: some View {
         NavigationStack {
             ZStack {
                 Image("climbss")
                     .resizable()
                     .ignoresSafeArea()
                     .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
+                
                 if game.isOperationSelected {
+                    
                     VStack {
                         Text("Level \(game.levelnum)")
                             .font(Font.custom("RoundsBlack", size: 20))

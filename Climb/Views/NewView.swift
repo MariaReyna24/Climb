@@ -23,6 +23,8 @@ struct NewView: View {
             SettingsView(scene: scene)
         case .OperationsView:
             OperationsView(scene: scene, game: game)
+        case .pause:
+            Pause_menu(scene: scene, game: game)
         }
         
     }

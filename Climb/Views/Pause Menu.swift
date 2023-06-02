@@ -13,6 +13,7 @@ struct Pause_menu: View {
     @ObservedObject var scene: diffViews
     @Environment(\.dismiss) var dismiss
     @ObservedObject var game : Math
+    @State private var isPresentingSettings = false
     var body: some View {
         ZStack {
             Image("climbss")
@@ -45,7 +46,7 @@ struct Pause_menu: View {
                     y: 0
                 )
                 Button("Settings") {
-                    
+                    scene.state = .settings
                     heavyHaptic()
                 }
                 .font(.custom("RoundsBlack", size: 25))
@@ -91,6 +92,7 @@ struct Pause_menu: View {
                 
             }
         }
+       
         
     }
     

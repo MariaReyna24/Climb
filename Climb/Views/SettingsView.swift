@@ -33,7 +33,11 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        scene.state = .mainmenu
+                        if scene.state == .pause{
+                            scene.state = .game
+                        } else{
+                            scene.state = .mainmenu
+                        }
                         heavyHaptic()
                     }label: {
                         Label("Back", systemImage: "chevron.backward")
