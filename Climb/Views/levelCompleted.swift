@@ -12,6 +12,8 @@ struct levelCompleted: View {
     @ObservedObject var game: Math
     @Environment(\.dismiss) var dismiss
     @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @State private var showLevelCompleted = false
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -20,12 +22,16 @@ struct levelCompleted: View {
                     .foregroundColor(.green)
                     .fontWeight(.bold)
                     .padding()
+                    .scaleEffect(showLevelCompleted ? 1.0 : 0.2)
                     .onAppear {
-                        if isSoundEnabled{
+                        if isSoundEnabled {
                             SoundManager.instance.playSound(sound: .win)
                         }
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
+                            showLevelCompleted = true
+                        }
                     }
-
+                
                 Button("Continue") {
                     game.newLevel()
                     dismiss()
@@ -45,18 +51,21 @@ struct levelCompleted: View {
                     heavyHaptic()
                     game.isLevelComplete = false
                 }
-              
                 .foregroundColor(.white)
                 .fontWeight(.bold)
                 .opacity(0.9)
                 .padding()
                 .font(.custom("RoundsBlack", size: 25))
             }
-        }.background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-            .frame(width: 300, height: 300)
-            .foregroundColor(.black)
-            
-            
+        }
+        .background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
+        .frame(width: 300, height: 300)
+        .foregroundColor(.black)
+        .onAppear {
+            withAnimation(.easeInOut(duration: 1.0)) {
+                // Animation to drop the box in place
+            }
+        }
     }
 }
 
@@ -65,4 +74,3 @@ struct levelCompleted_Previews: PreviewProvider {
         levelCompleted(scene: diffViews(), game: Math())
     }
 }
-

@@ -15,6 +15,9 @@ struct End_Game_menu: View {
         } else {
             
             ZStack {
+                GameBackground()
+                    .blur(radius: 10)
+                
                 VStack(spacing: 20) {
                     Text("Game Over!")
                         .foregroundColor(.red)
