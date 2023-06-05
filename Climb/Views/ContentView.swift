@@ -95,10 +95,12 @@ struct ContentView: View {
                         }
                     }
                     
-                    
+                   
                     if game.timeRemaining == 0 {
                         End_Game_menu(game: game, scene: scene)
+                        
                             .onAppear {
+                                
                                 game.isGameMenuShowing = true
                             }
                     }

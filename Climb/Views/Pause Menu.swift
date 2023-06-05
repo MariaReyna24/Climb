@@ -15,7 +15,8 @@ struct Pause_menu: View {
     @ObservedObject var game : Math
     var body: some View {
         ZStack {
-            PlainBackground()
+            GameBackground()
+                .blur(radius: 10)
             
             VStack (spacing: 20){
                 Text("Current score: \(game.score)")
