@@ -30,6 +30,7 @@ struct LeaderBoardView: View {
             ZStack {
                 PlainBackground()
                     .offset(y:-50)
+                
                 VStack {
                     Picker(selection: $game.operation, label: Text("Operation")) {
                         Text("Addition").tag(Math.Operation.addition)
