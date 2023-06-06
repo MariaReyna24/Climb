@@ -61,7 +61,7 @@ struct ContentView: View {
                             game.timeRemaining -= 1
                         }
                         // Stop the timer when the level is complete
-                        if game.greenButtonCount == 10 {
+                        if game.greenButtonCount == 1 {
                             game.timer.upstream.connect().cancel()
                         }
                     }
@@ -96,9 +96,23 @@ struct ContentView: View {
                     }
                     
                     
-                    if game.timeRemaining == 0 {
+                    if game.isGameMenuShowing == true {
+                        GameBackground()
+                            .blur(radius: 10)
+                    }
+                    
+                    
+                    if game.isLevelComplete == true {
+                        GameBackground()
+                            .blur(radius: 10)
+                    }
+                    
+                   
+                    if game.timeRemaining == 10 {
                         End_Game_menu(game: game, scene: scene)
+                        
                             .onAppear {
+                                
                                 game.isGameMenuShowing = true
                             }
                     }
@@ -112,6 +126,7 @@ struct ContentView: View {
                             .onAppear {
                                 game.isLevelComplete = true
                             }
+                        
                     }
                 } else {
                     OperationsView(scene: scene, game: game)

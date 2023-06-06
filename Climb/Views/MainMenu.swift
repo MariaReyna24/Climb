@@ -9,19 +9,22 @@ import SwiftUI
 import GameKit
 
 struct MainMenuView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var scene: diffViews
-    @ObservedObject var game : Math
+    @ObservedObject var game: Math
     @State var isAuth = false
+    
     var body: some View {
         ZStack {
             PlainBackground()
-            VStack {
-                Image("logo")
-                    .resizable()
-                    .frame(width: 200, height: 150)
-                    //.shadow(color: .white, radius: )
-                    .offset(y: -30)
-                
+            
+                .overlay(
+                    BouncingLogoAnimation()
+                        .offset(y: colorScheme == .light ? -310 : -190)
+                        .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
+                )
+            
+            
                 VStack (spacing: 25) {
                     Button("New Game") {
                         scene.state = .game
@@ -35,7 +38,6 @@ struct MainMenuView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
                             .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                        
                     )
                     .shadow(
                         color: Color.black.opacity(0.5),
@@ -43,6 +45,7 @@ struct MainMenuView: View {
                         x: 0,
                         y: 0
                     )
+                    .offset(y:40)
                     
                     Button("Settings") {
                         scene.state = .settings
@@ -63,6 +66,7 @@ struct MainMenuView: View {
                         x: 0,
                         y: 0
                     )
+                    .offset(y:45)
                     
                     Button("Leaderboard") {
                         scene.state = .leaderboard
@@ -83,22 +87,21 @@ struct MainMenuView: View {
                         x: 0,
                         y: 0
                     )
+                    .offset(y:50)
                 }
-                
-            }.onAppear {
+               
+            }
+            .onAppear {
                 game.isOperationSelected = false
                 game.authenticateUser()
                 game.endGame()
                 if UserDefaults.standard.object(forKey: UserDefaultKeys.hapticsEnabled) == nil {
                     UserDefaults.standard.set(true, forKey: UserDefaultKeys.hapticsEnabled)
-                    
                 }
             }
         }
-        
     }
-    
-}
+
 
 
 struct MainMenuView_Previews: PreviewProvider {
@@ -106,3 +109,4 @@ struct MainMenuView_Previews: PreviewProvider {
         MainMenuView(scene: diffViews(), game: Math())
     }
 }
+

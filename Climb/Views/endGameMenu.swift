@@ -1,28 +1,33 @@
 import SwiftUI
+
 struct End_Game_menu: View {
     @ObservedObject var game: Math
     @ObservedObject var scene: diffViews
     @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
     @State var gameRestarted = false
+    @State private var showGameOver = false
+    @State private var showMenu = false
     
     var body: some View {
         if gameRestarted {
             // Restart the game
+            
         } else {
+            
             ZStack {
+                
+
                 VStack(spacing: 20) {
                     Text("Game Over!")
                         .foregroundColor(.red)
                         .font(.custom("RoundsBlack", size: 48))
                         .fontWeight(.bold)
                         .padding()
-                        .onAppear {
-                            if isSoundEnabled {
-                                SoundManager.instance.playSound(sound: .fail)
-                            }
-                        }
-                    HStack{
-                        Text("Your final Score: ")
+                        .scaleEffect(showGameOver ? 1.0 : 0.0) // Apply scale effect based on the showGameOver state
+                        .animation(.spring(response: 0.5, dampingFraction: 0.6), value: showGameOver)
+                    
+                    HStack {
+                        Text(" final Score: ")
                             .foregroundColor(.white)
                             .font(.custom("RoundsBlack", size: 25))
                             .fontWeight(.bold)
@@ -31,6 +36,7 @@ struct End_Game_menu: View {
                             .font(.custom("RoundsBlack", size: 25))
                             .fontWeight(.bold)
                     }
+                    
                     HStack {
                         Button("Retry") {
                             gameRestarted = true
@@ -54,14 +60,25 @@ struct End_Game_menu: View {
                         .padding()
                         .foregroundColor(.white)
                         .fontWeight(.bold)
-                        
                     }
                 }
                 .background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-                    .frame(width: 350, height: 250)
-                    .foregroundColor(.black)
-            
+                .frame(width: 350, height: 800)
+                .foregroundColor(.black)
+                .offset(y: showMenu ? 0 : -800) // Offset the entire box vertically
+                .onAppear {
+                    withAnimation(.spring(response: 0.8, dampingFraction: 0.6)) { // Adjust the duration of the falling animation
+                        showMenu = true // Start the falling animation for the entire box
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
+                            showGameOver = true // Start the "Game Over" animation after a delay of 0.75 seconds
+                        }
+                    }
+                }
             }
+            
         }
     }
 }
