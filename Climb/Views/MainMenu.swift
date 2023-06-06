@@ -85,7 +85,7 @@ struct MainMenuView: View {
                 }
                 .overlay(
                     BouncingLogoAnimation()
-                        .offset(y: colorScheme == .light ? -320 : -210)
+                        .offset(y: colorScheme == .light ? -310 : -190)
                         .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
                 )
             }

@@ -64,8 +64,11 @@ struct LeaderBoardView: View {
                             
                     }
                    Divider()
-                        .frame(height:10)
-                        .overlay(.black)
+                        .frame(height:5)
+                        .overlay(
+                                Color.primary
+                                    .opacity(0.5)
+                                )
                         ScrollView {
                             ForEach(playersList, id: \.id) { player in
                                 HStack(spacing: 76){

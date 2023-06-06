@@ -15,9 +15,8 @@ struct End_Game_menu: View {
         } else {
             
             ZStack {
-                GameBackground()
-                    .blur(radius: 10)
                 
+
                 VStack(spacing: 20) {
                     Text("Game Over!")
                         .foregroundColor(.red)
@@ -28,7 +27,7 @@ struct End_Game_menu: View {
                         .animation(.spring(response: 0.5, dampingFraction: 0.6), value: showGameOver)
                     
                     HStack {
-                        Text("Your final Score: ")
+                        Text(" final Score: ")
                             .foregroundColor(.white)
                             .font(.custom("RoundsBlack", size: 25))
                             .fontWeight(.bold)
