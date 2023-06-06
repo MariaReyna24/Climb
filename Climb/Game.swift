@@ -22,6 +22,7 @@ class Math: ObservableObject{
     @Published var score = 0
     @Published var isPaused = false
     @Published var greenButtonCount = 0
+    @Published var isAuth = false
     var correctAnsArry : [Int] = []
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
@@ -105,43 +106,60 @@ class Math: ObservableObject{
             choicearry = answerList
             
         case .subtraction:
-            self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-
-            correctAnswer = self.firstNum - self.secondNum
+            let maxAttempts = 100 // Maximum number of attempts to find a valid subtraction question
+            var attemptCount = 0
+            var questionSkipped = false
             
-            while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) || firstNum < secondNum {
-                self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-                self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-                correctAnswer = self.firstNum - self.secondNum
-            }
-            correctAnsArry.append(correctAnswer)
-            let incorrectRange = (difficulty/3)...(difficulty)
-            for _ in 0...9 {
-                var randomIncorrectAnswer: Int
-                repeat {
-                    randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
-                } while answerList.contains(randomIncorrectAnswer)
-                answerList.append(randomIncorrectAnswer)
-            }
-            var incorrectAnswers: [Int] = []
-            for index in 0...9 {
-                let currentChoice = choicearry[index]
+            repeat {
+                self.firstNum = Int.random(in: 4...(difficulty/2), excluding: correctAnsArry)
+                self.secondNum = Int.random(in: 4...(difficulty)/2, excluding: correctAnsArry)
                 
-                if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
-                    answerList[index] = currentChoice
-                } else {
-                    incorrectAnswers.append(index)
+                correctAnswer = self.firstNum - self.secondNum
+                
+                attemptCount += 1
+                
+            } while (firstNum < secondNum || choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
+            
+            if attemptCount >= maxAttempts {
+                // Handle the case where a valid subtraction question couldn't be generated within the maximum attempts
+                print("Unable to generate a valid subtraction question.")
+                // Take appropriate action in your game logic (e.g., show an error message, skip the question, etc.)
+                questionSkipped = true
+                
+            }
+            if !questionSkipped {
+                correctAnsArry.append(correctAnswer)
+                let upperBound = correctAnswer + (30 - (levelnum * Int(0.2)))
+                let incorrectRange = (correctAnswer - 4)...upperBound
+                
+                
+                for _ in 0...9 {
+                    var randomIncorrectAnswer: Int
+                    repeat {
+                        randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: (correctAnsArry + choicearry))
+                    } while answerList.contains(randomIncorrectAnswer)
+                    answerList.append(randomIncorrectAnswer)
                 }
+                
+                var incorrectAnswers: [Int] = []
+                for index in 0...9 {
+                    let currentChoice = choicearry[index]
+                    
+                    if correctAnsArry.contains(currentChoice) && currentChoice != correctAnswer && !answerList.contains(currentChoice) {
+                        answerList[index] = currentChoice
+                    } else {
+                        incorrectAnswers.append(index)
+                    }
+                }
+                
+                // grab a random index from the array of wrong answer indexes
+                if let randomIndex = incorrectAnswers.randomElement() {
+                    // set the new correct answer at that index
+                    answerList[randomIndex] = correctAnswer
+                }
+                
+                choicearry = answerList
             }
-            
-            // grab a random index from the array of wrong answer indexes
-            if let randomIndex = incorrectAnswers.randomElement() {
-                // set the new correct answer at that index
-                answerList[randomIndex] = correctAnswer
-            }
-            
-            choicearry = answerList
         }
       
     }
@@ -171,6 +189,9 @@ class Math: ObservableObject{
         difficulty = 30
         levelnum =  1
         greenButtonCount = 0
+    }
+    func newQuestion(){
+        generateAnswers()
     }
     func authenticateUser() {
             GKLocalPlayer.local.authenticateHandler = { vc, error in
