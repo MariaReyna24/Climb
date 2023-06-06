@@ -108,7 +108,7 @@ struct ContentView: View {
                     }
                     
                    
-                    if game.timeRemaining == 0 {
+                    if game.timeRemaining == 10 {
                         End_Game_menu(game: game, scene: scene)
                         
                             .onAppear {
@@ -121,7 +121,7 @@ struct ContentView: View {
                         Pause_menu(scene: scene, game: game)
                     }
                     
-                    if game.greenButtonCount == 1 {
+                    if game.greenButtonCount == 10 {
                         levelCompleted(scene: scene, game: game)
                             .onAppear {
                                 game.isLevelComplete = true
