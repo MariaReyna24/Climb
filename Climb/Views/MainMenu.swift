@@ -18,7 +18,13 @@ struct MainMenuView: View {
         ZStack {
             PlainBackground()
             
-            VStack {
+                .overlay(
+                    BouncingLogoAnimation()
+                        .offset(y: colorScheme == .light ? -310 : -190)
+                        .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
+                )
+            
+            
                 VStack (spacing: 25) {
                     Button("New Game") {
                         scene.state = .game
@@ -83,11 +89,7 @@ struct MainMenuView: View {
                     )
                     .offset(y:50)
                 }
-                .overlay(
-                    BouncingLogoAnimation()
-                        .offset(y: colorScheme == .light ? -310 : -190)
-                        .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
-                )
+               
             }
             .onAppear {
                 game.isOperationSelected = false
@@ -99,7 +101,7 @@ struct MainMenuView: View {
             }
         }
     }
-}
+
 
 
 struct MainMenuView_Previews: PreviewProvider {
