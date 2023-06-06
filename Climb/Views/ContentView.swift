@@ -108,9 +108,7 @@ struct ContentView: View {
                    
                     if game.timeRemaining == 10 {
                         End_Game_menu(game: game, scene: scene)
-                        
                             .onAppear {
-                                
                                 game.isGameMenuShowing = true
                             }
                     }
