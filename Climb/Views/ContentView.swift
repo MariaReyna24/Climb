@@ -61,7 +61,7 @@ struct ContentView: View {
                             game.timeRemaining -= 1
                         }
                         // Stop the timer when the level is complete
-                        if game.greenButtonCount == 1 {
+                        if game.greenButtonCount == 10 {
                             game.timer.upstream.connect().cancel()
                         }
                     }
@@ -106,7 +106,7 @@ struct ContentView: View {
                     }
                     
                    
-                    if game.timeRemaining == 10 {
+                    if game.timeRemaining == 0 {
                         End_Game_menu(game: game, scene: scene)
                             .onAppear {
                                 game.isGameMenuShowing = true
