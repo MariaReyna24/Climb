@@ -24,7 +24,6 @@ class SoundManager: ObservableObject {
     
     func playSound(sound: SoundOption) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".mp3") else { return }
-        
         do {
             player = try AVAudioPlayer(contentsOf: url)
             player?.play()

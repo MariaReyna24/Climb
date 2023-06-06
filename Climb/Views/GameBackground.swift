@@ -93,7 +93,9 @@ class QueuePlayerUIView: UIView {
         super.layoutSubviews()
 
         // Adjust the frame of the playerLayer to fill the entire screen, ignoring the top and bottom safe areas
-        if let window = UIApplication.shared.windows.first {
+        let scenes =  UIApplication.shared.connectedScenes
+        let windowScenes = scenes.first as? UIWindowScene
+        if let window = windowScenes?.windows.first {
             let safeInsets = window.safeAreaInsets
             let playerFrame = CGRect(x: 0, y: -safeInsets.top, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + safeInsets.top + safeInsets.bottom)
             playerLayer.frame = playerFrame

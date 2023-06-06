@@ -15,6 +15,7 @@ struct OperationsView: View {
             ZStack {
                 PlainBackground()
                     .offset(y:-50)
+                
                 VStack(spacing: 30) {
                     Button("+") {
                         game.operation = .addition
@@ -60,8 +61,6 @@ struct OperationsView: View {
                         y: 0
                     )
                     Button("🔒") {
-                        game.operation = .subtraction
-                        game.isOperationSelected = true
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size: 55))
@@ -84,8 +83,8 @@ struct OperationsView: View {
                     .opacity(0.5)
                     
                     Button("🔒") {
-                        game.operation = .subtraction
-                        game.isOperationSelected = true
+                      //  game.operation = .subtraction
+                      //  game.isOperationSelected = true
                         heavyHaptic()
                     }
                     .font(.custom("RoundsBlack", size:55))
