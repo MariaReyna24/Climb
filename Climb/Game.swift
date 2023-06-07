@@ -22,7 +22,6 @@ class Math: ObservableObject{
     @Published var score = 0
     @Published var isPaused = false
     @Published var greenButtonCount = 0
-    @Published var isAuth = false
     var correctAnsArry : [Int] = []
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
@@ -111,8 +110,8 @@ class Math: ObservableObject{
             var questionSkipped = false
             
             repeat {
-                self.firstNum = Int.random(in: 4...(difficulty/2), excluding: correctAnsArry)
-                self.secondNum = Int.random(in: 4...(difficulty)/2, excluding: correctAnsArry)
+                self.firstNum = Int.random(in: 4...(difficulty/2), excluding: correctAnsArry )
+                self.secondNum = Int.random(in: 4...(difficulty)/2, excluding: correctAnsArry )
                 
                 correctAnswer = self.firstNum - self.secondNum
                 
@@ -125,11 +124,11 @@ class Math: ObservableObject{
                 print("Unable to generate a valid subtraction question.")
                 // Take appropriate action in your game logic (e.g., show an error message, skip the question, etc.)
                 questionSkipped = true
-                
             }
             if !questionSkipped {
                 correctAnsArry.append(correctAnswer)
-                let upperBound = correctAnswer + (30 - (levelnum * Int(0.2)))
+                
+                let upperBound = correctAnswer + (difficulty - (levelnum * Int(0.4)))
                 let incorrectRange = (correctAnswer - 4)...upperBound
                 
                 

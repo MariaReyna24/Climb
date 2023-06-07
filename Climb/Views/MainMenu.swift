@@ -17,7 +17,6 @@ struct MainMenuView: View {
     var body: some View {
         ZStack {
             PlainBackground()
-            
                 .overlay(
                     BouncingLogoAnimation()
                         .offset(y: colorScheme == .light ? -310 : -190)
@@ -95,6 +94,7 @@ struct MainMenuView: View {
                 game.isOperationSelected = false
                 game.authenticateUser()
                 game.endGame()
+                game.isPaused = false
                 if UserDefaults.standard.object(forKey: UserDefaultKeys.hapticsEnabled) == nil {
                     UserDefaults.standard.set(true, forKey: UserDefaultKeys.hapticsEnabled)
                 }

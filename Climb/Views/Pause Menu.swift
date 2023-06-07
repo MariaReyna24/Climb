@@ -26,9 +26,10 @@ struct Pause_menu: View {
                     .offset(y:-25)
                 
                 Button("Resume") {
-                    dismiss()
+                    scene.state = .game
                     game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                     heavyHaptic()
+                    game.isPaused = false
                 }
                 .font(.custom("RoundsBlack", size: 25))
                 .foregroundColor(Color("textColor"))
@@ -45,26 +46,26 @@ struct Pause_menu: View {
                     x: 0,
                     y: 0
                 )
-//                Button("Settings") {
-//                    
-//                    heavyHaptic()
-//                }
-//                .font(.custom("RoundsBlack", size: 25))
-//                .foregroundColor(Color("textColor"))
-//                .frame(width: 255, height: 80) // Adjusted width
-//                .background(Color("pauseColor"))
-//                            
-//                    .cornerRadius(25)
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 25)
-//                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-//                    )
-//                        .shadow(
-//                            color: Color.black.opacity(0.5),
-//                            radius: 6,
-//                            x: 0,
-//                            y: 0
-//                        )
+                Button("Settings") {
+                    scene.state = .settings
+                    heavyHaptic()
+                }
+                .font(.custom("RoundsBlack", size: 25))
+                .foregroundColor(Color("textColor"))
+                .frame(width: 255, height: 80) // Adjusted width
+                .background(Color("pauseColor"))
+                            
+                    .cornerRadius(25)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
+                    )
+                        .shadow(
+                            color: Color.black.opacity(0.5),
+                            radius: 6,
+                            x: 0,
+                            y: 0
+                        )
                 Button("Main Menu") {
                     game.endGame()
                     scene.state = .mainmenu
@@ -86,10 +87,6 @@ struct Pause_menu: View {
                             x: 0,
                             y: 0
                         )
-                          
-                            
-                            
-                
             }
         }
         
