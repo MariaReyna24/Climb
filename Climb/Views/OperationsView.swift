@@ -15,8 +15,16 @@ struct OperationsView: View {
             ZStack {
                 PlainBackground()
                     .offset(y:-50)
-                
                 VStack(spacing: 30) {
+                    Text("Select Operation")
+                        .font(.custom("RoundsBlack", size: 32))
+                        .foregroundColor(Color("myColor"))
+                        .shadow(
+                            color: Color.white.opacity(0.5),
+                            radius: 6,
+                            x: 0,
+                            y: 0
+                        )
                     Button("+") {
                         game.operation = .addition
                         game.isOperationSelected = true
@@ -128,5 +136,6 @@ struct OperationsView: View {
 struct OperationsView_Previews: PreviewProvider {
     static var previews: some View {
         OperationsView(scene: diffViews(), game: Math())
+        OperationsView(scene: diffViews(), game: Math()).preferredColorScheme(.dark)
     }
 }
