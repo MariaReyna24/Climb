@@ -25,7 +25,6 @@ struct ClimbButton: View {
                 if isSoundEnabled{
                     SoundManager.instance.playSound(sound: .chime)
                 }
-                
             } else {
                 backgroundColor = Color.red
                 haptic(.error)
@@ -62,8 +61,6 @@ struct ClimbButton: View {
                 .padding(0.5)
                 .controlSize(.large)
         }
-
-
         .disabled(game.timeRemaining == 0 || isDisabled)
         .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
         .onChange(of: game.timeRemaining) { newTime in

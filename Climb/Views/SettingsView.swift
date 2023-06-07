@@ -18,7 +18,6 @@ struct SettingsView: View {
             ZStack {
                 PlainBackground()
                     .offset(y:-50)
-                
                 VStack {
                     Text("Settings")
                         .foregroundColor(.white)

@@ -17,7 +17,6 @@ struct Pause_menu: View {
         ZStack {
             GameBackground()
                 .blur(radius: 10)
-            
             VStack (spacing: 20){
                 Text("Current score: \(game.score)")
                     .font(.custom("RoundsBlack", size: 25))
