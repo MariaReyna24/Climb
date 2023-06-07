@@ -31,7 +31,7 @@ struct ClimbButton: View {
                 if isSoundEnabled{
                     SoundManager.instance.playSound(sound: .wrong)
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     backgroundColor = Color("myColor")
                 }
             }
