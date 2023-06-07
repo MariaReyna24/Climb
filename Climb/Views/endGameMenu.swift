@@ -11,12 +11,8 @@ struct End_Game_menu: View {
     var body: some View {
         if gameRestarted {
             // Restart the game
-            
         } else {
-            
             ZStack {
-                
-
                 VStack(spacing: 20) {
                     Text("Game Over!")
                         .foregroundColor(.red)
@@ -70,7 +66,6 @@ struct End_Game_menu: View {
                     withAnimation(.spring(response: 0.8, dampingFraction: 0.6)) { // Adjust the duration of the falling animation
                         showMenu = true // Start the falling animation for the entire box
                     }
-                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                         withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
                             showGameOver = true // Start the "Game Over" animation after a delay of 0.75 seconds

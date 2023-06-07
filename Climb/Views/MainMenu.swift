@@ -12,19 +12,14 @@ struct MainMenuView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
-    @State var isAuth = false
-    
     var body: some View {
         ZStack {
             PlainBackground()
-            
                 .overlay(
                     BouncingLogoAnimation()
                         .offset(y: colorScheme == .light ? -310 : -190)
                         .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
                 )
-            
-            
                 VStack (spacing: 25) {
                     Button("New Game") {
                         scene.state = .game
@@ -95,6 +90,7 @@ struct MainMenuView: View {
                 game.isOperationSelected = false
                 game.authenticateUser()
                 game.endGame()
+                game.isPaused = false
                 if UserDefaults.standard.object(forKey: UserDefaultKeys.hapticsEnabled) == nil {
                     UserDefaults.standard.set(true, forKey: UserDefaultKeys.hapticsEnabled)
                 }

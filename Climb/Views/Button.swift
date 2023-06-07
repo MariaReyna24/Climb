@@ -25,14 +25,13 @@ struct ClimbButton: View {
                 if isSoundEnabled{
                     SoundManager.instance.playSound(sound: .chime)
                 }
-                
             } else {
                 backgroundColor = Color.red
                 haptic(.error)
                 if isSoundEnabled{
                     SoundManager.instance.playSound(sound: .wrong)
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     backgroundColor = Color("myColor")
                 }
             }
@@ -62,8 +61,6 @@ struct ClimbButton: View {
                 .padding(0.5)
                 .controlSize(.large)
         }
-
-
         .disabled(game.timeRemaining == 0 || isDisabled)
         .opacity(game.timeRemaining == 0 ? 0.8 : 1.0)
         .onChange(of: game.timeRemaining) { newTime in

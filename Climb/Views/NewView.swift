@@ -20,9 +20,11 @@ struct NewView: View {
         case .leaderboard:
             LeaderBoardView(scene: scene, game: game)
         case .settings:
-            SettingsView(scene: scene)
+            SettingsView(scene: scene, game: game)
         case .OperationsView:
             OperationsView(scene: scene, game: game)
+        case .pauseMenu:
+            Pause_menu(scene: scene, game: game)
         }
         
     }

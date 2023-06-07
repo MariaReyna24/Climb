@@ -71,8 +71,9 @@ struct ContentView: View {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("Pause") {
                                 game.timer.upstream.connect().cancel()
-                                showingSheet.toggle()
                                 heavyHaptic()
+                                scene.state = .pauseMenu
+                                game.isPaused = true
                                 
                             }
                             .disabled(game.isGameMenuShowing || game.isLevelComplete)
@@ -92,37 +93,25 @@ struct ContentView: View {
                                 .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
                         }
                     }
-                    
-                    
                     if game.isGameMenuShowing == true {
                         GameBackground()
                             .blur(radius: 10)
                     }
-                    
-                    
                     if game.isLevelComplete == true {
                         GameBackground()
                             .blur(radius: 10)
                     }
-                    
-                   
                     if game.timeRemaining == 0 {
                         End_Game_menu(game: game, scene: scene)
                             .onAppear {
                                 game.isGameMenuShowing = true
                             }
                     }
-                    
-                    if game.isPaused {
-                        Pause_menu(scene: scene, game: game)
-                    }
-                    
                     if game.greenButtonCount == 10 {
                         levelCompleted(scene: scene, game: game)
                             .onAppear {
                                 game.isLevelComplete = true
                             }
-                        
                     }
                 } else {
                     OperationsView(scene: scene, game: game)

@@ -16,5 +16,6 @@ class diffViews: ObservableObject{
         case leaderboard
         case settings
         case OperationsView
+        case pauseMenu
     }
 }

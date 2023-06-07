@@ -10,6 +10,7 @@ import SwiftUI
 import AVKit
 struct SettingsView: View {
     @ObservedObject var scene: diffViews
+    @ObservedObject var game: Math
     @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
     @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     var body: some View {
@@ -17,7 +18,6 @@ struct SettingsView: View {
             ZStack {
                 PlainBackground()
                     .offset(y:-50)
-                
                 VStack {
                     Text("Settings")
                         .foregroundColor(.white)
@@ -33,7 +33,11 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        scene.state = .mainmenu
+                        if game.isPaused == true{
+                            scene.state = .pauseMenu
+                        }else {
+                            scene.state = .mainmenu
+                        }
                         heavyHaptic()
                     }label: {
                         Label("Back", systemImage: "chevron.backward")
@@ -67,6 +71,6 @@ private extension SettingsView {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(scene: diffViews())
+        SettingsView(scene: diffViews(), game: Math())
     }
 }

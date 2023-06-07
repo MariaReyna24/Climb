@@ -17,7 +17,6 @@ struct Player: Hashable, Comparable {
     let name: String
     let score: Int
 }
-
 struct LeaderBoardView: View {
     @State private var isLeaderboardLoaded = false
     @ObservedObject var scene: diffViews
@@ -26,7 +25,7 @@ struct LeaderBoardView: View {
     @State var leaderboardPlace = 0
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack {
                 PlainBackground()
                     .offset(y:-50)
