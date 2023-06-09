@@ -151,6 +151,26 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		472628712A336AFB00DFFE1D /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				47DE01322A2A1A9C001FE226 /* GameBackground.swift */,
+				47DE01342A2A1CCE001FE226 /* PlainBackground.swift */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
+		472628722A336B0900DFFE1D /* AnimatedLogos */ = {
+			isa = PBXGroup;
+			children = (
+				4726286B2A33534500DFFE1D /* BouncingOperationsLogo.swift */,
+				4726286F2A33623300DFFE1D /* LeaderboardLogo.swift */,
+				4726286D2A33609800DFFE1D /* SettingsLogo.swift */,
+				474300E32A2E35A300B72B7E /* BouncingLogoAnimation.swift */,
+			);
+			path = AnimatedLogos;
+			sourceTree = "<group>";
+		};
 		47DE01292A2A1A3E001FE226 /* MotionBackgrounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,12 +196,8 @@
 				C6622F22299FCA1A00592947 /* LeaderBoardView.swift */,
 				A207E9982994068000CBBBEE /* Button.swift */,
 				A200365A2A0BE08F00A93A4A /* diffViews.swift */,
-				47DE01322A2A1A9C001FE226 /* GameBackground.swift */,
-				47DE01342A2A1CCE001FE226 /* PlainBackground.swift */,
-				4726286B2A33534500DFFE1D /* BouncingOperationsLogo.swift */,
-				4726286D2A33609800DFFE1D /* SettingsLogo.swift */,
-				4726286F2A33623300DFFE1D /* LeaderboardLogo.swift */,
-				474300E32A2E35A300B72B7E /* BouncingLogoAnimation.swift */,
+				472628712A336AFB00DFFE1D /* Background */,
+				472628722A336B0900DFFE1D /* AnimatedLogos */,
 			);
 			path = Views;
 			sourceTree = "<group>";

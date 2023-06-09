@@ -9,46 +9,58 @@
 import SwiftUI
 import AVKit
 struct SettingsView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
     @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     var body: some View {
-        NavigationStack{
-            ZStack {
-                PlainBackground()
-                    .offset(y:-50)
-                VStack {
-                    Text("Settings")
-                        .foregroundColor(.white)
-                        .font(.custom("RoundsBlack", size: 40))
-                    .frame(maxWidth: .infinity, alignment: .top)
-                    Form {
-                        haptics
-                        sound
-                    }.scrollContentBackground(.hidden)
+        
+        ZStack {
+            PlainBackground()
+                .offset(y:-50)
+                .overlay(
+                    SettingsLogo()
+                        .offset(y: colorScheme == .light ? -400 : -325)
+                        .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0))
+            
+            
+            Button {
+                if game.isPaused == true {
+                    scene.state = .pauseMenu
+                } else {
+                    scene.state = .mainmenu
                 }
                 
+                heavyHaptic()
+            }label: {
+                Image("BackButton")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height:200)
+                //.offset( y:40)
+                    .offset(y: colorScheme == .light ? 50 : 13)
+                    .offset(x: colorScheme == .light ? -3 : -5)
+                    .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        if game.isPaused == true{
-                            scene.state = .pauseMenu
-                        }else {
-                            scene.state = .mainmenu
-                        }
-                        heavyHaptic()
-                    }label: {
-                        Label("Back", systemImage: "chevron.backward")
-                    }
-                    .font(.title2)
-                    .foregroundColor(Color("myColor"))
-                }
+            
+            
+            .offset(x:-155,y:-415)
+            VStack {
+                
+                
+                Form {
+                    haptics
+                    sound
+                }.scrollContentBackground(.hidden)
+                    .offset(y:125)
             }
+            
         }
+        
     }
 }
+
 
 private extension SettingsView {
     var haptics: some View {

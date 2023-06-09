@@ -31,13 +31,12 @@ struct OperationsView: View {
                                 .scaledToFit()
                                 .frame(width: 200, height:200)
                                 //.offset( y:40)
-                                .offset(y: colorScheme == .light ? 35 : -5)
+                                .offset(y: colorScheme == .light ? 50 : 13)
                                 .offset(x: colorScheme == .light ? -3 : -5)
                                 .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
                        }
     
-                       .font(.title2)
-                       .foregroundColor(Color("myColor"))
+                      
                        .offset(x:-155,y:-415)
                     
                 
