@@ -30,10 +30,14 @@ struct LeaderBoardView: View {
         ZStack {
             PlainBackground()
                 .offset(y:-50)
-                .overlay(
-                    LeaderboardLogo()
-                        .offset(y: colorScheme == .light ? -325 : -380)
-                        .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0))
+            
+                Image("Leaderboard")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 400, height: 300)
+            .offset(y: colorScheme == .light ? -320 : -380)
+            .offset(x: colorScheme == .light ? 3 :4)
+            .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
             Button {
                 scene.state = .mainmenu
                 heavyHaptic()

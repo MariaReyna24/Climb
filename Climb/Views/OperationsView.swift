@@ -17,11 +17,14 @@ struct OperationsView: View {
                 
                 PlainBackground()
                     .offset(y:-50)
-                    .overlay(
-                        BouncingOperationsLogo()
-                            .offset(y: colorScheme == .light ? -375 : -300)
-                            .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0))
                 
+                    Image("Operations")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 400, height: 300)
+                .offset(y: colorScheme == .light ? -0 : 75)
+                .offset(x:-15, y:-370)
+                .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
                 Button {
                             scene.state = .mainmenu
                            heavyHaptic()

@@ -19,10 +19,14 @@ struct SettingsView: View {
         ZStack {
             PlainBackground()
                 .offset(y:-50)
-                .overlay(
-                    SettingsLogo()
-                        .offset(y: colorScheme == .light ? -400 : -325)
-                        .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0))
+                
+                    Image("Settings")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 400, height: 300)
+                .offset(y: colorScheme == .light ? -0 : 75)
+                .offset(x:23, y:-400)
+                .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
             
             
             Button {
@@ -39,7 +43,7 @@ struct SettingsView: View {
                     .scaledToFit()
                     .frame(width: 200, height:200)
                 //.offset( y:40)
-                    .offset(y: colorScheme == .light ? 70 : 23)
+                    .offset(y: colorScheme == .light ? 50 : 13)
                     .offset(x: colorScheme == .light ? -3 : -5)
                     .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
             }
