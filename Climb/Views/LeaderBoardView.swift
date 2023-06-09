@@ -18,6 +18,7 @@ struct Player: Hashable, Comparable {
     let score: Int
 }
 struct LeaderBoardView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var isLeaderboardLoaded = false
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
@@ -29,12 +30,19 @@ struct LeaderBoardView: View {
             ZStack {
                 PlainBackground()
                     .offset(y:-50)
+                    .overlay(
+                        LeaderboardLogo()
+                            .offset(y: colorScheme == .light ? -375 : -300)
+                            .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0))
                 
                 VStack {
+                    
+                    
                     Picker(selection: $game.operation, label: Text("Operation")) {
                         Text("Addition").tag(Math.Operation.addition)
                         Text("Subtraction").tag(Math.Operation.subtraction)
-                    }
+                            
+                    } .offset(y:70)
                     .onChange(of: game.operation) { _ in
                                     loadLeaderboard()
                                 }
@@ -46,12 +54,13 @@ struct LeaderBoardView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(20)
 
-                    Text("Leaderboard")
-                        .font(.custom("RoundsBlack", size: 30))
-                        .foregroundColor(.white)
-                        .padding()
+//                    Text("Leaderboard")
+//                        .font(.custom("RoundsBlack", size: 30))
+//                        .foregroundColor(.white)
+//                        .padding()
                         
                     HStack(spacing: 128){
+                        
                         Text("Name")
                             .frame(width: 75, alignment: .leading)
                             .font(.custom("RoundsBlack", size: 20))
@@ -62,13 +71,15 @@ struct LeaderBoardView: View {
                             .font(.custom("RoundsBlack", size: 20))
                             .foregroundColor(.white)
                             
-                    }
+                    } .offset(y:70)
                    Divider()
+                    
                         .frame(height:5)
                         .overlay(
                                 Color.primary
                                     .opacity(0.5)
                                 )
+                        .offset(y:70)
                         ScrollView {
                             ForEach(playersList, id: \.id) { player in
                                 HStack(spacing: 76){
