@@ -1,10 +1,3 @@
-//
-//  MainMenu.swift
-//  Climb
-//
-//  Created by Hadi Chamas  on 2/14/23.
-//
-
 import SwiftUI
 import GameKit
 
@@ -12,77 +5,123 @@ struct MainMenuView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
+    
+    @State private var isNewGameButtonPressed = false
+    @State private var isSettingsButtonPressed = false
+    @State private var isLeaderboardButtonPressed = false
+    
     var body: some View {
         ZStack {
-            BouncingLogoAnimation()
+ BouncingLogoAnimation()
                 .offset(y: colorScheme == .light ? -310 : -190)
                 .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
-            
-            VStack (spacing: 25) {
-                Button("New Game") {
-                    scene.state = .game
+
+                      VStack(spacing: 25) {
+                Button(action: {
+                    withAnimation {
+                        scene.state = .game
+                        isNewGameButtonPressed = true
+                    }
+                    heavyHaptic()
+                }) {
+                    Text("New Game")
+                        .font(.custom("RoundsBlack", size: 28))
+                        .foregroundColor(Color("textColor"))
+                        .frame(width: 255, height: 80)
+                        .background(Color("pauseColor"))
+                        .cornerRadius(25)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color("WhiteDM"), lineWidth: 6)
+                        )
+                        .shadow(
+                            color: Color.black.opacity(0.5),
+                            radius: 8,
+                            x: 0,
+                            y: 0
+                        )
+                }
+                .scaleEffect(isNewGameButtonPressed ? 0.0 : 1.0)
+                .buttonStyle(CustomButtonStyle())
+                .onTapGesture {
+                    withTransaction(Transaction(animation: nil)) {
+                        scene.state = .game
+                        isNewGameButtonPressed = true
+                    }
                     heavyHaptic()
                 }
-                .font(.custom("RoundsBlack", size: 28))
-                .foregroundColor(Color("textColor"))
-                .frame(width: 255, height: 80)
-                .background(Color("pauseColor"))
-                .cornerRadius(25)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 25)
-                        .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                )
-                .shadow(
-                    color: Color.black.opacity(0.5),
-                    radius: 8,
-                    x: 0,
-                    y: 0
-                )
-                .offset(y:40)
-                
-                Button("Settings") {
-                    scene.state = .settings
+                .offset(y: 40)
+
+                Button(action: {
+                    withAnimation {
+                        scene.state = .settings
+                        isSettingsButtonPressed = true
+                    }
+                    heavyHaptic()
+                }) {
+                    Text("Settings")
+                        .font(.custom("RoundsBlack", size: 30))
+                        .foregroundColor(Color("textColor"))
+                        .frame(width: 255, height: 80)
+                        .background(Color("pauseColor"))
+                        .cornerRadius(25)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color("WhiteDM"), lineWidth: 6)
+                        )
+                        .shadow(
+                            color: Color.black.opacity(0.5),
+                            radius: 8,
+                            x: 0,
+                            y: 0
+                        )
+                }
+                .scaleEffect(isSettingsButtonPressed ? 0.0 : 1.0)
+                .buttonStyle(CustomButtonStyle())
+                .onTapGesture {
+                    withTransaction(Transaction(animation: nil)) {
+                        scene.state = .settings
+                        isSettingsButtonPressed = true
+                    }
                     heavyHaptic()
                 }
-                .font(.custom("RoundsBlack", size: 30))
-                .foregroundColor(Color("textColor"))
-                .frame(width: 255, height: 80) // Adjusted width
-                .background(Color("pauseColor"))
-                .cornerRadius(25)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 25)
-                        .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                )
-                .shadow(
-                    color: Color.black.opacity(0.5),
-                    radius: 8,
-                    x: 0,
-                    y: 0
-                )
-                .offset(y:45)
-                
-                Button("Leaderboard") {
-                    scene.state = .leaderboard
+                .offset(y: 45)
+
+                Button(action: {
+                    withAnimation {
+                        scene.state = .leaderboard
+                        isLeaderboardButtonPressed = true
+                    }
+                    heavyHaptic()
+                }) {
+                    Text("Leaderboard")
+                        .font(.custom("RoundsBlack", size: 25))
+                        .foregroundColor(Color("textColor"))
+                        .frame(width: 255, height: 80)
+                        .background(Color("pauseColor"))
+                        .cornerRadius(25)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color("WhiteDM"), lineWidth: 6)
+                        )
+                        .shadow(
+                            color: Color.black.opacity(0.5),
+                            radius: 8,
+                            x: 0,
+                            y: 0
+                        )
+                }
+                .scaleEffect(isLeaderboardButtonPressed ? 0.0 : 1.0)
+                .buttonStyle(CustomButtonStyle())
+                .onTapGesture {
+                    withTransaction(Transaction(animation: nil)) {
+                        scene.state = .leaderboard
+                        isLeaderboardButtonPressed = true
+                    }
                     heavyHaptic()
                 }
-                .font(.custom("RoundsBlack", size: 25))
-                .foregroundColor(Color("textColor"))
-                .frame(width: 255, height: 80) // Adjusted width
-                .background(Color("pauseColor"))
-                .cornerRadius(25)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 25)
-                        .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                )
-                .shadow(
-                    color: Color.black.opacity(0.5),
-                    radius: 8,
-                    x: 0,
-                    y: 0
-                )
-                .offset(y:50)
+                .offset(y: 50)
             }
-            
         }
         .onAppear {
             game.isOperationSelected = false
@@ -96,7 +135,12 @@ struct MainMenuView: View {
     }
 }
 
-
+struct CustomButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+    }
+}
 
 struct MainMenuView_Previews: PreviewProvider {
     static var previews: some View {
@@ -104,3 +148,4 @@ struct MainMenuView_Previews: PreviewProvider {
     }
 }
 
+                

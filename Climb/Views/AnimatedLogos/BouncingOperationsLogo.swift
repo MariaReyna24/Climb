@@ -18,10 +18,10 @@ struct BouncingOperationsLogo: View {
             
             logoImage
                 .resizable()
-                .scaledToFit()
-                .frame(width: 400, height: 300)
+                .scaledToFill()
+                .frame(width: 100, height: 325)
                 .offset(y: isAnimating ? 7 : 0)
-                .offset(x:-13)
+                .offset(x:-16)
                 .shadow(
                     color: Color.black.opacity(0.5),
                     radius: 8,
