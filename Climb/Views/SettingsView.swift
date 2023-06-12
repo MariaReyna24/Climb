@@ -15,41 +15,44 @@ struct SettingsView: View {
     @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
     @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     var body: some View {
-        
-        ZStack {
-//            PlainBackground()
-//                .offset(y:-50)
-                
-                    Image("Settings")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 400, height: 300)
-                .offset(y: colorScheme == .light ? -0 : 75)
-                .offset(x:23, y:-400)
-                .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+        NavigationStack{
             
-            
-            Button {
-                if game.isPaused == true {
-                    scene.state = .pauseMenu
-                } else {
-                    scene.state = .mainmenu
-                }
+    
+            ZStack {
+                            PlainBackground()
+                                .offset(y:-50)
                 
-                heavyHaptic()
-            }label: {
-                Image("BackButton")
+                Image("Settings")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height:200)
-                    .offset( y:40)
-                    .offset(y: colorScheme == .light ? 50 : 13)
-                    .offset(x: colorScheme == .light ? -3 : -5)
-                    .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                   // .frame(width: 400, height: 300)
+                    .offset(y: -200)
+                    .offset(x: 25)
+                    .offset(y: colorScheme == .light ? 5 : 85)
+                    .shadow(color: colorScheme == .light ? .black : .white, radius: 5, x: 0, y: 0)
+                
+                
+                    .toolbar{
+                        ToolbarItem(placement: .navigationBarLeading){
+                            Button {
+                                scene.state = .mainmenu
+                                heavyHaptic()
+                            }label: {
+                                Image("BackButton")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 200, height:200)
+                                    .offset( x:-65, y: 45)
+                                .offset(y: colorScheme == .light ? 5 : -35)
+                                 .offset(x: colorScheme == .light ? -0: -0)
+                                    .shadow(color: colorScheme == .light ? .black : .white, radius: 5, x: 0, y: 0)
+                            }
+                        }
+                    }
             }
             
             
-            .offset(x:-155,y:-415)
+            
             VStack {
                 
                 
@@ -57,7 +60,7 @@ struct SettingsView: View {
                     haptics
                     sound
                 }.scrollContentBackground(.hidden)
-                    .offset(y:125)
+                    .offset(y:-300)
             }
             
         }

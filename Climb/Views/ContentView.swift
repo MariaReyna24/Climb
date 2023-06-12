@@ -13,12 +13,15 @@ struct ContentView: View {
     @ObservedObject var game: Math
     @State private var showingSheet = false
     @State private var showinglevelComplete = false
+    
+    @State private var isPauseButtonPressed = false
+    
     var body: some View {
         Group{
             NavigationStack {
                 ZStack {
-                   // GameBackground()
-                        //.offset(y:-50)
+                    GameBackground()
+                        .offset(y:-50)
                     
                     if game.isOperationSelected {
                         VStack {
@@ -45,7 +48,7 @@ struct ContentView: View {
                                     .offset(y:30)
                                 
                             }
-                          //  .offset(y:0)
+                            //  .offset(y:0)
                             Spacer()
                             
                         }
@@ -69,21 +72,36 @@ struct ContentView: View {
                         // Display for the top part of the app
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Pause") {
-                                    game.timer.upstream.connect().cancel()
+                                Button(action: {
+                                    withAnimation{
+                                        game.timer.upstream.connect().cancel()
+                                        heavyHaptic()
+                                        scene.state = .pauseMenu
+                                        game.isPaused = true
+                                        isPauseButtonPressed = true
+                                    }
                                     heavyHaptic()
-                                    scene.state = .pauseMenu
-                                    game.isPaused = true
-                                    
-                                }
-                                .disabled(game.isGameMenuShowing || game.isLevelComplete)
-                                .font(.custom("RoundsBlack", size: 20))
-                                .foregroundColor(Color("myColor"))
-                                .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
-                                .fullScreenCover(isPresented: $showingSheet) {
-                                    Pause_menu(scene: scene, game: game)
+                                }){
+                                    Text("Pause")
+                                        .disabled(game.isGameMenuShowing || game.isLevelComplete)
+                                        .font(.custom("RoundsBlack", size: 20))
+                                        .foregroundColor(Color("myColor"))
+                                        .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
+                                        .fullScreenCover(isPresented: $showingSheet) {
+                                            Pause_menu(scene: scene, game: game)
+                                        }
+                                        .scaleEffect(isPauseButtonPressed ? 0.0 : 1.0)
+                                        .buttonStyle(CustomButtonStyle())
+                                        .onTapGesture {
+                                            withTransaction(Transaction(animation: nil)) {
+                                                scene.state = .pauseMenu
+                                                isPauseButtonPressed  = true
+                                            }
+                                            heavyHaptic()
+                                        }
                                 }
                             }
+                          
                             
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Text("\(game.timeRemaining)s")

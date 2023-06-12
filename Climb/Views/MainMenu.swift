@@ -76,7 +76,7 @@ struct MainMenuView: View {
                             y: 0
                         )
                 }
-                .scaleEffect(isSettingsButtonPressed ? 0.0 : 1.0)
+                .scaleEffect(isSettingsButtonPressed ? 0.9 : 1.0)
                 .buttonStyle(CustomButtonStyle())
                 .onTapGesture {
                     withTransaction(Transaction(animation: nil)) {
@@ -111,7 +111,7 @@ struct MainMenuView: View {
                             y: 0
                         )
                 }
-                .scaleEffect(isLeaderboardButtonPressed ? 0.0 : 1.0)
+                .scaleEffect(isLeaderboardButtonPressed ? 0.9 : 1.0)
                 .buttonStyle(CustomButtonStyle())
                 .onTapGesture {
                     withTransaction(Transaction(animation: nil)) {
