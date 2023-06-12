@@ -17,9 +17,9 @@ struct BouncingLogoAnimation: View {
             Spacer()
             
             logoImage
-                .resizable()
-                .scaledToFit()
-                .frame(width: 800, height: 650)
+                 .resizable()
+                .scaledToFill()
+                .frame(width: 100, height: 600)
                 .offset(y: isAnimating ? 7 : 0)
                 .shadow(
                     color: Color.black.opacity(0.5),

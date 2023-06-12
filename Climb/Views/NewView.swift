@@ -12,21 +12,24 @@ struct NewView: View {
     @ObservedObject var game: Math
     @State private var showLevelCompleted = false
     var body: some View {
-        switch scene.state {
-        case .mainmenu:
-            MainMenuView(scene: scene, game: game)
-        case .game:
-            ContentView(scene: scene, game: game)
-        case .leaderboard:
-            LeaderBoardView(scene: scene, game: game)
-        case .settings:
-            SettingsView(scene: scene, game: game)
-        case .OperationsView:
-            OperationsView(scene: scene, game: game)
-        case .pauseMenu:
-            Pause_menu(scene: scene, game: game)
+        ZStack{
+            PlainBackground()
+                .offset(y:-50)
+            switch scene.state {
+            case .mainmenu:
+                MainMenuView(scene: scene, game: game)
+            case .game:
+                ContentView(scene: scene, game: game)
+            case .leaderboard:
+                LeaderBoardView(scene: scene, game: game)
+            case .settings:
+                SettingsView(scene: scene, game: game)
+            case .OperationsView:
+                OperationsView(scene: scene, game: game)
+            case .pauseMenu:
+                Pause_menu(scene: scene, game: game)
+            }
         }
-        
     }
     
 }

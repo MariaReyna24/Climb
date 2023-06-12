@@ -15,14 +15,14 @@ struct Pause_menu: View {
     @ObservedObject var game : Math
     var body: some View {
         ZStack {
-            GameBackground()
-                .blur(radius: 10)
+//            GameBackground()
+//                .blur(radius: 10)
             VStack (spacing: 20){
                 Text("Current score: \(game.score)")
                     .font(.custom("RoundsBlack", size: 25))
                     .foregroundColor(.white)
                     .fontWeight(.bold)
-                    .offset(y:-25)
+                  //  .offset(y:-25)
                 
                 Button("Resume") {
                     scene.state = .game

@@ -28,8 +28,8 @@ struct LeaderBoardView: View {
     var body: some View {
         
         ZStack {
-            PlainBackground()
-                .offset(y:-50)
+//            PlainBackground()
+//                .offset(y:-50)
             
                 Image("Leaderboard")
             .resizable()
@@ -46,7 +46,7 @@ struct LeaderBoardView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height:200)
-                //.offset( y:40)
+                    .offset( y:40)
                     .offset(y: colorScheme == .light ? 50 : 13)
                     .offset(x: colorScheme == .light ? -3 : -5)
                     .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
@@ -76,7 +76,7 @@ struct LeaderBoardView: View {
                 
                 
                 
-                HStack(spacing: 128){
+                HStack(spacing: 134){
                     
                     Text("Name")
                         .frame(width: 75, alignment: .leading)
@@ -99,9 +99,9 @@ struct LeaderBoardView: View {
                     .offset(y:150)
                 ScrollView {
                     ForEach(playersList, id: \.id) { player in
-                        HStack(spacing: 76){
+                        HStack(spacing: 74){
                             
-                            Text("\(String(player.name.prefix(12)))")
+                            Text("\(String(player.name.prefix(11)))")
                                 .frame(width: 155, alignment: .leading)
                                 .foregroundColor(.white)
                                 .font(.custom("RoundsBlack", size: 18))
@@ -113,10 +113,10 @@ struct LeaderBoardView: View {
                             
                         }
                         .padding(1)
-                        Color.black
-                        
-                        
-                    }
+                        Color.primary
+                            .opacity(0.5)
+                            .frame(height:5)
+                    } .offset(y:150)
                 }
             }
             

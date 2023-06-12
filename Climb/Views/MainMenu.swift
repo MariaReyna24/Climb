@@ -14,89 +14,87 @@ struct MainMenuView: View {
     @ObservedObject var game: Math
     var body: some View {
         ZStack {
-            PlainBackground()
+            BouncingLogoAnimation()
+                .offset(y: colorScheme == .light ? -310 : -190)
+                .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
+            
+            VStack (spacing: 25) {
+                Button("New Game") {
+                    scene.state = .game
+                    heavyHaptic()
+                }
+                .font(.custom("RoundsBlack", size: 28))
+                .foregroundColor(Color("textColor"))
+                .frame(width: 255, height: 80)
+                .background(Color("pauseColor"))
+                .cornerRadius(25)
                 .overlay(
-                    BouncingLogoAnimation()
-                        .offset(y: colorScheme == .light ? -310 : -190)
-                        .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
+                    RoundedRectangle(cornerRadius: 25)
+                        .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
                 )
-                VStack (spacing: 25) {
-                    Button("New Game") {
-                        scene.state = .game
-                        heavyHaptic()
-                    }
-                    .font(.custom("RoundsBlack", size: 28))
-                    .foregroundColor(Color("textColor"))
-                    .frame(width: 255, height: 80)
-                    .background(Color("pauseColor"))
-                    .cornerRadius(25)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                    )
-                    .shadow(
-                        color: Color.black.opacity(0.5),
-                        radius: 8,
-                        x: 0,
-                        y: 0
-                    )
-                    .offset(y:40)
-                    
-                    Button("Settings") {
-                        scene.state = .settings
-                        heavyHaptic()
-                    }
-                    .font(.custom("RoundsBlack", size: 30))
-                    .foregroundColor(Color("textColor"))
-                    .frame(width: 255, height: 80) // Adjusted width
-                    .background(Color("pauseColor"))
-                    .cornerRadius(25)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                    )
-                    .shadow(
-                        color: Color.black.opacity(0.5),
-                        radius: 8,
-                        x: 0,
-                        y: 0
-                    )
-                    .offset(y:45)
-                    
-                    Button("Leaderboard") {
-                        scene.state = .leaderboard
-                        heavyHaptic()
-                    }
-                    .font(.custom("RoundsBlack", size: 25))
-                    .foregroundColor(Color("textColor"))
-                    .frame(width: 255, height: 80) // Adjusted width
-                    .background(Color("pauseColor"))
-                    .cornerRadius(25)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                    )
-                    .shadow(
-                        color: Color.black.opacity(0.5),
-                        radius: 8,
-                        x: 0,
-                        y: 0
-                    )
-                    .offset(y:50)
+                .shadow(
+                    color: Color.black.opacity(0.5),
+                    radius: 8,
+                    x: 0,
+                    y: 0
+                )
+                .offset(y:40)
+                
+                Button("Settings") {
+                    scene.state = .settings
+                    heavyHaptic()
                 }
-               
+                .font(.custom("RoundsBlack", size: 30))
+                .foregroundColor(Color("textColor"))
+                .frame(width: 255, height: 80) // Adjusted width
+                .background(Color("pauseColor"))
+                .cornerRadius(25)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 25)
+                        .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
+                )
+                .shadow(
+                    color: Color.black.opacity(0.5),
+                    radius: 8,
+                    x: 0,
+                    y: 0
+                )
+                .offset(y:45)
+                
+                Button("Leaderboard") {
+                    scene.state = .leaderboard
+                    heavyHaptic()
+                }
+                .font(.custom("RoundsBlack", size: 25))
+                .foregroundColor(Color("textColor"))
+                .frame(width: 255, height: 80) // Adjusted width
+                .background(Color("pauseColor"))
+                .cornerRadius(25)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 25)
+                        .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
+                )
+                .shadow(
+                    color: Color.black.opacity(0.5),
+                    radius: 8,
+                    x: 0,
+                    y: 0
+                )
+                .offset(y:50)
             }
-            .onAppear {
-                game.isOperationSelected = false
-                game.authenticateUser()
-                game.endGame()
-                game.isPaused = false
-                if UserDefaults.standard.object(forKey: UserDefaultKeys.hapticsEnabled) == nil {
-                    UserDefaults.standard.set(true, forKey: UserDefaultKeys.hapticsEnabled)
-                }
+            
+        }
+        .onAppear {
+            game.isOperationSelected = false
+            game.authenticateUser()
+            game.endGame()
+            game.isPaused = false
+            if UserDefaults.standard.object(forKey: UserDefaultKeys.hapticsEnabled) == nil {
+                UserDefaults.standard.set(true, forKey: UserDefaultKeys.hapticsEnabled)
             }
         }
     }
+}
 
 
 

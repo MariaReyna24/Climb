@@ -15,10 +15,7 @@ struct ContentView: View {
     @State private var showinglevelComplete = false
     var body: some View {
         Group{
-            
-            
             NavigationStack {
-                
                 ZStack {
                     GameBackground()
                         .offset(y:-50)
@@ -48,7 +45,7 @@ struct ContentView: View {
                                     .offset(y:30)
                                 
                             }
-                            .offset(y:0)
+                          //  .offset(y:0)
                             Spacer()
                             
                         }
