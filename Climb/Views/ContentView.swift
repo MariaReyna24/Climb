@@ -20,8 +20,8 @@ struct ContentView: View {
         Group{
             NavigationStack {
                 ZStack {
-                    GameBackground()
-                        .offset(y:-50)
+                    //GameBackground()
+                       // .offset(y:-50)
                     
                     if game.isOperationSelected {
                         VStack {

@@ -31,8 +31,8 @@ struct LeaderBoardView: View {
             
             
             ZStack {
-                           PlainBackground()
-                               .offset(y:-50)
+                         //  PlainBackground()
+                           //    .offset(y:-50)
                 
                 Image("Leaderboard")
                     .resizable()

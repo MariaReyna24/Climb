@@ -1,6 +1,7 @@
 import SwiftUI
 import GameKit
 
+
 struct MainMenuView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var scene: diffViews
