@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LeaderboardLogo: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var isAnimating = false
     
     let logoImage = Image("Leaderboard")
@@ -20,6 +21,8 @@ struct LeaderboardLogo: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 400, height: 300)
+                .offset(y: colorScheme == .light ? 30 : -25)
+                .offset(x:-20)
                 .offset(y: isAnimating ? 7 : 0)
                 .shadow(
                     color: Color.black.opacity(0.5),

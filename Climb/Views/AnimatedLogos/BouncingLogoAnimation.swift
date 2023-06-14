@@ -1,13 +1,7 @@
-//
-//  BounceAnimationLogo.swift
-//  Climb
-//
-//  Created by Hadi Chamas  on 6/5/23.
-//
-
 import SwiftUI
 
 struct BouncingLogoAnimation: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var isAnimating = false
     
     let logoImage = Image("logo")
@@ -20,7 +14,9 @@ struct BouncingLogoAnimation: View {
                  .resizable()
                 .scaledToFill()
                 .frame(width: 100, height: 600)
-                .offset(y: isAnimating ? 7 : 0)
+                .offset(y: colorScheme == .light ? -310 : -190)
+                .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
+                .offset(y: isAnimating ? 8 : 0)
                 .shadow(
                     color: Color.black.opacity(0.5),
                     radius: 8,

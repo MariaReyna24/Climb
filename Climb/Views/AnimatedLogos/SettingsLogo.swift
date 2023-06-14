@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsLogo: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var isAnimating = false
     
     let logoImage = Image("Settings")
@@ -20,8 +21,9 @@ struct SettingsLogo: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 400, height: 300)
-                .offset(y: isAnimating ? 7 : 0)
-                .offset(x:23)
+                .offset(y: colorScheme == .light ? -95 : -25)
+                .offset(y: isAnimating ? 8 : 0)
+                .offset(x:-15)
                 .shadow(
                     color: Color.black.opacity(0.5),
                     radius: 8,

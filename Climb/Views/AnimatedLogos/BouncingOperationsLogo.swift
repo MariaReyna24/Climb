@@ -1,13 +1,7 @@
-//
-//  BouncingOperationsLogo.swift
-//  Climb
-//
-//  Created by Hadi Chamas  on 6/9/23.
-//
-
 import SwiftUI
 
 struct BouncingOperationsLogo: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var isAnimating = false
     
     let logoImage = Image("Operations")
@@ -18,10 +12,11 @@ struct BouncingOperationsLogo: View {
             
             logoImage
                 .resizable()
-                .scaledToFit()
-                .frame(width: 475, height: 300)
-                .offset(y: isAnimating ? 7 : 0)
+                .scaledToFill()
+                .frame(width: 375, height: 100)
+                .offset(y: colorScheme == .light ? -95 : -25)
                 .offset(x:-12, y: 30)
+                .offset(y: isAnimating ? 8 : 0)
                 .shadow(
                     color: Color.black.opacity(0.5),
                     radius: 8,

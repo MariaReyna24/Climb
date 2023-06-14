@@ -13,9 +13,9 @@ struct MainMenuView: View {
     
     var body: some View {
         ZStack {
- BouncingLogoAnimation()
-                .offset(y: colorScheme == .light ? -310 : -190)
-                .shadow(color: colorScheme == .light ? .black : .white, radius: 0, x: 0, y: 0)
+   BouncingLogoAnimation()
+                .offset(y:-10)
+                
 
                       VStack(spacing: 25) {
                 Button(action: {

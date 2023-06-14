@@ -20,193 +20,135 @@ struct Pause_menu: View {
 
     
     var body: some View {
-        ZStack {
-         //GameBackground()
-               // .blur(radius: 10)
-            VStack (spacing: 20){
-                Text("Current score: \(game.score)")
-                    .font(.custom("RoundsBlack", size: 25))
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
-                //  .offset(y:-25)
+        GeometryReader { geometry in
+            ZStack {
+                GameBackground()
+                    .ignoresSafeArea(.all)
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .blur(radius: 7)
                 
-                Button(action: {
-                    withAnimation{
-                        scene.state = .game
-                        game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-                        heavyHaptic()
-                        game.isPaused = false
-                        isResumeButtonPressed = true
-                    }
-                    heavyHaptic()
-                }) {
-                    Text("Resume")
+                VStack (spacing: 20){
+                    Text("Current score: \(game.score)")
                         .font(.custom("RoundsBlack", size: 25))
-                        .foregroundColor(Color("textColor"))
-                        .frame(width: 255, height: 80) // Adjusted width
-                        .background(Color("pauseColor"))
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                        )
-                        .shadow(
-                            color: Color.black.opacity(0.5),
-                            radius: 6,
-                            x: 0,
-                            y: 0
-                        )
-                }
-                
-                .scaleEffect(isResumeButtonPressed ? 0.0 : 1.0)
-                .buttonStyle(CustomButtonStyle())
-                .onTapGesture {
-                    withTransaction(Transaction(animation: nil)) {
-                        scene.state = .settings
-                        isResumeButtonPressed = true
-                    }
-                    heavyHaptic()
-                }
-                
-                Button(action: {
-                    withAnimation{
-                        scene.state = .settings
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                    //  .offset(y:-25)
+                    
+                    Button(action: {
+                        withAnimation{
+                            scene.state = .game
+                            game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                            heavyHaptic()
+                            game.isPaused = false
+                            isResumeButtonPressed = true
+                        }
                         heavyHaptic()
-                        isSettingsButtonPressed = true
+                    }) {
+                        Text("Resume")
+                            .font(.custom("RoundsBlack", size: 25))
+                            .foregroundColor(Color("textColor"))
+                            .frame(width: 255, height: 80) // Adjusted width
+                            .background(Color("pauseColor"))
+                            .cornerRadius(25)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
+                            )
+                            .shadow(
+                                color: Color.black.opacity(0.5),
+                                radius: 6,
+                                x: 0,
+                                y: 0
+                            )
                     }
-                    heavyHaptic()
-                }) {
-                    Text("Settings")
-                        .font(.custom("RoundsBlack", size: 25))
-                        .foregroundColor(Color("textColor"))
-                        .frame(width: 255, height: 80) // Adjusted width
-                        .background(Color("pauseColor"))
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                        )
-                        .shadow(
-                            color: Color.black.opacity(0.5),
-                            radius: 6,
-                            x: 0,
-                            y: 0
-                        )
-                }
-                
-                .scaleEffect(isSettingsButtonPressed ? 0.0 : 1.0)
-                .buttonStyle(CustomButtonStyle())
-                .onTapGesture {
-                    withTransaction(Transaction(animation: nil)) {
-                        scene.state = .settings
-                        isSettingsButtonPressed = true
-                    }
-                    heavyHaptic()
-                }
-                
-                Button(action: {
-                    withAnimation{
-                        game.endGame()
-                        scene.state = .mainmenu
+                    
+                    .scaleEffect(isResumeButtonPressed ? 0.0 : 1.0)
+                    .buttonStyle(CustomButtonStyle())
+                    .onTapGesture {
+                        withTransaction(Transaction(animation: nil)) {
+                            scene.state = .settings
+                            isResumeButtonPressed = true
+                        }
                         heavyHaptic()
-                        isMainMenuButtonPressed = true
                     }
-                    heavyHaptic()
-                }) {
-                    Text("Main Menu")
-                        .font(.custom("RoundsBlack", size: 25))
-                        .foregroundColor(Color("textColor"))
-                        .frame(width: 255, height: 80) // Adjusted width
-                        .background(Color("pauseColor"))
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-                        )
-                        .shadow(
-                            color: Color.black.opacity(0.5),
-                            radius: 6,
-                            x: 0,
-                            y: 0
-                        )
-                }
-                
-                .scaleEffect(isMainMenuButtonPressed ? 0.0 : 1.0)
-                .buttonStyle(CustomButtonStyle())
-                .onTapGesture {
-                    withTransaction(Transaction(animation: nil)) {
-                        scene.state = .settings
-                        isMainMenuButtonPressed = true
+                    
+                    Button(action: {
+                        withAnimation{
+                            scene.state = .settings
+                            heavyHaptic()
+                            isSettingsButtonPressed = true
+                        }
+                        heavyHaptic()
+                    }) {
+                        Text("Settings")
+                            .font(.custom("RoundsBlack", size: 25))
+                            .foregroundColor(Color("textColor"))
+                            .frame(width: 255, height: 80) // Adjusted width
+                            .background(Color("pauseColor"))
+                            .cornerRadius(25)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
+                            )
+                            .shadow(
+                                color: Color.black.opacity(0.5),
+                                radius: 6,
+                                x: 0,
+                                y: 0
+                            )
                     }
-                    heavyHaptic()
+                    
+                    .scaleEffect(isSettingsButtonPressed ? 0.0 : 1.0)
+                    .buttonStyle(CustomButtonStyle())
+                    .onTapGesture {
+                        withTransaction(Transaction(animation: nil)) {
+                            scene.state = .settings
+                            isSettingsButtonPressed = true
+                        }
+                        heavyHaptic()
+                    }
+                    
+                    Button(action: {
+                        withAnimation{
+                            game.endGame()
+                            scene.state = .mainmenu
+                            heavyHaptic()
+                            isMainMenuButtonPressed = true
+                        }
+                        heavyHaptic()
+                    }) {
+                        Text("Main Menu")
+                            .font(.custom("RoundsBlack", size: 25))
+                            .foregroundColor(Color("textColor"))
+                            .frame(width: 255, height: 80) // Adjusted width
+                            .background(Color("pauseColor"))
+                            .cornerRadius(25)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
+                            )
+                            .shadow(
+                                color: Color.black.opacity(0.5),
+                                radius: 6,
+                                x: 0,
+                                y: 0
+                            )
+                    }
+                    
+                    .scaleEffect(isMainMenuButtonPressed ? 0.0 : 1.0)
+                    .buttonStyle(CustomButtonStyle())
+                    .onTapGesture {
+                        withTransaction(Transaction(animation: nil)) {
+                            scene.state = .settings
+                            isMainMenuButtonPressed = true
+                        }
+                        heavyHaptic()
+                    }
+                    
                 }
-            
-//                Button("Resume") {
-//                    scene.state = .game
-//                    game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-//                    heavyHaptic()
-//                    game.isPaused = false
-//                }
-                
-//                .font(.custom("RoundsBlack", size: 25))
-//                .foregroundColor(Color("textColor"))
-//                .frame(width: 255, height: 80) // Adjusted width
-//                .background(Color("pauseColor"))
-//                .cornerRadius(25)
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 25)
-//                        .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-//                )
-//                .shadow(
-//                    color: Color.black.opacity(0.5),
-//                    radius: 6,
-//                    x: 0,
-//                    y: 0
-//                )
-//                Button("Settings") {
-//                    scene.state = .settings
-//                    heavyHaptic()
-//                }
-//                .font(.custom("RoundsBlack", size: 25))
-//                .foregroundColor(Color("textColor"))
-//                .frame(width: 255, height: 80) // Adjusted width
-//                .background(Color("pauseColor"))
-//
-//                    .cornerRadius(25)
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 25)
-//                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-//                    )
-//                        .shadow(
-//                            color: Color.black.opacity(0.5),
-//                            radius: 6,
-//                            x: 0,
-//                            y: 0
-//                        )
-//                Button("Main Menu") {
-//                    game.endGame()
-//                    scene.state = .mainmenu
-//                    heavyHaptic()
-//                }
-//                .font(.custom("RoundsBlack", size: 25))
-//                .foregroundColor(Color("textColor"))
-//                .frame(width: 255, height: 80) // Adjusted width
-//                .background(Color("pauseColor"))
-//                            
-//                    .cornerRadius(25)
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 25)
-//                            .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-//                    )
-//                        .shadow(
-//                            color: Color.black.opacity(0.5),
-//                            radius: 6,
-//                            x: 0,
-//                            y: 0
-//                        )
             }
+            
         }
-        
     }
     
     

@@ -17,50 +17,47 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack{
             
-    
-            ZStack {
-                          //  PlainBackground()
-                              //  .offset(y:-50)
-                
-                Image("Settings")
-                    .resizable()
-                    .scaledToFit()
-                   // .frame(width: 400, height: 300)
-                    .offset(y: -200)
-                    .offset(x: 25)
-                    .offset(y: colorScheme == .light ? 5 : 85)
-                    .shadow(color: colorScheme == .light ? .black : .white, radius: 5, x: 0, y: 0)
-                
-                
-                    .toolbar{
-                        ToolbarItem(placement: .navigationBarLeading){
-                            Button {
-                                scene.state = .mainmenu
-                                heavyHaptic()
-                            }label: {
-                                Image("BackButton")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 200, height:200)
-                                    .offset( x:-65, y: 45)
-                                .offset(y: colorScheme == .light ? 5 : -35)
-                                 .offset(x: colorScheme == .light ? -0: -0)
-                                    .shadow(color: colorScheme == .light ? .black : .white, radius: 5, x: 0, y: 0)
+            GeometryReader { geometry in
+                ZStack {
+                    SettingsLogo()
+                        .offset(y: -0.30 * geometry.size.height)
+                        .offset(x: 0.12 * geometry.size.height)
+                    
+                    
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button {
+                                    scene.state = .mainmenu
+                                    heavyHaptic()
+                                } label: {
+                                    Image("BackButton")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 175, height: 175)
+                                        .offset(x: -55, y: 35)
+                                        .offset(y: colorScheme == .light ? 0 : -30)
+                                        .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                                }
+                                .disabled(true)
+                                .allowsHitTesting(false)
+                                .animation(nil)
                             }
+                        
                         }
-                    }
+                }
             }
             
             
-            
-            VStack {
-                
-                
-                Form {
-                    haptics
-                    sound
-                }.scrollContentBackground(.hidden)
-                    .offset(y:-300)
+            GeometryReader { geometry in
+                VStack {
+                    
+                    
+                    Form {
+                        haptics
+                        sound
+                    }.scrollContentBackground(.hidden)
+                        .offset(y: -0.80 * geometry.size.height)
+                }
             }
             
         }

@@ -8,64 +8,17 @@ struct OperationsView: View {
     @State private var isAdditionButtonPressed = false
     @State private var isSubtractionButtonPressed = false
     
-    var isSmallDevice: Bool {
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        let screenSize = min(screenWidth, screenHeight)
-        
-        // Adjust the threshold as per your requirements
-        let smallDeviceThreshold: CGFloat = 320
-        let currentDevice = UIDevice.current.model
-        
-        return screenSize <= smallDeviceThreshold && currentDevice != "iPhone13,4" // Exclude iPhone 13 Pro Max as a small device
-    }
-    
-    var buttonYOffsetSmall: CGFloat {
-        return isSmallDevice ? 50 : 80
-    }
-    
-    var buttonYOffsetBig: CGFloat {
-        return isSmallDevice ? 50 : -50 // Adjust the value as per your requirements
-    }
-    
-    var logoYOffsetSmall: CGFloat {
-        return isSmallDevice ? 10 : 25
-    }
-    
-    var logoYOffsetBig: CGFloat {
-        return isSmallDevice ? 10 : -60 // Adjust the value as per your requirements
-    }
-    
-    var isBigDevice: Bool {
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        let screenSize = max(screenWidth, screenHeight)
-        
-        // Adjust the threshold as per your requirements
-        let bigDeviceThreshold: CGFloat = 500
-        
-        return screenSize >= bigDeviceThreshold
-    }
-    
     var body: some View {
         NavigationStack {
-            ZStack {
-                GeometryReader { geometry in
-                    ZStack {
-                        PlainBackground()
-                            .ignoresSafeArea()
-                    }
+            
+            GeometryReader { geometry in
+                ZStack {
+                    BouncingOperationsLogo()
+                        .offset(y: -0.40 * geometry.size.height)
                     
-                    VStack(spacing: isSmallDevice ? 10 : 30) {
-                        GeometryReader { imageGeometry in
-                            BouncingOperationsLogo()
-                                .padding(.horizontal, 20)
-                                .frame(width: imageGeometry.size.width, height: imageGeometry.size.height)
-                                .offset(y: colorScheme == .light ? -0 : 70)
-                                .offset(y: isBigDevice ? logoYOffsetBig : logoYOffsetSmall)
-                                .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
-                        }
-                        .padding(.bottom, 10)
+                    VStack(spacing: 25) {
+                        
+                        
                         
                         Button(action: {
                             withAnimation {
@@ -93,10 +46,9 @@ struct OperationsView: View {
                                     x: 0,
                                     y: 0
                                 )
-                                .offset(x: -5, y: isBigDevice ? buttonYOffsetBig : buttonYOffsetSmall)
-                                .padding(.horizontal)
                                 .scaleEffect(isAdditionButtonPressed ? 0.0 : 1.0)
                         }
+                        
                         .buttonStyle(CustomButtonStyle())
                         .onTapGesture {
                             withTransaction(Transaction(animation: nil)) {
@@ -132,10 +84,10 @@ struct OperationsView: View {
                                     x: 0,
                                     y: 0
                                 )
-                                .offset(x: -5, y: isBigDevice ? buttonYOffsetBig : buttonYOffsetSmall)
-                                .padding(.horizontal)
                                 .scaleEffect(isSubtractionButtonPressed ? 0.0 : 1.0)
+                            
                         }
+                        
                         .buttonStyle(CustomButtonStyle())
                         .onTapGesture {
                             withTransaction(Transaction(animation: nil)) {
@@ -164,8 +116,7 @@ struct OperationsView: View {
                             x: 0,
                             y: 0
                         )
-                        .offset(x: -5, y: isBigDevice ? buttonYOffsetBig : buttonYOffsetSmall)
-                        .padding(.horizontal)
+                        
                         .disabled(true)
                         .opacity(0.5)
                         
@@ -188,38 +139,39 @@ struct OperationsView: View {
                             x: 0,
                             y: 0
                         )
-                        .offset(x: -5, y: isBigDevice ? buttonYOffsetBig : buttonYOffsetSmall)
-                        .padding(.horizontal)
+                        
                         .disabled(true)
                         .opacity(0.5)
+                        .frame(height: 0.1 * UIScreen.main.bounds.height)
                     }
-                    .offset(y: isSmallDevice ? -100 : -150)
-                    .padding(.horizontal, 70)
+                     .offset(y: 25)
+                    .padding(.horizontal, 80)
+                    
+                    
                 }
-                
-                // ...
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        scene.state = .mainmenu
-                        heavyHaptic()
-                    } label: {
-                        Image("BackButton")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: isSmallDevice ? 50 : 165, height: isSmallDevice ? 50 : 165) // Adjust the size as needed
-                            .offset(x: isSmallDevice ? -30 : -60, y: isSmallDevice ? 10 : 25) // Adjust the offset as needed
-                            .offset(y: colorScheme == .light ? 0 : -30)
-                            .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            scene.state = .mainmenu
+                            heavyHaptic()
+                        } label: {
+                            Image("BackButton")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 175, height: 175)
+                                .offset(x: -55, y: 35)
+                                .offset(y: colorScheme == .light ? 0 : -30)
+                                .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                        }
+                        .disabled(true)
+                        .allowsHitTesting(false)
+                        .animation(nil)
                     }
-                    .disabled(true)
-                    .allowsHitTesting(false)
-                    .animation(nil)
                 }
             }
         }
     }
+    
 }
 
 struct OperationsView_Previews: PreviewProvider {

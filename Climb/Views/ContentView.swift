@@ -17,13 +17,15 @@ struct ContentView: View {
     @State private var isPauseButtonPressed = false
     
     var body: some View {
-        Group{
-            NavigationStack {
-                ZStack {
-                    //GameBackground()
-                       // .offset(y:-50)
+            GeometryReader { geometry in
+                NavigationStack {
+                    ZStack {
+                        GameBackground()
+                            .ignoresSafeArea(.all)
+                            .frame(width: geometry.size.width, height: geometry.size.height)
                     
                     if game.isOperationSelected {
+                        
                         VStack {
                             Text("Level \(game.levelnum)")
                             
@@ -48,6 +50,7 @@ struct ContentView: View {
                                     .offset(y:30)
                                 
                             }
+                            
                             //  .offset(y:0)
                             Spacer()
                             

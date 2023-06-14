@@ -29,53 +29,35 @@ struct LeaderBoardView: View {
         NavigationStack {
             
             
-            
-            ZStack {
-                         //  PlainBackground()
-                           //    .offset(y:-50)
-                
-                Image("Leaderboard")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 400, height: 300)
-                    .offset(y: colorScheme == .light ? -320 : -375)
-                    .offset(x: colorScheme == .light ? 3 :5)
-                    .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
-                
-                    .toolbar{
-                        ToolbarItem(placement: .navigationBarLeading){
-                            Button {
-                                scene.state = .mainmenu
-                                heavyHaptic()
-                            }label: {
-                                Image("BackButton")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 200, height:200)
-                                    .offset( x:-65, y: 45)
-                                    .offset(y: colorScheme == .light ? -10 : -50)
-                                .offset(x: colorScheme == .light ? -2: -5)
-                                    .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+            GeometryReader { geometry in
+                ZStack {
+                    
+                    LeaderboardLogo()
+                        .offset(y: -0.45 * geometry.size.height)
+                        .offset(x: 0.05 * geometry.size.height)
+                    
+                    
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button {
+                                    scene.state = .mainmenu
+                                    heavyHaptic()
+                                } label: {
+                                    Image("BackButton")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 175, height: 175)
+                                        .offset(x: -55, y: 35)
+                                        .offset(y: colorScheme == .light ? 0 : -30)
+                                        .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                                }
+                                .disabled(true)
+                                .allowsHitTesting(false)
+                                .animation(nil)
                             }
                         }
-                    }
-                
-                //            Button {
-                //                scene.state = .mainmenu
-                //                heavyHaptic()
-                //            }label: {
-                //                Image("BackButton")
-                //                    .resizable()
-                //                    .scaledToFit()
-                //                    .frame(width: 200, height:200)
-                //                    .offset( y:40)
-                //                    .offset(y: colorScheme == .light ? 50 : 13)
-                //                    .offset(x: colorScheme == .light ? -3 : -5)
-                //                    .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
-                //            }
-                
-                
-                // .offset(x:-155,y:-415)
+                    
+                }
                 
                 VStack {
                     
@@ -84,7 +66,7 @@ struct LeaderBoardView: View {
                         Text("Addition").tag(Math.Operation.addition)
                         Text("Subtraction").tag(Math.Operation.subtraction)
                         
-                    } .offset(y:150)
+                    } .offset(y:130)
                         .onChange(of: game.operation) { _ in
                             loadLeaderboard()
                         }
@@ -118,7 +100,7 @@ struct LeaderBoardView: View {
                             Color.primary
                                 .opacity(0.5)
                         )
-                        .offset(y:150)
+                        .offset(y:110)
                     ScrollView {
                         ForEach(playersList, id: \.id) { player in
                             HStack(spacing: 74){
