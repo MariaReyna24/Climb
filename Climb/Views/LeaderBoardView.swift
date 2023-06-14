@@ -22,6 +22,7 @@ struct LeaderBoardView: View {
     @State private var isLeaderboardLoaded = false
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
+    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
     @State var playersList: [Player] = []
     @State var leaderboardPlace = 0
     
@@ -33,7 +34,7 @@ struct LeaderBoardView: View {
                 ZStack {
                     PlainBackground()
                         .ignoresSafeArea(.all)
-                        .frame(width: geometry.size.width, height: geometry.size.height)
+                       
                     
                     LeaderboardLogo()
                         .offset(y: -0.45 * geometry.size.height)
@@ -47,6 +48,9 @@ struct LeaderBoardView: View {
                                     Button {
                                         scene.state = .mainmenu
                                         heavyHaptic()
+                                        if isSoundEnabled {
+                                            SoundManager.instance.playSound(sound: .click)
+                                        }
                                     } label: {
                                         Image("BackButton")
                                             .resizable()

@@ -12,6 +12,8 @@ struct ContentView: View {
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State private var showingSheet = false
+    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    
     @State private var showinglevelComplete = false
     
     @State private var isPauseButtonPressed = false
@@ -22,7 +24,7 @@ struct ContentView: View {
                     ZStack {
                         GameBackground()
                             .ignoresSafeArea(.all)
-                            .frame(width: geometry.size.width, height: geometry.size.height)
+                           
                     
                     if game.isOperationSelected {
                         
@@ -99,6 +101,9 @@ struct ContentView: View {
                                             withTransaction(Transaction(animation: nil)) {
                                                 scene.state = .pauseMenu
                                                 isPauseButtonPressed  = true
+                                                if isSoundEnabled {
+                                                    SoundManager.instance.playSound(sound: .click)
+                                                }
                                             }
                                             heavyHaptic()
                                         }

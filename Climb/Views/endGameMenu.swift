@@ -39,6 +39,9 @@ struct End_Game_menu: View {
                             game.retryLevel()
                             heavyHaptic()
                             game.isGameMenuShowing = false
+                            if isSoundEnabled {
+                                SoundManager.instance.playSound(sound: .click)
+                            }
                         }
                         .foregroundColor(.white)
                         .fontWeight(.bold)
@@ -51,6 +54,9 @@ struct End_Game_menu: View {
                             game.endGame()
                             heavyHaptic()
                             game.isGameMenuShowing = false
+                            if isSoundEnabled {
+                                SoundManager.instance.playSound(sound: .click)
+                            }
                         }
                         .font(.custom("RoundsBlack", size: 25))
                         .padding()
@@ -63,6 +69,9 @@ struct End_Game_menu: View {
                 .foregroundColor(.black)
                 .offset(y: showMenu ? 0 : -800) // Offset the entire box vertically
                 .onAppear {
+                    if isSoundEnabled {
+                        SoundManager.instance.playSound(sound: .fail)
+                    }
                     withAnimation(.spring(response: 0.8, dampingFraction: 0.6)) { // Adjust the duration of the falling animation
                         showMenu = true // Start the falling animation for the entire box
                     }

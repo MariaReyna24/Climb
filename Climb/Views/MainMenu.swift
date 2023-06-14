@@ -6,6 +6,7 @@ struct MainMenuView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
+    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
     
     @State private var isNewGameButtonPressed = false
     @State private var isSettingsButtonPressed = false
@@ -22,6 +23,9 @@ struct MainMenuView: View {
                     withAnimation {
                         scene.state = .game
                         isNewGameButtonPressed = true
+                        if isSoundEnabled {
+                            SoundManager.instance.playSound(sound: .click)
+                        }
                     }
                     heavyHaptic()
                 }) {
@@ -57,6 +61,10 @@ struct MainMenuView: View {
                     withAnimation {
                         scene.state = .settings
                         isSettingsButtonPressed = true
+                        if isSoundEnabled {
+                            SoundManager.instance.playSound(sound: .click)
+                        }
+
                     }
                     heavyHaptic()
                 }) {
@@ -92,6 +100,10 @@ struct MainMenuView: View {
                     withAnimation {
                         scene.state = .leaderboard
                         isLeaderboardButtonPressed = true
+                        if isSoundEnabled {
+                            SoundManager.instance.playSound(sound: .click)
+                        }
+
                     }
                     heavyHaptic()
                 }) {

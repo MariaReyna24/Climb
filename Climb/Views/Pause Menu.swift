@@ -13,6 +13,7 @@ struct Pause_menu: View {
     @ObservedObject var scene: diffViews
     @Environment(\.dismiss) var dismiss
     @ObservedObject var game : Math
+    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
     
     @State private var isResumeButtonPressed = false
        @State private var isSettingsButtonPressed = false
@@ -41,6 +42,9 @@ struct Pause_menu: View {
                             heavyHaptic()
                             game.isPaused = false
                             isResumeButtonPressed = true
+                            if isSoundEnabled {
+                                SoundManager.instance.playSound(sound: .click)
+                            }
                         }
                         heavyHaptic()
                     }) {
@@ -77,6 +81,9 @@ struct Pause_menu: View {
                             scene.state = .settings
                             heavyHaptic()
                             isSettingsButtonPressed = true
+                            if isSoundEnabled {
+                                SoundManager.instance.playSound(sound: .click)
+                            }
                         }
                         heavyHaptic()
                     }) {
@@ -114,6 +121,9 @@ struct Pause_menu: View {
                             scene.state = .mainmenu
                             heavyHaptic()
                             isMainMenuButtonPressed = true
+                            if isSoundEnabled {
+                                SoundManager.instance.playSound(sound: .click)
+                            }
                         }
                         heavyHaptic()
                     }) {

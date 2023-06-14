@@ -21,18 +21,21 @@ struct SettingsView: View {
                 ZStack {
                     PlainBackground()
                         .ignoresSafeArea(.all)
-                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        
                     SettingsLogo()
                         .offset(y: -0.30 * geometry.size.height)
-                        .offset(x: 0.12 * geometry.size.height)
+                        .offset(x: 0.06 * geometry.size.height)
                     
                     
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
-                                withAnimation(nil){
+                               
                                     Button {
                                         scene.state = .mainmenu
                                         heavyHaptic()
+                                        if isSoundEnabled {
+                                            SoundManager.instance.playSound(sound: .click)
+                                        }
                                     } label: {
                                         Image("BackButton")
                                             .resizable()
@@ -44,8 +47,8 @@ struct SettingsView: View {
                                     }
                                     //.disabled(true)
                                     //.allowsHitTesting(false)
-                                   
-                                }
+                                    .animation(nil)
+                                
                                 
                             }
                         }

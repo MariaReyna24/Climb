@@ -44,6 +44,9 @@ struct levelCompleted: View {
                     game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                     heavyHaptic()
                     game.isLevelComplete = false
+                    if isSoundEnabled {
+                        SoundManager.instance.playSound(sound: .click)
+                    }
                 }
                 .foregroundColor(.white)
                 .fontWeight(.bold)
@@ -56,6 +59,9 @@ struct levelCompleted: View {
                     game.endGame()
                     heavyHaptic()
                     game.isLevelComplete = false
+                    if isSoundEnabled {
+                        SoundManager.instance.playSound(sound: .click)
+                    }
                 }
                 .foregroundColor(.white)
                 .fontWeight(.bold)
