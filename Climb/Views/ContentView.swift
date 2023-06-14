@@ -13,24 +13,17 @@ struct ContentView: View {
     @ObservedObject var game: Math
     @State private var showingSheet = false
     @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
-    
     @State private var showinglevelComplete = false
-    
     @State private var isPauseButtonPressed = false
-    
     var body: some View {
             GeometryReader { geometry in
                 NavigationStack {
                     ZStack {
                         GameBackground()
                             .ignoresSafeArea(.all)
-                           
-                    
                     if game.isOperationSelected {
-                        
                         VStack {
                             Text("Level \(game.levelnum)")
-                            
                                 .font(Font.custom("RoundsBlack", size: 20))
                                 .offset(y:-25)
                             
@@ -50,7 +43,6 @@ struct ContentView: View {
                                     .fontWeight(.bold)
                                     .font(.custom("RoundsBlack", size: 40))
                                     .offset(y:30)
-                                
                             }
                             
                             //  .offset(y:0)
@@ -100,6 +92,7 @@ struct ContentView: View {
                                         .onTapGesture {
                                             withTransaction(Transaction(animation: nil)) {
                                                 scene.state = .pauseMenu
+                                                game.isPaused = true
                                                 isPauseButtonPressed  = true
                                                 if isSoundEnabled {
                                                     SoundManager.instance.playSound(sound: .click)

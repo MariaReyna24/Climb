@@ -10,7 +10,8 @@ import SwiftUI
 import GameKit
 
 class Math: ObservableObject{
-    @Published var isOperationSelected = false 
+    @Published var isShowingPauseMenu = false // Added state
+    @Published var isOperationSelected = false
     @Published var operation: Operation = .addition
     @Published var isGameMenuShowing =  false
     @Published var isLevelComplete =  false

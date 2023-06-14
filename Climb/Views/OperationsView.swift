@@ -5,25 +5,17 @@ struct OperationsView: View {
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
-    
     @State private var isAdditionButtonPressed = false
     @State private var isSubtractionButtonPressed = false
-    
     var body: some View {
         NavigationStack {
-            
             GeometryReader { geometry in
                 ZStack {
                     PlainBackground()
                         .ignoresSafeArea(.all)
-                       
                     BouncingOperationsLogo()
                         .offset(y: -0.40 * geometry.size.height)
-                    
                     VStack(spacing: 25) {
-                        
-                        
-                        
                         Button(action: {
                             withAnimation {
                                 scene.state = .game
@@ -161,7 +153,6 @@ struct OperationsView: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                       
                             Button {
                                 scene.state = .mainmenu
                                 heavyHaptic()
@@ -179,9 +170,11 @@ struct OperationsView: View {
                             }
                             //.disabled(true)
                             //.allowsHitTesting(false)
-                            .animation(nil)
+                          //  .animation(nil)
+                            .transaction { transaction in
+                                transaction.animation = nil
+                            }
                             
-                        
                     }
                 }
             }

@@ -7,18 +7,16 @@ struct MainMenuView: View {
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
-    
     @State private var isNewGameButtonPressed = false
     @State private var isSettingsButtonPressed = false
     @State private var isLeaderboardButtonPressed = false
-    
     var body: some View {
         ZStack {
-   BouncingLogoAnimation()
+            BouncingLogoAnimation()
                 .offset(y:-10)
-                
-
-                      VStack(spacing: 25) {
+            
+            
+            VStack(spacing: 25) {
                 Button(action: {
                     withAnimation {
                         scene.state = .game
@@ -56,7 +54,7 @@ struct MainMenuView: View {
                     heavyHaptic()
                 }
                 .offset(y: 40)
-
+                
                 Button(action: {
                     withAnimation {
                         scene.state = .settings
@@ -64,7 +62,7 @@ struct MainMenuView: View {
                         if isSoundEnabled {
                             SoundManager.instance.playSound(sound: .click)
                         }
-
+                        
                     }
                     heavyHaptic()
                 }) {
@@ -95,7 +93,7 @@ struct MainMenuView: View {
                     heavyHaptic()
                 }
                 .offset(y: 45)
-
+                
                 Button(action: {
                     withAnimation {
                         scene.state = .leaderboard
@@ -103,7 +101,7 @@ struct MainMenuView: View {
                         if isSoundEnabled {
                             SoundManager.instance.playSound(sound: .click)
                         }
-
+                        
                     }
                     heavyHaptic()
                 }) {
@@ -161,4 +159,4 @@ struct MainMenuView_Previews: PreviewProvider {
     }
 }
 
-                
+

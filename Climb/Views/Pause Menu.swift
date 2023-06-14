@@ -14,10 +14,9 @@ struct Pause_menu: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var game : Math
     @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
-    
     @State private var isResumeButtonPressed = false
-       @State private var isSettingsButtonPressed = false
-       @State private var isMainMenuButtonPressed = false
+    @State private var isSettingsButtonPressed = false
+    @State private var isMainMenuButtonPressed = false
 
     
     var body: some View {

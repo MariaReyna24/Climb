@@ -16,12 +16,10 @@ struct SettingsView: View {
     @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     var body: some View {
         NavigationStack{
-            
             GeometryReader { geometry in
                 ZStack {
                     PlainBackground()
                         .ignoresSafeArea(.all)
-                        
                     SettingsLogo()
                         .offset(y: -0.30 * geometry.size.height)
                         .offset(x: 0.06 * geometry.size.height)
@@ -31,11 +29,16 @@ struct SettingsView: View {
                             ToolbarItem(placement: .navigationBarLeading) {
                                
                                     Button {
-                                        scene.state = .mainmenu
+                                        if game.isPaused == true{
+                                            scene.state = .pauseMenu
+                                        } else {
+                                            scene.state = .mainmenu
+                                        }
                                         heavyHaptic()
                                         if isSoundEnabled {
                                             SoundManager.instance.playSound(sound: .click)
                                         }
+                                        
                                     } label: {
                                         Image("BackButton")
                                             .resizable()
@@ -44,12 +47,11 @@ struct SettingsView: View {
                                             .offset(x: -55, y: 35)
                                             .offset(y: colorScheme == .light ? 0 : -30)
                                             .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
-                                    }
-                                    //.disabled(true)
-                                    //.allowsHitTesting(false)
-                                    .animation(nil)
+                                            .transaction { transaction in
+                                                transaction.animation = nil
+                                            }
                                 
-                                
+                                }
                             }
                         }
                 }

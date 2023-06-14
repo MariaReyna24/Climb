@@ -28,23 +28,17 @@ struct LeaderBoardView: View {
     
     var body: some View {
         NavigationStack {
-            
-            
             GeometryReader { geometry in
                 ZStack {
                     PlainBackground()
                         .ignoresSafeArea(.all)
-                       
-                    
                     LeaderboardLogo()
                         .offset(y: -0.45 * geometry.size.height)
                         .offset(x: 0.02 * geometry.size.height)
                     
-                    
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
                                 withAnimation(nil){
-                                    
                                     Button {
                                         scene.state = .mainmenu
                                         heavyHaptic()
@@ -60,9 +54,6 @@ struct LeaderBoardView: View {
                                             .offset(y: colorScheme == .light ? 0 : -30)
                                             .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
                                     }
-                                    //.disabled(true)
-                                    //.allowsHitTesting(false)
-                                    
                                 }
                             }
                         }
@@ -76,7 +67,7 @@ struct LeaderBoardView: View {
                         Text("Addition").tag(Math.Operation.addition)
                         Text("Subtraction").tag(Math.Operation.subtraction)
                         
-                    } .offset(y:130)
+                    } .offset(y:100)
                         .onChange(of: game.operation) { _ in
                             loadLeaderboard()
                         }
