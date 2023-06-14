@@ -31,29 +31,35 @@ struct LeaderBoardView: View {
             
             GeometryReader { geometry in
                 ZStack {
+                    PlainBackground()
+                        .ignoresSafeArea(.all)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
                     
                     LeaderboardLogo()
                         .offset(y: -0.45 * geometry.size.height)
-                        .offset(x: 0.05 * geometry.size.height)
+                        .offset(x: 0.02 * geometry.size.height)
                     
                     
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
-                                Button {
-                                    scene.state = .mainmenu
-                                    heavyHaptic()
-                                } label: {
-                                    Image("BackButton")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 175, height: 175)
-                                        .offset(x: -55, y: 35)
-                                        .offset(y: colorScheme == .light ? 0 : -30)
-                                        .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                                withAnimation(nil){
+                                    
+                                    Button {
+                                        scene.state = .mainmenu
+                                        heavyHaptic()
+                                    } label: {
+                                        Image("BackButton")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 175, height: 175)
+                                            .offset(x: -55, y: 35)
+                                            .offset(y: colorScheme == .light ? 0 : -30)
+                                            .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                                    }
+                                    //.disabled(true)
+                                    //.allowsHitTesting(false)
+                                    
                                 }
-                                .disabled(true)
-                                .allowsHitTesting(false)
-                                .animation(nil)
                             }
                         }
                     
@@ -92,7 +98,7 @@ struct LeaderBoardView: View {
                             .font(.custom("RoundsBlack", size: 20))
                             .foregroundColor(.white)
                         
-                    } .offset(y:140)
+                    } .offset(y:120)
                     Divider()
                     
                         .frame(height:5)
@@ -100,7 +106,7 @@ struct LeaderBoardView: View {
                             Color.primary
                                 .opacity(0.5)
                         )
-                        .offset(y:110)
+                        .offset(y:120)
                     ScrollView {
                         ForEach(playersList, id: \.id) { player in
                             HStack(spacing: 74){
@@ -120,7 +126,7 @@ struct LeaderBoardView: View {
                             Color.primary
                                 .opacity(0.5)
                                 .frame(height:5)
-                        } .offset(y:150)
+                        } .offset(y:130)
                     }
                 }
                 

@@ -13,6 +13,9 @@ struct OperationsView: View {
             
             GeometryReader { geometry in
                 ZStack {
+                    PlainBackground()
+                        .ignoresSafeArea(.all)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
                     BouncingOperationsLogo()
                         .offset(y: -0.40 * geometry.size.height)
                     
@@ -150,7 +153,7 @@ struct OperationsView: View {
                     
                 }
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
+                    ToolbarItem(placement: .navigationBarLeading) { withAnimation(nil){
                         Button {
                             scene.state = .mainmenu
                             heavyHaptic()
@@ -163,9 +166,10 @@ struct OperationsView: View {
                                 .offset(y: colorScheme == .light ? 0 : -30)
                                 .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
                         }
-                        .disabled(true)
-                        .allowsHitTesting(false)
-                        .animation(nil)
+                        //.disabled(true)
+                        //.allowsHitTesting(false)
+                        
+                    }
                     }
                 }
             }

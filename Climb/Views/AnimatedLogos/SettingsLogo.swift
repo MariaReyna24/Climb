@@ -23,7 +23,7 @@ struct SettingsLogo: View {
                 .frame(width: 400, height: 300)
                 .offset(y: colorScheme == .light ? -95 : -25)
                 .offset(y: isAnimating ? 8 : 0)
-                .offset(x:-15)
+                //.offset(x:-7)
                 .shadow(
                     color: Color.black.opacity(0.5),
                     radius: 8,

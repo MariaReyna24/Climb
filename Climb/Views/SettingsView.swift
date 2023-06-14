@@ -19,6 +19,9 @@ struct SettingsView: View {
             
             GeometryReader { geometry in
                 ZStack {
+                    PlainBackground()
+                        .ignoresSafeArea(.all)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
                     SettingsLogo()
                         .offset(y: -0.30 * geometry.size.height)
                         .offset(x: 0.12 * geometry.size.height)
@@ -26,23 +29,25 @@ struct SettingsView: View {
                     
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
-                                Button {
-                                    scene.state = .mainmenu
-                                    heavyHaptic()
-                                } label: {
-                                    Image("BackButton")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 175, height: 175)
-                                        .offset(x: -55, y: 35)
-                                        .offset(y: colorScheme == .light ? 0 : -30)
-                                        .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                                withAnimation(nil){
+                                    Button {
+                                        scene.state = .mainmenu
+                                        heavyHaptic()
+                                    } label: {
+                                        Image("BackButton")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 175, height: 175)
+                                            .offset(x: -55, y: 35)
+                                            .offset(y: colorScheme == .light ? 0 : -30)
+                                            .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                                    }
+                                    //.disabled(true)
+                                    //.allowsHitTesting(false)
+                                   
                                 }
-                                .disabled(true)
-                                .allowsHitTesting(false)
-                                .animation(nil)
+                                
                             }
-                        
                         }
                 }
             }
