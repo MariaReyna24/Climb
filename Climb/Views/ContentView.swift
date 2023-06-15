@@ -77,6 +77,9 @@ struct ContentView: View {
 //                                        scene.state = .pauseMenu
 //                                        game.isPaused = true
                                         isPauseButtonPressed = true
+                                        if isSoundEnabled {
+                                            SoundManager.instance.playSound(sound: .click)
+                                        }
                                     }
                                     heavyHaptic()
                                 }){
@@ -95,12 +98,10 @@ struct ContentView: View {
 //                                               // scene.state = .pauseMenu
 //                                                game.isPaused = true
 //                                                isPauseButtonPressed  = true
-//                                                if isSoundEnabled {
-//                                                    SoundManager.instance.playSound(sound: .click)
-//                                                }
-//                                            }
-//                                            heavyHaptic()
-//                                        }
+                                                
+                                            
+                                         
+                                        
                                 }
                             }
                           
