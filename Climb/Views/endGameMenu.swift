@@ -3,7 +3,8 @@ import SwiftUI
 struct End_Game_menu: View {
     @ObservedObject var game: Math
     @ObservedObject var scene: diffViews
-    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State var gameRestarted = false
     @State private var showGameOver = false
     @State private var showMenu = false

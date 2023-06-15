@@ -22,7 +22,8 @@ struct LeaderBoardView: View {
     @State private var isLeaderboardLoaded = false
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
-    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State var playersList: [Player] = []
     @State var leaderboardPlace = 0
     

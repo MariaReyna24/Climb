@@ -11,7 +11,8 @@ import Foundation
 struct ClimbButton: View {
     var num: Int
     @ObservedObject var game: Math
-    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State private var backgroundColor = Color("myColor")
     @State private var isDisabled = false
     

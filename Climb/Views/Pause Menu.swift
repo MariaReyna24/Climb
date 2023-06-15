@@ -1,22 +1,14 @@
-//
-//  Pause Menu.swift
-//  Climb
-//
-//  Created by Maria Reyna  on 2/8/23.
-//
-
 import SwiftUI
-import UIKit
-import Foundation
 
 struct Pause_menu: View {
     @ObservedObject var scene: diffViews
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var game : Math
-    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @ObservedObject var game: Math
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State private var isResumeButtonPressed = false
-    @State private var isSettingsButtonPressed = false
     @State private var isMainMenuButtonPressed = false
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -25,15 +17,76 @@ struct Pause_menu: View {
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .blur(radius: 7)
                 
-                VStack (spacing: 20){
+                VStack(spacing: 30) {
                     Text("Current score: \(game.score)")
-                        .font(.custom("RoundsBlack", size: 25))
+                        .font(.custom("RoundsBlack", size: 35))
                         .foregroundColor(.white)
                         .fontWeight(.bold)
-                    //  .offset(y:-25)
+                    
+                    HStack(spacing: 30) {
+                        Button(action: {
+                            isHapticsEnabled.toggle()
+                        }) {
+                            Image(systemName: isHapticsEnabled ? "hand.point.up.left.fill" : "hand.point.up.left")
+                                .font(.system(size: 25))
+                                .foregroundColor(.white)
+                                .frame(width: 70, height: 70)
+                                .background(isHapticsEnabled ? Color.green : Color.gray)
+                                .cornerRadius(40)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 40)
+                                        .stroke(Color("WhiteDM"), lineWidth: 4)
+                                )
+                                .shadow(
+                                    color: Color.black.opacity(0.5),
+                                    radius: 4,
+                                    x: 0,
+                                    y: 0
+                                )
+                        }
+                        .onChange(of: isHapticsEnabled) { newValue in
+                            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.hapticsEnabled)
+                            if newValue {
+                                // Haptics enabled
+                            } else {
+                                // Haptics disabled
+                            }
+                        }
+                        
+                        Button(action: {
+                            isSoundEnabled.toggle()
+                        }) {
+                            Image(systemName: isSoundEnabled ? "speaker.wave.3.fill" : "speaker.slash.fill")
+                                .font(.system(size: 25))
+                                .foregroundColor(.white)
+                                .frame(width: 70, height: 70)
+                                .background(isSoundEnabled ? Color.green : Color.gray)
+                                .cornerRadius(40)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 40)
+                                        .stroke(Color("WhiteDM"), lineWidth: 4)
+                                )
+                                .shadow(
+                                    color: Color.black.opacity(0.5),
+                                    radius: 4,
+                                    x: 0,
+                                    y: 0
+                                )
+                        }
+                        .onChange(of: isSoundEnabled) { newValue in
+                            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.soundEnabled)
+                            if isHapticsEnabled {
+                                if newValue {
+                                    // Sound enabled
+                                } else {
+                                    // Sound disabled
+                                }
+                            }
+                        }
+                    }
                     
                     Button(action: {
-                        withAnimation{
+                        withAnimation {
                             dismiss()
                             game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                             heavyHaptic()
@@ -48,12 +101,12 @@ struct Pause_menu: View {
                         Text("Resume")
                             .font(.custom("RoundsBlack", size: 25))
                             .foregroundColor(Color("textColor"))
-                            .frame(width: 255, height: 80) // Adjusted width
+                            .frame(width: 285, height: 90)
                             .background(Color("pauseColor"))
                             .cornerRadius(25)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
+                                    .stroke(Color("WhiteDM"), lineWidth: 6)
                             )
                             .shadow(
                                 color: Color.black.opacity(0.5),
@@ -63,76 +116,24 @@ struct Pause_menu: View {
                             )
                     }
                     
-//                    .scaleEffect(isResumeButtonPressed ? 0.0 : 1.0)
-//                    .buttonStyle(CustomButtonStyle())
-//                    .onTapGesture {
-//                        withTransaction(Transaction(animation: nil)) {
-////                            scene.state = .settings
-//                            isResumeButtonPressed = true
-//                        }
-//                        heavyHaptic()
-//                    }
-                    
-//                    Button(action: {
-//                        withAnimation{
-//                            scene.state = .settings
-//                            heavyHaptic()
-//                            isSettingsButtonPressed = true
-//                            if isSoundEnabled {
-//                                SoundManager.instance.playSound(sound: .click)
-//                            }
-//                        }
-//                        heavyHaptic()
-//                    }) {
-//                        Text("Settings")
-//                            .font(.custom("RoundsBlack", size: 25))
-//                            .foregroundColor(Color("textColor"))
-//                            .frame(width: 255, height: 80) // Adjusted width
-//                            .background(Color("pauseColor"))
-//                            .cornerRadius(25)
-//                            .overlay(
-//                                RoundedRectangle(cornerRadius: 25)
-//                                    .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
-//                            )
-//                            .shadow(
-//                                color: Color.black.opacity(0.5),
-//                                radius: 6,
-//                                x: 0,
-//                                y: 0
-//                            )
-//                    }
-//                    
-//                    .scaleEffect(isSettingsButtonPressed ? 0.0 : 1.0)
-//                    .buttonStyle(CustomButtonStyle())
-//                    .onTapGesture {
-//                        withTransaction(Transaction(animation: nil)) {
-//                            scene.state = .settings
-//                            isSettingsButtonPressed = true
-//                        }
-//                        heavyHaptic()
-//                    }
-                    
                     Button(action: {
-                        withAnimation{
-                            game.endGame()
-                            scene.state = .mainmenu
-                            heavyHaptic()
-                            isMainMenuButtonPressed = true
-                            if isSoundEnabled {
-                                SoundManager.instance.playSound(sound: .click)
-                            }
-                        }
+                        game.endGame()
+                        scene.state = .mainmenu
                         heavyHaptic()
+                        isMainMenuButtonPressed = true
+                        if isSoundEnabled {
+                            SoundManager.instance.playSound(sound: .click)
+                        }
                     }) {
                         Text("Main Menu")
                             .font(.custom("RoundsBlack", size: 25))
                             .foregroundColor(Color("textColor"))
-                            .frame(width: 255, height: 80) // Adjusted width
+                            .frame(width: 285, height: 90)
                             .background(Color("pauseColor"))
                             .cornerRadius(25)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color("WhiteDM"), lineWidth: 6) // Thicker outline
+                                    .stroke(Color("WhiteDM"), lineWidth: 6)
                             )
                             .shadow(
                                 color: Color.black.opacity(0.5),
@@ -141,28 +142,14 @@ struct Pause_menu: View {
                                 y: 0
                             )
                     }
-                    
-                    .scaleEffect(isMainMenuButtonPressed ? 0.0 : 1.0)
-                    .buttonStyle(CustomButtonStyle())
-                    .onTapGesture {
-                        withTransaction(Transaction(animation: nil)) {
-                            scene.state = .settings
-                            isMainMenuButtonPressed = true
-                        }
-                        heavyHaptic()
-                    }
-                    
                 }
             }
-            
         }
     }
-    
-    
-    struct Pause_menu_Previews: PreviewProvider {
-        static var previews: some View {
-            Pause_menu(scene: diffViews(), game: Math())
-        }
+}
+
+struct Pause_menu_Previews: PreviewProvider {
+    static var previews: some View {
+        Pause_menu(scene: diffViews(), game: Math())
     }
-    
 }

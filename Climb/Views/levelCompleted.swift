@@ -10,7 +10,8 @@ struct levelCompleted: View {
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @Environment(\.dismiss) var dismiss
-    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State private var showLevelCompleted = false
     @State private var isBoxFallen = false
     

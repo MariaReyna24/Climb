@@ -12,7 +12,8 @@ struct ContentView: View {
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State private var showingSheet = false
-    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State private var showinglevelComplete = false
     @State private var isPauseButtonPressed = false
     var body: some View {

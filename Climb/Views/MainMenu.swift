@@ -6,7 +6,8 @@ struct MainMenuView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
-    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State private var isNewGameButtonPressed = false
     @State private var isSettingsButtonPressed = false
     @State private var isLeaderboardButtonPressed = false

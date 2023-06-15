@@ -4,7 +4,8 @@ struct OperationsView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
-    @AppStorage(UserDefaultKeys.soundEnabled) private var isSoundEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State private var isAdditionButtonPressed = false
     @State private var isSubtractionButtonPressed = false
     var body: some View {
