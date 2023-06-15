@@ -14,12 +14,8 @@ struct levelCompleted: View {
     @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State private var showLevelCompleted = false
     @State private var isBoxFallen = false
-    
     var body: some View {
-        
         ZStack {
-            
-            
             VStack(spacing: 0){
                 Text("Level Completed!")
                     .font(.custom("RoundsBlack", size: 25))
@@ -70,8 +66,6 @@ struct levelCompleted: View {
                 .padding()
                 .font(.custom("RoundsBlack", size: 25))
             }
-            
-            
         }
         
         .background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
@@ -85,7 +79,7 @@ struct levelCompleted: View {
         .offset(y: isBoxFallen ? 0 : -500)
     }
 }
-    
+
 
 struct levelCompleted_Previews: PreviewProvider {
     static var previews: some View {

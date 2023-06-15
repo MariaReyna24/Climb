@@ -154,28 +154,25 @@ struct OperationsView: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                            Button {
-                                scene.state = .mainmenu
-                                heavyHaptic()
-                                if isSoundEnabled {
-                                    SoundManager.instance.playSound(sound: .click)
-                                }
-                            } label: {
-                                Image("BackButton")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 175, height: 175)
-                                    .offset(x: -55, y: 35)
-                                    .offset(y: colorScheme == .light ? 0 : -30)
-                                    .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                        Button {
+                            scene.state = .mainmenu
+                            heavyHaptic()
+                            if isSoundEnabled {
+                                SoundManager.instance.playSound(sound: .click)
                             }
-                            //.disabled(true)
-                            //.allowsHitTesting(false)
-                          //  .animation(nil)
-                            .transaction { transaction in
-                                transaction.animation = nil
-                            }
-                            
+                        } label: {
+                            Image("BackButton")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 175, height: 175)
+                                .offset(x: -55, y: 35)
+                                .offset(y: colorScheme == .light ? 0 : -30)
+                                .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                        }
+                        .transaction { transaction in
+                            transaction.animation = nil
+                        }
+                        
                     }
                 }
             }
@@ -183,7 +180,7 @@ struct OperationsView: View {
     }
 }
 
-        
+
 
 
 struct OperationsView_Previews: PreviewProvider {

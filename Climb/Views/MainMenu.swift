@@ -15,8 +15,6 @@ struct MainMenuView: View {
         ZStack {
             BouncingLogoAnimation()
                 .offset(y:-10)
-            
-            
             VStack(spacing: 25) {
                 Button(action: {
                     withAnimation {

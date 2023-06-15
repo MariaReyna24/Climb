@@ -58,12 +58,9 @@ struct LeaderBoardView: View {
                                 }
                             }
                         }
-                    
                 }
                 
                 VStack {
-                    
-                    
                     Picker(selection: $game.operation, label: Text("Operation")) {
                         Text("Addition").tag(Math.Operation.addition)
                         Text("Subtraction").tag(Math.Operation.subtraction)
@@ -79,11 +76,8 @@ struct LeaderBoardView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .padding(20)
-                    
-                    
-                    
+                        .frame(maxWidth: .infinity)
                     HStack(spacing: 134){
-                        
                         Text("Name")
                             .frame(width: 75, alignment: .leading)
                             .font(.custom("RoundsBlack", size: 20))

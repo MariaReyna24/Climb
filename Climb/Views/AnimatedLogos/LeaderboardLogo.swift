@@ -16,11 +16,10 @@ struct LeaderboardLogo: View {
     var body: some View {
         VStack {
             Spacer()
-            
             logoImage
                 .resizable()
-                .scaledToFit()
-                .frame(width: 400, height: 300)
+                .scaledToFill()
+                .frame(width: 400, height: 100)
                 .offset(y: colorScheme == .light ? 30 : -25)
                 .offset(x:-20)
                 .offset(y: isAnimating ? 7 : 0)

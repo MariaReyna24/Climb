@@ -78,7 +78,11 @@ class Math: ObservableObject{
                 correctAnswer = self.firstNum + self.secondNum
             }
             correctAnsArry.append(correctAnswer)
-            let incorrectRange = (difficulty/3)...(difficulty)
+            
+            
+            let upperBound = correctAnswer + max(difficulty, 10) // Adjust the maximum range based on your needs
+            let incorrectRange = max(correctAnswer - 4, 0)...upperBound
+            
             for _ in 0...9 {
                 var randomIncorrectAnswer: Int
                 repeat {
@@ -111,8 +115,8 @@ class Math: ObservableObject{
             var questionSkipped = false
             
             repeat {
-                self.firstNum = Int.random(in: 4...(difficulty/2), excluding: correctAnsArry )
-                self.secondNum = Int.random(in: 4...(difficulty)/2, excluding: correctAnsArry )
+                self.firstNum = Int.random(in: 0...difficulty, excluding: correctAnsArry)
+                self.secondNum = Int.random(in: 0...difficulty, excluding: correctAnsArry)
                 
                 correctAnswer = self.firstNum - self.secondNum
                 
@@ -123,15 +127,18 @@ class Math: ObservableObject{
             if attemptCount >= maxAttempts {
                 // Handle the case where a valid subtraction question couldn't be generated within the maximum attempts
                 print("Unable to generate a valid subtraction question.")
+                
                 // Take appropriate action in your game logic (e.g., show an error message, skip the question, etc.)
                 questionSkipped = true
             }
+            
             if !questionSkipped {
                 correctAnsArry.append(correctAnswer)
                 
-                let upperBound = correctAnswer + (difficulty - (levelnum * Int(0.4)))
-                let incorrectRange = (correctAnswer - 4)...upperBound
+                let upperBound = correctAnswer + max(difficulty, 10) // Adjust the maximum range based on your needs
+                let incorrectRange = max(correctAnswer - 4, 0)...upperBound
                 
+                answerList.removeAll() // Clear the answerList before generating new incorrect answers
                 
                 for _ in 0...9 {
                     var randomIncorrectAnswer: Int
@@ -152,9 +159,9 @@ class Math: ObservableObject{
                     }
                 }
                 
-                // grab a random index from the array of wrong answer indexes
+                // Grab a random index from the array of wrong answer indexes
                 if let randomIndex = incorrectAnswers.randomElement() {
-                    // set the new correct answer at that index
+                    // Set the new correct answer at that index
                     answerList[randomIndex] = correctAnswer
                 }
                 
@@ -184,12 +191,17 @@ class Math: ObservableObject{
     func retryLevel() {
         self.score = 0
         timeRemaining = 20
-        generateAnswers()
         correctAnsArry = []
-        difficulty = 30
-        levelnum =  1
+        levelnum = 1
         greenButtonCount = 0
+        
+        // Gradually increase the difficulty level with each retry
+        difficulty = 30 + (levelnum - 1) * 10
+        
+        // Generate answers with the updated difficulty level
+        generateAnswers()
     }
+
     func newQuestion(){
         generateAnswers()
     }
