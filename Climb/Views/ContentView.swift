@@ -73,8 +73,9 @@ struct ContentView: View {
                                     withAnimation{
                                         game.timer.upstream.connect().cancel()
                                         heavyHaptic()
-                                        scene.state = .pauseMenu
-                                        game.isPaused = true
+                                        showingSheet.toggle()
+//                                        scene.state = .pauseMenu
+//                                        game.isPaused = true
                                         isPauseButtonPressed = true
                                     }
                                     heavyHaptic()
@@ -87,19 +88,19 @@ struct ContentView: View {
                                         .fullScreenCover(isPresented: $showingSheet) {
                                             Pause_menu(scene: scene, game: game)
                                         }
-                                        .scaleEffect(isPauseButtonPressed ? 0.0 : 1.0)
-                                        .buttonStyle(CustomButtonStyle())
-                                        .onTapGesture {
-                                            withTransaction(Transaction(animation: nil)) {
-                                                scene.state = .pauseMenu
-                                                game.isPaused = true
-                                                isPauseButtonPressed  = true
-                                                if isSoundEnabled {
-                                                    SoundManager.instance.playSound(sound: .click)
-                                                }
-                                            }
-                                            heavyHaptic()
-                                        }
+//                                        .scaleEffect(isPauseButtonPressed ? 0.0 : 1.0)
+//                                        .buttonStyle(CustomButtonStyle())
+//                                        .onTapGesture {
+//                                            withTransaction(Transaction(animation: nil)) {
+//                                               // scene.state = .pauseMenu
+//                                                game.isPaused = true
+//                                                isPauseButtonPressed  = true
+//                                                if isSoundEnabled {
+//                                                    SoundManager.instance.playSound(sound: .click)
+//                                                }
+//                                            }
+//                                            heavyHaptic()
+//                                        }
                                 }
                             }
                           
