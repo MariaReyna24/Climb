@@ -116,7 +116,7 @@ class Math: ObservableObject{
             
             repeat {
                 self.firstNum = Int.random(in: 0...difficulty, excluding: correctAnsArry)
-                self.secondNum = Int.random(in: 0...difficulty, excluding: correctAnsArry)
+                self.secondNum = Int.random(in: 0...difficulty/2, excluding: correctAnsArry)
                 
                 correctAnswer = self.firstNum - self.secondNum
                 
