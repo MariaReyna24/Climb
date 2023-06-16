@@ -93,44 +93,45 @@ struct MainMenuView: View {
                 }
                 .offset(y: 45)
                 
-                Button(action: {
-                    withAnimation {
-                        scene.state = .leaderboard
-                        isLeaderboardButtonPressed = true
-                        if isSoundEnabled {
-                            SoundManager.instance.playSound(sound: .click)
+                if game.isGameCenterAuthenticated {
+                    Button(action: {
+                        withAnimation {
+                            scene.state = .leaderboard
+                            isLeaderboardButtonPressed = true
+                            if isSoundEnabled {
+                                SoundManager.instance.playSound(sound: .click)
+                            }
                         }
-                        
+                        heavyHaptic()
+                    }) {
+                        Text("Leaderboard")
+                            .font(.custom("RoundsBlack", size: 25))
+                            .foregroundColor(Color("textColor"))
+                            .frame(width: 255, height: 80)
+                            .background(Color("pauseColor"))
+                            .cornerRadius(25)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color("WhiteDM"), lineWidth: 6)
+                            )
+                            .shadow(
+                                color: Color.black.opacity(0.5),
+                                radius: 8,
+                                x: 0,
+                                y: 0
+                            )
                     }
-                    heavyHaptic()
-                }) {
-                    Text("Leaderboard")
-                        .font(.custom("RoundsBlack", size: 25))
-                        .foregroundColor(Color("textColor"))
-                        .frame(width: 255, height: 80)
-                        .background(Color("pauseColor"))
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color("WhiteDM"), lineWidth: 6)
-                        )
-                        .shadow(
-                            color: Color.black.opacity(0.5),
-                            radius: 8,
-                            x: 0,
-                            y: 0
-                        )
-                }
-                .scaleEffect(isLeaderboardButtonPressed ? 0.9 : 1.0)
-                .buttonStyle(CustomButtonStyle())
-                .onTapGesture {
-                    withTransaction(Transaction(animation: nil)) {
-                        scene.state = .leaderboard
-                        isLeaderboardButtonPressed = true
+                    .scaleEffect(isLeaderboardButtonPressed ? 0.9 : 1.0)
+                    .buttonStyle(CustomButtonStyle())
+                    .onTapGesture {
+                        withTransaction(Transaction(animation: nil)) {
+                            scene.state = .leaderboard
+                            isLeaderboardButtonPressed = true
+                        }
+                        heavyHaptic()
                     }
-                    heavyHaptic()
+                    .offset(y: 50)
                 }
-                .offset(y: 50)
             }
         }
         .onAppear {

@@ -10,6 +10,7 @@ import SwiftUI
 import GameKit
 
 class Math: ObservableObject{
+    @Published var isGameCenterAuthenticated = false
     @Published var isShowingPauseMenu = false // Added state
     @Published var isOperationSelected = false
     @Published var operation: Operation = .addition
@@ -206,12 +207,13 @@ class Math: ObservableObject{
         generateAnswers()
     }
     func authenticateUser() {
-            GKLocalPlayer.local.authenticateHandler = { vc, error in
-                guard error == nil else {
-                    print(error?.localizedDescription ?? "")
-                    return
+        GKLocalPlayer.local.authenticateHandler = { [self] viewController, error in
+                    if GKLocalPlayer.local.isAuthenticated {
+                        self.isGameCenterAuthenticated = true
+                    } else {
+                        self.isGameCenterAuthenticated = false
+                    }
                 }
-            }
         }
             
     func leaderboard() {
