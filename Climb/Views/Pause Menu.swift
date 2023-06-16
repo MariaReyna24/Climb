@@ -39,7 +39,7 @@ struct Pause_menu: View {
                         Text("Resume")
                             .font(.custom("RoundsBlack", size: 40))
                             .foregroundColor(Color("textColor"))
-                            .frame(width: 285, height: 100)
+                            .frame(width: 295, height: 100)
                             .background(Color("pauseColor"))
                             .cornerRadius(25)
                             .overlay(
@@ -89,7 +89,7 @@ struct Pause_menu: View {
                             }
                         }
                         .padding(.horizontal)
-                        .frame(width: 285, height: 100)
+                        .frame(width: 295, height: 100)
                         .background(Color("pauseColor"))
                         .cornerRadius(25)
                         .overlay(
@@ -138,7 +138,7 @@ struct Pause_menu: View {
                             }
                         }
                         .padding(.horizontal)
-                        .frame(width: 285, height: 100)
+                        .frame(width: 295, height: 100)
                         .background(Color("pauseColor"))
                         .cornerRadius(25)
                         .overlay(
@@ -165,7 +165,7 @@ struct Pause_menu: View {
                         Text("Main Menu")
                             .font(.custom("RoundsBlack", size: 35))
                             .foregroundColor(Color("textColor"))
-                            .frame(width: 285, height: 100)
+                            .frame(width: 295, height: 100)
                             .background(Color("pauseColor"))
                             .cornerRadius(25)
                             .overlay(
