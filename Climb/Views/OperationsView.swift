@@ -100,10 +100,10 @@ struct OperationsView: View {
                             heavyHaptic()
                         }
                         
-                        Button("🔒") {
+                        Button("Coming Soon") {
                             heavyHaptic()
                         }
-                        .font(.custom("RoundsBlack", size: 55))
+                        .font(.custom("RoundsBlack", size: 25))
                         .foregroundColor(Color("textColor"))
                         .frame(maxWidth: .infinity)
                         .frame(height: 80)
@@ -123,10 +123,10 @@ struct OperationsView: View {
                         .disabled(true)
                         .opacity(0.5)
                         
-                        Button("🔒") {
+                        Button("Coming Soon") {
                             heavyHaptic()
                         }
-                        .font(.custom("RoundsBlack", size: 55))
+                        .font(.custom("RoundsBlack", size: 25))
                         .foregroundColor(Color("textColor"))
                         .frame(maxWidth: .infinity)
                         .frame(height: 80)

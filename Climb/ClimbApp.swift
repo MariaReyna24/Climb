@@ -20,6 +20,7 @@ struct ClimbApp: App {
         }
     }
 
+    
     private func configureAudioSession() {
             do {
                 try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
