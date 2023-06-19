@@ -4,10 +4,9 @@ import AVFoundation
 
 class SoundManager: ObservableObject {
     static let instance = SoundManager()
-    var player: AVAudioPlayer?
-    var volume: Float = 1.0 // Default volume
+    private var players: [SoundOption: AVAudioPlayer] = [:]
     
-    enum SoundOption: String {
+    enum SoundOption: String, CaseIterable {
         case chime
         case fail
         case wrong
@@ -15,30 +14,37 @@ class SoundManager: ObservableObject {
         case click
     }
     
-    func playSound(sound: SoundOption) {
-        guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: "mp3") else { return }
-        do {
-            let isSilentMode = isDeviceInSilentMode()
-            if isSilentMode {
-                return // Exit early if in silent mode
+    init() {
+        preloadSounds()
+    }
+    
+    private func preloadSounds() {
+        for sound in SoundOption.allCases {
+            guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: "mp3") else { continue }
+            do {
+                let player = try AVAudioPlayer(contentsOf: url)
+                player.prepareToPlay()
+                players[sound] = player
+            } catch let error {
+                print("Error preloading sound '\(sound.rawValue)': \(error.localizedDescription)")
             }
-            
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
-            
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.volume = sound == .click ? volume * 0.25 : volume
-            player?.play()
-            
-            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [])
-        } catch let error {
-            print("Error playing sound. \(error.localizedDescription)")
         }
+    }
+    
+    func playSound(sound: SoundOption) {
+        guard let player = players[sound] else { return }
+        
+        let isSilentMode = isDeviceInSilentMode()
+        if isSilentMode {
+            return // Exit early if in silent mode
+        }
+        
+        player.currentTime = 0
+        player.play()
     }
     
     private func isDeviceInSilentMode() -> Bool {
         let currentCategory = AVAudioSession.sharedInstance().category
-        let currentOptions = AVAudioSession.sharedInstance().categoryOptions
-        
-        return currentCategory == .ambient && currentOptions.contains(.mixWithOthers)
+        return currentCategory == .soloAmbient
     }
 }
