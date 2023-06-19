@@ -16,9 +16,9 @@ struct levelCompleted: View {
     @State private var isBoxFallen = false
     var body: some View {
         ZStack {
-            VStack(spacing: 0){
+            VStack(spacing: 20){
                 Text("Level Completed!")
-                    .font(.custom("RoundsBlack", size: 25))
+                    .font(.custom("RoundsBlack", size: 32))
                     .foregroundColor(.green)
                     .fontWeight(.bold)
                     .padding()
@@ -35,41 +35,54 @@ struct levelCompleted: View {
                         }
                     }
                 
-                Button("Continue") {
-                    game.newLevel()
-                    dismiss()
-                    game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-                    heavyHaptic()
-                    game.isLevelComplete = false
-                    if isSoundEnabled {
-                        SoundManager.instance.playSound(sound: .click)
-                    }
+                HStack {
+                    Text(" your Score: ")
+                        .foregroundColor(.white)
+                        .font(.custom("RoundsBlack", size: 27))
+                        .fontWeight(.bold)
+                    Text("\(game.score)")
+                        .foregroundColor(.yellow)
+                        .font(.custom("RoundsBlack", size: 27))
+                        .fontWeight(.bold)
                 }
-                .foregroundColor(.white)
-                .fontWeight(.bold)
-                .opacity(0.9)
-                .font(.custom("RoundsBlack", size: 25))
                 
-                Button("Main Menu") {
-                    scene.state = .mainmenu
-                    game.leaderboard()
-                    game.endGame()
-                    heavyHaptic()
-                    game.isLevelComplete = false
-                    if isSoundEnabled {
-                        SoundManager.instance.playSound(sound: .click)
+                HStack{
+                    Button("Continue") {
+                        game.newLevel()
+                        dismiss()
+                        game.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                        heavyHaptic()
+                        game.isLevelComplete = false
+                        if isSoundEnabled {
+                            SoundManager.instance.playSound(sound: .click)
+                        }
                     }
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .opacity(0.9)
+                    .font(.custom("RoundsBlack", size: 25))
+                    .padding()
+                    Button("Main Menu") {
+                        scene.state = .mainmenu
+                        game.leaderboard()
+                        game.endGame()
+                        heavyHaptic()
+                        game.isLevelComplete = false
+                        if isSoundEnabled {
+                            SoundManager.instance.playSound(sound: .click)
+                        }
+                    }
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .opacity(0.9)
+                    .padding()
+                    .font(.custom("RoundsBlack", size: 25))
                 }
-                .foregroundColor(.white)
-                .fontWeight(.bold)
-                .opacity(0.9)
-                .padding()
-                .font(.custom("RoundsBlack", size: 25))
             }
         }
         
         .background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-        .frame(width: 300, height: 300)
+        .frame(width: 370, height: 800)
         .foregroundColor(.black)
         .onAppear {
             withAnimation(.spring(response: 0.5, dampingFraction: 0.6))  {
