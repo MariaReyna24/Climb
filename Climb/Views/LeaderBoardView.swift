@@ -69,59 +69,81 @@ struct LeaderBoardView: View {
                         Text("Subtraction").tag(Math.Operation.subtraction)
                         
                     } //.offset(y:100)
-                        .onChange(of: game.operation) { _ in
+                    .onChange(of: game.operation) { _ in
+                        loadLeaderboard()
+                    }
+                    .onChange(of: game.operation) { newValue in
+                        if playersList.isEmpty && isLeaderboardLoaded {
                             loadLeaderboard()
                         }
-                        .onChange(of: game.operation) { newValue in
-                            if playersList.isEmpty && isLeaderboardLoaded {
-                                loadLeaderboard()
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(20)
+                    .frame(maxWidth: .infinity)
+                    
+//                    HStack(spacing: 134){
+//                        Text("Name")
+//                            .frame(width: 75, alignment: .leading)
+//                            .font(.custom("RoundsBlack", size: 20))
+//                            .foregroundColor(.white)
+//
+//                        Text("Score")
+//                            .frame(width: 75, alignment: .center)
+//                            .font(.custom("RoundsBlack", size: 20))
+//                            .foregroundColor(.white)
+//
+//                    } .offset(y:120)
+//                    Divider()
+//
+//                        .frame(height:5)
+//                        .overlay(
+//                            Color.primary
+//                                .opacity(0.5)
+//                        )
+//                        .offset(y:120)
+                    ScrollView {
+                        VStack() { // Add a spacing to separate the rows
+                            HStack(spacing: 100) {
+                                Text("Name")
+                                    .frame(width: 100, alignment: .leading)
+                                    .font(.custom("RoundsBlack", size: 20))
+                                    .foregroundColor(.white)
+                                
+                                Text("Score")
+                                    .frame(width: 90, alignment: .center)
+                                    .font(.custom("RoundsBlack", size: 20))
+                                    .foregroundColor(.white)
+                            }
+                            Divider()
+                                .frame(height:5)
+                                .overlay(
+                                    Color.primary
+                                        .opacity(0.5)
+                                )
+                            .padding(.vertical, 5) // Add some vertical padding
+                            
+                            ForEach(playersList, id: \.id) { player in
+                                HStack(spacing: 74) {
+                                    Text("\(String(player.name.prefix(11)))")
+                                        .frame(width: 155, alignment: .leading)
+                                        .foregroundColor(.white)
+                                        .font(.custom("RoundsBlack", size: 18))
+                                    
+                                    Text("\(player.score)")
+                                        .frame(width: 50, alignment: .leading)
+                                        .foregroundColor(.white)
+                                        .font(.custom("RoundsBlack", size: 24))
+                                }
+                                .padding(1)
+                                
+                                Color.primary
+                                    .opacity(0.5)
+                                    .frame(height: 5)
                             }
                         }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding(20)
-                        .frame(maxWidth: .infinity)
-                    
-                    HStack(spacing: 134){
-                        Text("Name")
-                            .frame(width: 75, alignment: .leading)
-                            .font(.custom("RoundsBlack", size: 20))
-                            .foregroundColor(.white)
-                        
-                        Text("Score")
-                            .frame(width: 75, alignment: .center)
-                            .font(.custom("RoundsBlack", size: 20))
-                            .foregroundColor(.white)
-                        
-                    } .offset(y:120)
-                    Divider()
-                    
-                        .frame(height:5)
-                        .overlay(
-                            Color.primary
-                                .opacity(0.5)
-                        )
-                        .offset(y:120)
-                    ScrollView {
-                        ForEach(playersList, id: \.id) { player in
-                            HStack(spacing: 74){
-                                
-                                Text("\(String(player.name.prefix(11)))")
-                                    .frame(width: 155, alignment: .leading)
-                                    .foregroundColor(.white)
-                                    .font(.custom("RoundsBlack", size: 18))
-                                
-                                Text("\(player.score)")
-                                    .frame(width: 50, alignment: .leading)
-                                    .foregroundColor(.white)
-                                    .font(.custom("RoundsBlack", size: 24))
-                                
-                            }
-                            .padding(1)
-                            Color.primary
-                                .opacity(0.5)
-                                .frame(height:5)
-                        } .offset(y:130)
+                        .padding(.bottom, geometry.safeAreaInsets.bottom)
                     }
+                    .offset(y: 80) // Move the offset to the ScrollView
                 }
                 
                 .onAppear() {
@@ -152,7 +174,7 @@ struct LeaderBoardView: View {
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
             
             if let leaderboard = leaderboards.first(where: { $0.baseLeaderboardID == leaderboardIdentifier }) {
-                let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...10))
+                let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...20))
                 if allPlayers.1.count > 0 {
                     for leaderboardEntry in allPlayers.1 {
                         playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score: leaderboardEntry.score))
