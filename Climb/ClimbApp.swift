@@ -1,3 +1,4 @@
+
 //
 //  ClimbApp.swift
 //  Climb
@@ -11,8 +12,9 @@ import AVFoundation
    
 struct ClimbApp: App {
     init() {
-        configureAudioSession()
-    }
+            configureAudioSession()
+        }
+        
        
     var body: some Scene {
         WindowGroup {
@@ -21,11 +23,11 @@ struct ClimbApp: App {
     }
 
     private func configureAudioSession() {
-            do {
-                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
-                try AVAudioSession.sharedInstance().setActive(true)
-            } catch {
-                print("Failed to configure audio session: \(error)")
-            }
-        }
-}
+           do {
+               try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [.mixWithOthers])
+               try AVAudioSession.sharedInstance().setActive(true)
+           } catch {
+               print("Failed to configure audio session: \(error)")
+           }
+       }
+   }
