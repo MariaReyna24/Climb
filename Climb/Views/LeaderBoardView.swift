@@ -34,7 +34,7 @@ struct LeaderBoardView: View {
                     PlainBackground()
                         .ignoresSafeArea(.all)
                     LeaderboardLogo()
-                        .offset(y: -0.45 * geometry.size.height)
+                        .offset(y: -0.39 * geometry.size.height)
                         .offset(x: 0.02 * geometry.size.height)
                     
                         .toolbar {
@@ -65,7 +65,7 @@ struct LeaderBoardView: View {
                         Text("Addition").tag(Math.Operation.addition)
                         Text("Subtraction").tag(Math.Operation.subtraction)
                         
-                    } .offset(y:100)
+                    } //.offset(y:100)
                         .onChange(of: game.operation) { _ in
                             loadLeaderboard()
                         }
