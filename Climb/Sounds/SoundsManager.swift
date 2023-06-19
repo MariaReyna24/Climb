@@ -5,6 +5,7 @@ import AVFoundation
 class SoundManager: ObservableObject {
     static let instance = SoundManager()
     var player: AVAudioPlayer?
+    var volume: Float = 1.0 // Default volume
     
     enum SoundOption: String {
         case chime
@@ -25,6 +26,7 @@ class SoundManager: ObservableObject {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
             
             player = try AVAudioPlayer(contentsOf: url)
+            player?.volume = sound == .click ? volume * 0.25 : volume
             player?.play()
             
             try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [])
@@ -40,5 +42,3 @@ class SoundManager: ObservableObject {
         return currentCategory == .ambient && currentOptions.contains(.mixWithOthers)
     }
 }
-
-

@@ -109,6 +109,7 @@ struct Pause_menu: View {
                                     .font(.custom("RoundsBlack", size: 35))
                                     .foregroundColor(Color("textColor"))
                                     .padding(23)
+                                    .offset(x:-8)
                                 
                                 
                                 //Spacer()
@@ -120,7 +121,7 @@ struct Pause_menu: View {
                                     }
                                 }) {
                                     Image(systemName: isSoundEnabled ? "speaker.wave.3.fill" : "speaker.slash.fill")
-                                        .font(.system(size: 32))
+                                        .font(.system(size: 30))
                                         .foregroundColor(.white)
                                         .frame(width: 60, height: 60)
                                         .background(isSoundEnabled ? Color.green : Color.gray)
