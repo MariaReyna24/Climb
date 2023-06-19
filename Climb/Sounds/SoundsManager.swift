@@ -1,21 +1,12 @@
-//
-//  SoundsManager.swift
-//  Climb
-//
-//  Created by Sandra Smothers on 5/19/23.
-//
-
 import SwiftUI
 import AVKit
+import AVFoundation
 
 class SoundManager: ObservableObject {
-    
     static let instance = SoundManager()
-    
     var player: AVAudioPlayer?
     
     enum SoundOption: String {
-
         case chime
         case fail
         case wrong
@@ -24,13 +15,29 @@ class SoundManager: ObservableObject {
     }
     
     func playSound(sound: SoundOption) {
-        guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".mp3") else { return }
+        guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: "mp3") else { return }
         do {
+            let isSilentMode = isDeviceInSilentMode()
+            if isSilentMode {
+                return // Exit early if in silent mode
+            }
+            
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+            
             player = try AVAudioPlayer(contentsOf: url)
             player?.play()
+            
+            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [])
         } catch let error {
             print("Error playing sound. \(error.localizedDescription)")
         }
+    }
+    
+    private func isDeviceInSilentMode() -> Bool {
+        let currentCategory = AVAudioSession.sharedInstance().category
+        let currentOptions = AVAudioSession.sharedInstance().categoryOptions
+        
+        return currentCategory == .ambient && currentOptions.contains(.mixWithOthers)
     }
 }
 
