@@ -20,6 +20,7 @@ class SoundManager: ObservableObject {
         case fail
         case wrong
         case win
+        case click
     }
     
     func playSound(sound: SoundOption) {

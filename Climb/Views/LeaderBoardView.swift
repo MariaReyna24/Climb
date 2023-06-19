@@ -18,40 +18,66 @@ struct Player: Hashable, Comparable {
     let score: Int
 }
 struct LeaderBoardView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var isLeaderboardLoaded = false
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
+    @AppStorage(UserDefaultKeys.hapticsEnabled) var isHapticsEnabled: Bool = true
+    @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State var playersList: [Player] = []
     @State var leaderboardPlace = 0
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                PlainBackground()
-                    .offset(y:-50)
+            GeometryReader { geometry in
+                ZStack {
+                    PlainBackground()
+                        .ignoresSafeArea(.all)
+                    LeaderboardLogo()
+                        .offset(y: -0.45 * geometry.size.height)
+                        .offset(x: 0.02 * geometry.size.height)
+                    
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                withAnimation(nil){
+                                    Button {
+                                        scene.state = .mainmenu
+                                        heavyHaptic()
+                                        if isSoundEnabled {
+                                            SoundManager.instance.playSound(sound: .click)
+                                        }
+                                    } label: {
+                                        Image("BackButton")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 175, height: 175)
+                                            .offset(x: -55, y: 35)
+                                            .offset(y: colorScheme == .light ? 0 : -30)
+                                            .shadow(color: colorScheme == .light ? .black : .white, radius: 3, x: 0, y: 0)
+                                    }
+                                }
+                            }
+                        }
+                }
                 
                 VStack {
                     Picker(selection: $game.operation, label: Text("Operation")) {
                         Text("Addition").tag(Math.Operation.addition)
                         Text("Subtraction").tag(Math.Operation.subtraction)
-                    }
-                    .onChange(of: game.operation) { _ in
-                                    loadLeaderboard()
-                                }
-                    .onChange(of: game.operation) { newValue in
-                        if playersList.isEmpty && isLeaderboardLoaded {
+                        
+                    } .offset(y:100)
+                        .onChange(of: game.operation) { _ in
                             loadLeaderboard()
                         }
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding(20)
-
-                    Text("Leaderboard")
-                        .font(.custom("RoundsBlack", size: 30))
-                        .foregroundColor(.white)
-                        .padding()
-                        
-                    HStack(spacing: 128){
+                        .onChange(of: game.operation) { newValue in
+                            if playersList.isEmpty && isLeaderboardLoaded {
+                                loadLeaderboard()
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding(20)
+                        .frame(maxWidth: .infinity)
+                    HStack(spacing: 134){
                         Text("Name")
                             .frame(width: 75, alignment: .leading)
                             .font(.custom("RoundsBlack", size: 20))
@@ -61,78 +87,66 @@ struct LeaderBoardView: View {
                             .frame(width: 75, alignment: .center)
                             .font(.custom("RoundsBlack", size: 20))
                             .foregroundColor(.white)
-                            
-                    }
-                   Divider()
+                        
+                    } .offset(y:120)
+                    Divider()
+                    
                         .frame(height:5)
                         .overlay(
-                                Color.primary
-                                    .opacity(0.5)
-                                )
-                        ScrollView {
-                            ForEach(playersList, id: \.id) { player in
-                                HStack(spacing: 76){
-                                    
-                                    Text("\(String(player.name.prefix(12)))")
-                                        .frame(width: 155, alignment: .leading)
-                                        .foregroundColor(.white)
-                                        .font(.custom("RoundsBlack", size: 18))
-                
-                                    Text("\(player.score)")
-                                        .frame(width: 50, alignment: .leading)
-                                        .foregroundColor(.white)
-                                        .font(.custom("RoundsBlack", size: 24))
-                                        
-                                }
-                                .padding(1)
-                                Color.black
-
-                           }
+                            Color.primary
+                                .opacity(0.5)
+                        )
+                        .offset(y:120)
+                    ScrollView {
+                        ForEach(playersList, id: \.id) { player in
+                            HStack(spacing: 74){
+                                
+                                Text("\(String(player.name.prefix(11)))")
+                                    .frame(width: 155, alignment: .leading)
+                                    .foregroundColor(.white)
+                                    .font(.custom("RoundsBlack", size: 18))
+                                
+                                Text("\(player.score)")
+                                    .frame(width: 50, alignment: .leading)
+                                    .foregroundColor(.white)
+                                    .font(.custom("RoundsBlack", size: 24))
+                                
+                            }
+                            .padding(1)
+                            Color.primary
+                                .opacity(0.5)
+                                .frame(height:5)
+                        } .offset(y:130)
                     }
                 }
                 
                 .onAppear() {
-                           if !GKLocalPlayer.local.isAuthenticated {
-                               game.authenticateUser()
-                           } else if playersList.isEmpty && !isLeaderboardLoaded {
-                               loadLeaderboard()
-                           }
-                       }
+                    if !GKLocalPlayer.local.isAuthenticated {
+                        game.authenticateUser()
+                    } else if playersList.isEmpty && !isLeaderboardLoaded {
+                        loadLeaderboard()
+                    }
+                }
                 
             }
             
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar{
-                    ToolbarItem(placement: .navigationBarLeading){
-                        Button {
-                            scene.state = .mainmenu
-                            heavyHaptic()
-                        }label: {
-                            Label("Back", systemImage: "chevron.backward")
-                        }
-                        
-                        .font(.title2)
-                        .foregroundColor(Color("myColor"))
-                    }
-                    
-                }
-                
+            
         }
     }
     func loadLeaderboard() {
         Task {
             var playersListTemp: [Player] = []
             let leaderboardIdentifier: String
-
+            
             switch game.operation {
             case .addition:
                 leaderboardIdentifier = game.leaderboardIdentifierAdd
             case .subtraction:
                 leaderboardIdentifier = game.leaderboardIdentiferSub
             }
-
+            
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
-
+            
             if let leaderboard = leaderboards.first(where: { $0.baseLeaderboardID == leaderboardIdentifier }) {
                 let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...10))
                 if allPlayers.1.count > 0 {
@@ -144,14 +158,14 @@ struct LeaderBoardView: View {
                     }
                 }
             }
-
+            
             DispatchQueue.main.async {
                 playersList = playersListTemp
                 isLeaderboardLoaded = true
             }
         }
     }
-
+    
 }
 
 
