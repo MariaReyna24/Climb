@@ -16,6 +16,7 @@ struct levelCompleted: View {
     @State private var isBoxFallen = false
     var body: some View {
         ZStack {
+            
             VStack(spacing: 20){
                 Text("Level Completed!")
                     .font(.custom("RoundsBlack", size: 32))
@@ -82,14 +83,14 @@ struct levelCompleted: View {
         }
         
         .background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-        .frame(width: 370, height: 800)
+        .frame(width: 370, height: 400)
         .foregroundColor(.black)
         .onAppear {
             withAnimation(.spring(response: 0.5, dampingFraction: 0.6))  {
                 isBoxFallen = true
             }
         }
-        .offset(y: isBoxFallen ? 0 : -500)
+        .offset(y: isBoxFallen ? 0 : -400)
     }
 }
 

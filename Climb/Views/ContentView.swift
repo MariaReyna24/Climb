@@ -49,6 +49,7 @@ struct ContentView: View {
                             
                             //  .offset(y:0)
                             Spacer()
+                         
                             
                         }
                         .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)

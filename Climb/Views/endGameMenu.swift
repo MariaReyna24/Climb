@@ -14,6 +14,7 @@ struct End_Game_menu: View {
             // Restart the game
         } else {
             ZStack {
+                
                 VStack(spacing: 20) {
                     Text("Game Over!")
                         .foregroundColor(.red)
@@ -66,9 +67,9 @@ struct End_Game_menu: View {
                     }
                 }
                 .background(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-                .frame(width: 350, height: 800)
+                .frame(width: 350, height: 400)
                 .foregroundColor(.black)
-                .offset(y: showMenu ? 0 : -800) // Offset the entire box vertically
+                .offset(y: showMenu ? 0 : -400) // Offset the entire box vertically
                 .onAppear {
                     if isSoundEnabled {
                         SoundManager.instance.playSound(sound: .fail)
