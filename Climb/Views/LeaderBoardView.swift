@@ -34,7 +34,7 @@ struct LeaderBoardView: View {
                     PlainBackground()
                         .ignoresSafeArea(.all)
                     LeaderboardLogo()
-                        .offset(y: -0.39 * geometry.size.height)
+                        .offset(y: -0.40 * geometry.size.height)
                         .offset(x: 0.02 * geometry.size.height)
                     
                         .toolbar {
