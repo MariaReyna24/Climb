@@ -174,7 +174,7 @@ struct LeaderBoardView: View {
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
             
             if let leaderboard = leaderboards.first(where: { $0.baseLeaderboardID == leaderboardIdentifier }) {
-                let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...20))
+                let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...100))
                 if allPlayers.1.count > 0 {
                     for leaderboardEntry in allPlayers.1 {
                         playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score: leaderboardEntry.score))
