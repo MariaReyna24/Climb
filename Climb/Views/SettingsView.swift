@@ -22,7 +22,7 @@ struct SettingsView: View {
                         .ignoresSafeArea(.all)
                     SettingsLogo()
                         .offset(y: -0.30 * geometry.size.height)
-                        .offset(x: 0.09 * geometry.size.height)
+                        .offset(x: 0.08 * geometry.size.height)
                     
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
