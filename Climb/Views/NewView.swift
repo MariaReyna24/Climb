@@ -14,7 +14,8 @@ struct NewView: View {
     var body: some View {
         ZStack{
             PlainBackground()
-                .offset(y:-50)
+               // .offset(y:-50)
+                .ignoresSafeArea()
             switch scene.state {
             case .mainmenu:
                 MainMenuView(scene: scene, game: game)

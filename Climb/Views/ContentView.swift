@@ -21,7 +21,8 @@ struct ContentView: View {
                 NavigationStack {
                     ZStack {
                         GameBackground()
-                            .ignoresSafeArea(.all)
+                            .ignoresSafeArea()
+                            //.offset(x: 3)
                     if game.isOperationSelected {
                         VStack {
                             Text("Level \(game.levelnum)")
