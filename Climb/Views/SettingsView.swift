@@ -58,14 +58,11 @@ struct SettingsView: View {
             
             GeometryReader { geometry in
                 VStack(spacing:30) {
-                    
-                    
                         haptics
                         sound
-                        
                     }.scrollContentBackground(.hidden)
                         .offset(y: -0.70 * geometry.size.height)
-                        .offset(x: 0.07 * geometry.size.height)
+                        .offset(x: 0.12 * geometry.size.height)
                 }
             }
             
