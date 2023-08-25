@@ -67,40 +67,25 @@ struct LeaderBoardView: View {
                     Picker(selection: $game.operation, label: Text("Operation")) {
                         Text("Addition").tag(Math.Operation.addition)
                         Text("Subtraction").tag(Math.Operation.subtraction)
+                        Text("Multi").tag(Math.Operation.multi)
                         
                     } //.offset(y:100)
                     .onChange(of: game.operation) { _ in
-                        loadLeaderboard()
+                        Task{
+                         await loadLeaderboard()
+                        }
                     }
                     .onChange(of: game.operation) { newValue in
                         if playersList.isEmpty && isLeaderboardLoaded {
-                            loadLeaderboard()
+                            Task{
+                             await loadLeaderboard()
+                            }
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(20)
                     .frame(maxWidth: .infinity)
                     
-//                    HStack(spacing: 134){
-//                        Text("Name")
-//                            .frame(width: 75, alignment: .leading)
-//                            .font(.custom("RoundsBlack", size: 20))
-//                            .foregroundColor(.white)
-//
-//                        Text("Score")
-//                            .frame(width: 75, alignment: .center)
-//                            .font(.custom("RoundsBlack", size: 20))
-//                            .foregroundColor(.white)
-//
-//                    } .offset(y:120)
-//                    Divider()
-//
-//                        .frame(height:5)
-//                        .overlay(
-//                            Color.primary
-//                                .opacity(0.5)
-//                        )
-//                        .offset(y:120)
                     ScrollView {
                         VStack() { // Add a spacing to separate the rows
                             HStack(spacing: 100) {
@@ -120,7 +105,7 @@ struct LeaderBoardView: View {
                                     Color.primary
                                         .opacity(0.5)
                                 )
-                            .padding(.vertical, 5) // Add some vertical padding
+                                .padding(.vertical, 5) // Add some vertical padding
                             
                             ForEach(playersList, id: \.id) { player in
                                 HStack(spacing: 74) {
@@ -150,7 +135,9 @@ struct LeaderBoardView: View {
                     if !GKLocalPlayer.local.isAuthenticated {
                         game.authenticateUser()
                     } else if playersList.isEmpty && !isLeaderboardLoaded {
-                        loadLeaderboard()
+                        Task{
+                         await loadLeaderboard()
+                        }
                     }
                 }
                 
@@ -159,8 +146,8 @@ struct LeaderBoardView: View {
             
         }
     }
-    func loadLeaderboard() {
-        Task {
+    func loadLeaderboard() async {
+        do {
             var playersListTemp: [Player] = []
             let leaderboardIdentifier: String
             
@@ -169,6 +156,8 @@ struct LeaderBoardView: View {
                 leaderboardIdentifier = game.leaderboardIdentifierAdd
             case .subtraction:
                 leaderboardIdentifier = game.leaderboardIdentiferSub
+            case .multi:
+                leaderboardIdentifier = game.leaderboardIdentiferMulti
             }
             
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
@@ -189,11 +178,11 @@ struct LeaderBoardView: View {
                 playersList = playersListTemp
                 isLeaderboardLoaded = true
             }
+        } catch {
+            print("Error loading leaderboard: \(error)")
         }
     }
-    
 }
-
 
 struct LeaderBoardView_Previews: PreviewProvider {
     static var previews: some View {

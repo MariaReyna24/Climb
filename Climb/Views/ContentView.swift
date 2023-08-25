@@ -166,6 +166,8 @@ struct ContentView: View {
             return "+"
         case .subtraction:
             return "-"
+        case .multi:
+            return "*"
         }
     }
 }

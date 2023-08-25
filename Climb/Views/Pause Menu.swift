@@ -62,8 +62,6 @@ struct Pause_menu: View {
                                     .foregroundColor(Color("textColor"))
                                     .padding()
                                 
-                                //Spacer()
-                                
                                 Button(action: {
                                     isHapticsEnabled.toggle()
                                     if isSoundEnabled {

@@ -8,6 +8,7 @@ struct OperationsView: View {
     @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State private var isAdditionButtonPressed = false
     @State private var isSubtractionButtonPressed = false
+    @State private var isMultiplicationButtonPressed = false
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
@@ -100,28 +101,48 @@ struct OperationsView: View {
                             heavyHaptic()
                         }
                         
-                        Button("Coming Soon") {
+                        Button(action: {
+                            withAnimation {
+                                scene.state = .game
+                                game.operation = .multi
+                                game.isOperationSelected = true
+                                isMultiplicationButtonPressed = true
+                                if isSoundEnabled {
+                                    SoundManager.instance.playSound(sound: .click)
+                                }
+                            }
+                            heavyHaptic()
+                        }) {
+                            Text("*")
+                                .font(.custom("RoundsBlack", size: 60))
+                                .foregroundColor(Color("textColor"))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 80)
+                                .background(Color("pauseColor"))
+                                .cornerRadius(25)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .stroke(Color("WhiteDM"), lineWidth: 6)
+                                )
+                                .shadow(
+                                    color: Color.white.opacity(0.5),
+                                    radius: 6,
+                                    x: 0,
+                                    y: 0
+                                )
+                                .scaleEffect(isMultiplicationButtonPressed ? 0.0 : 1.0)
+                            
+                        }
+                        
+                        .buttonStyle(CustomButtonStyle())
+                        .onTapGesture {
+                            withTransaction(Transaction(animation: nil)) {
+                                scene.state = .game
+                                isMultiplicationButtonPressed = true
+                            }
                             heavyHaptic()
                         }
-                        .font(.custom("RoundsBlack", size: 25))
-                        .foregroundColor(Color("textColor"))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 80)
-                        .background(Color("pauseColor"))
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color("WhiteDM"), lineWidth: 6)
-                        )
-                        .shadow(
-                            color: Color.white.opacity(0.5),
-                            radius: 6,
-                            x: 0,
-                            y: 0
-                        )
                         
-                        .disabled(true)
-                        .opacity(0.5)
                         
                         Button("Coming Soon") {
                             heavyHaptic()
