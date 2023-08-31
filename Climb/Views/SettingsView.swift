@@ -21,9 +21,13 @@ struct SettingsView: View {
                     PlainBackground()
                         .ignoresSafeArea(.all)
                     SettingsLogo()
-                        .offset(y: -0.30 * geometry.size.height)
-                        .offset(x: 0.08 * geometry.size.height)
+                        .offset(x: 0.03 * geometry.size.height)
                     
+                    VStack(spacing: 30) {
+                        haptics
+                        sound
+                    }
+                    .offset(y: -0.08 * geometry.size.height)
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
                                 
@@ -56,19 +60,18 @@ struct SettingsView: View {
             }
             
             
-            GeometryReader { geometry in
-                VStack(spacing:30) {
-                        haptics
-                        sound
-                    }.scrollContentBackground(.hidden)
-                        .offset(y: -0.70 * geometry.size.height)
-                        .offset(x: 0.12 * geometry.size.height)
+//            GeometryReader { geometry in
+//                VStack(spacing:40) {
+//                        haptics
+//                        sound
+                    } //                        .offset(y: -0.58 * geometry.size.height)
+//                        .offset(x: 0.07 * geometry.size.height)
                 }
             }
             
-        }
+    //    }
         
-    }
+   // }
 
 
 
