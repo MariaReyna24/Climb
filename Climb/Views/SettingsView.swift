@@ -63,7 +63,7 @@ struct SettingsView: View {
 //            GeometryReader { geometry in
 //                VStack(spacing:40) {
 //                        haptics
-//                        sound
+//                         sound
                     } //                        .offset(y: -0.58 * geometry.size.height)
 //                        .offset(x: 0.07 * geometry.size.height)
                 }

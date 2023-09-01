@@ -220,13 +220,13 @@ class Math: ObservableObject{
     }
     
     func endGame(){
+        leaderboard()
             self.score = 0
             timeRemaining = 20
             correctAnsArry = []
             difficulty = 30
             levelnum =  1
             greenButtonCount = 0
-            leaderboard()
     }
     
     func newLevel() {

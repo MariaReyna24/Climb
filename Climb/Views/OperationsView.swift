@@ -113,8 +113,8 @@ struct OperationsView: View {
                             }
                             heavyHaptic()
                         }) {
-                            Text("*")
-                                .font(.custom("RoundsBlack", size: 60))
+                            Text("x")
+                                .font(.custom("RoundsBlack", size: 40))
                                 .foregroundColor(Color("textColor"))
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 80)
