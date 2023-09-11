@@ -157,6 +157,7 @@ struct OperationsView: View {
                         }) {
                             Text("/")
                                 .font(.custom("RoundsBlack", size: 40))
+                                .fontWeight(.bold)
                                 .foregroundColor(Color("textColor"))
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 80)

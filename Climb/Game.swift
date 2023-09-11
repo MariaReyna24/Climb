@@ -219,49 +219,62 @@ class Math: ObservableObject{
             choicearry = answerList
             
         case .div:
-            self.firstNum = Int.random(in: 1...(difficulty), excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 1...(difficulty), excluding: correctAnsArry)
-
-            correctAnswer = self.firstNum / self.secondNum
+            let maxAttempts = 100 // Maximum number of attempts to find a valid subtraction question
+            var attemptCount = 0
+            var questionSkipped = false
             
-            while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) || firstNum % secondNum != 0 {
-                self.firstNum = Int.random(in: 0...(difficulty), excluding: correctAnsArry)
+            repeat{
+                self.firstNum = Int.random(in: 1...(difficulty), excluding: correctAnsArry)
                 self.secondNum = Int.random(in: 1...(difficulty), excluding: correctAnsArry)
                 
                 correctAnswer = self.firstNum / self.secondNum
-            }
-            correctAnsArry.append(correctAnswer)
-            
-            
-            let upperBound = correctAnswer + max(difficulty, 10) // Adjust the maximum range based on your needs
-            let incorrectRange = max(correctAnswer - 4, 0)...upperBound
-            
-            for _ in 0...9 {
-                var randomIncorrectAnswer: Int
-                repeat {
-                    randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
-                } while answerList.contains(randomIncorrectAnswer)
-                answerList.append(randomIncorrectAnswer)
-            }
-            var incorrectAnswers: [Int] = []
-            for index in 0...9 {
-                let currentChoice = choicearry[index]
                 
-                if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
-                    answerList[index] = currentChoice
-                } else {
-                    incorrectAnswers.append(index)
+                attemptCount += 1
+                
+            } while (firstNum % secondNum != 0 || choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
+            
+            if attemptCount >= maxAttempts {
+                
+                print("Unable to generate valid division question")
+                
+                questionSkipped = true
+            }
+          
+            
+            if !questionSkipped {
+                correctAnsArry.append(correctAnswer)
+                
+                let upperBound = correctAnswer + max(difficulty, 10) // Adjust the maximum range based on your needs
+                let incorrectRange = max(correctAnswer - 4, 0)...upperBound
+                
+                answerList.removeAll()
+                
+                for _ in 0...9 {
+                    var randomIncorrectAnswer: Int
+                    repeat {
+                        randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
+                    } while answerList.contains(randomIncorrectAnswer)
+                    answerList.append(randomIncorrectAnswer)
                 }
+                var incorrectAnswers: [Int] = []
+                for index in 0...9 {
+                    let currentChoice = choicearry[index]
+                    
+                    if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
+                        answerList[index] = currentChoice
+                    } else {
+                        incorrectAnswers.append(index)
+                    }
+                }
+                
+                // grab a random index from the array of wrong answer indexes
+                if let randomIndex = incorrectAnswers.randomElement() {
+                    // set the new correct answer at that index
+                    answerList[randomIndex] = correctAnswer
+                }
+                
+                choicearry = answerList
             }
-            
-            // grab a random index from the array of wrong answer indexes
-            if let randomIndex = incorrectAnswers.randomElement() {
-                // set the new correct answer at that index
-                answerList[randomIndex] = correctAnswer
-            }
-            
-            choicearry = answerList
-            
         }
       
     }
