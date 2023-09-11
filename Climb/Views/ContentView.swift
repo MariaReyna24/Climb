@@ -168,6 +168,8 @@ struct ContentView: View {
             return "-"
         case .multi:
             return "*"
+        case .div:
+            return "/"
         }
     }
 }

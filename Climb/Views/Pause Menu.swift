@@ -155,6 +155,7 @@ struct Pause_menu: View {
                         
                         Button(action: {
                             game.endGame()
+                            game.leaderboard()
                             scene.state = .mainmenu
                             heavyHaptic()
                             isMainMenuButtonPressed = true

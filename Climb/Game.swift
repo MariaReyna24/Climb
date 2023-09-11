@@ -32,11 +32,13 @@ class Math: ObservableObject{
     var leaderboardIdentifierAdd = "climb.Leaderboard"
     var leaderboardIdentiferSub = "climbSubtraction.Leaderboard"
     var leaderboardIdentiferMulti =  "Climb.multi"
+    var leaderboardIdentiferDiv = "div.leaderboard"
     
     enum Operation {
         case addition
         case subtraction
         case multi
+        case div
     }
     
     func answerCorreect(answer:Int) -> Bool {
@@ -215,12 +217,56 @@ class Math: ObservableObject{
             }
             
             choicearry = answerList
+            
+        case .div:
+            self.firstNum = Int.random(in: 1...(difficulty), excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 1...(difficulty), excluding: correctAnsArry)
+
+            correctAnswer = self.firstNum / self.secondNum
+            
+            while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) || firstNum % secondNum != 0 {
+                self.firstNum = Int.random(in: 0...(difficulty), excluding: correctAnsArry)
+                self.secondNum = Int.random(in: 1...(difficulty), excluding: correctAnsArry)
+                
+                correctAnswer = self.firstNum / self.secondNum
+            }
+            correctAnsArry.append(correctAnswer)
+            
+            
+            let upperBound = correctAnswer + max(difficulty, 10) // Adjust the maximum range based on your needs
+            let incorrectRange = max(correctAnswer - 4, 0)...upperBound
+            
+            for _ in 0...9 {
+                var randomIncorrectAnswer: Int
+                repeat {
+                    randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
+                } while answerList.contains(randomIncorrectAnswer)
+                answerList.append(randomIncorrectAnswer)
+            }
+            var incorrectAnswers: [Int] = []
+            for index in 0...9 {
+                let currentChoice = choicearry[index]
+                
+                if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
+                    answerList[index] = currentChoice
+                } else {
+                    incorrectAnswers.append(index)
+                }
+            }
+            
+            // grab a random index from the array of wrong answer indexes
+            if let randomIndex = incorrectAnswers.randomElement() {
+                // set the new correct answer at that index
+                answerList[randomIndex] = correctAnswer
+            }
+            
+            choicearry = answerList
+            
         }
       
     }
     
     func endGame(){
-        leaderboard()
             self.score = 0
             timeRemaining = 20
             correctAnsArry = []
@@ -273,6 +319,8 @@ class Math: ObservableObject{
             leaderboardIdentifier = leaderboardIdentiferSub
         case .multi:
             leaderboardIdentifier = leaderboardIdentiferMulti
+        case .div:
+            leaderboardIdentifier = leaderboardIdentiferDiv
         }
 
         Task {

@@ -26,7 +26,6 @@ struct LeaderBoardView: View {
     @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State var playersList: [Player] = []
     @State var leaderboardPlace = 0
-    
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
@@ -65,9 +64,10 @@ struct LeaderBoardView: View {
                 
                 VStack {
                     Picker(selection: $game.operation, label: Text("Operation")) {
-                        Text("Addition").tag(Math.Operation.addition)
-                        Text("Subtraction").tag(Math.Operation.subtraction)
+                        Text("Add").tag(Math.Operation.addition)
+                        Text("Sub").tag(Math.Operation.subtraction)
                         Text("Multi").tag(Math.Operation.multi)
+                        Text("Div").tag(Math.Operation.div)
                         
                     } //.offset(y:100)
                     .onChange(of: game.operation) { _ in
@@ -158,6 +158,8 @@ struct LeaderBoardView: View {
                 leaderboardIdentifier = game.leaderboardIdentiferSub
             case .multi:
                 leaderboardIdentifier = game.leaderboardIdentiferMulti
+            case .div:
+                leaderboardIdentifier = game.leaderboardIdentiferDiv
             }
             
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])

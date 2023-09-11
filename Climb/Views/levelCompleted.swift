@@ -65,7 +65,7 @@ struct levelCompleted: View {
                     .padding()
                     Button("Main Menu") {
                         scene.state = .mainmenu
-                     //   game.leaderboard()
+                        game.leaderboard()
                         game.endGame()
                         heavyHaptic()
                         game.isLevelComplete = false

@@ -9,6 +9,7 @@ struct OperationsView: View {
     @State private var isAdditionButtonPressed = false
     @State private var isSubtractionButtonPressed = false
     @State private var isMultiplicationButtonPressed = false
+    @State private var isDivisionButtonPressed = false
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
@@ -142,30 +143,47 @@ struct OperationsView: View {
                             }
                             heavyHaptic()
                         }
+                        Button(action: {
+                            withAnimation {
+                                scene.state = .game
+                                game.operation = .div
+                                game.isOperationSelected = true
+                                isDivisionButtonPressed = true
+                                if isSoundEnabled {
+                                    SoundManager.instance.playSound(sound: .click)
+                                }
+                            }
+                            heavyHaptic()
+                        }) {
+                            Text("/")
+                                .font(.custom("RoundsBlack", size: 40))
+                                .foregroundColor(Color("textColor"))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 80)
+                                .background(Color("pauseColor"))
+                                .cornerRadius(25)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .stroke(Color("WhiteDM"), lineWidth: 6)
+                                )
+                                .shadow(
+                                    color: Color.white.opacity(0.5),
+                                    radius: 6,
+                                    x: 0,
+                                    y: 0
+                                )
+                                .scaleEffect(isDivisionButtonPressed ? 0.0 : 1.0)
+                            
+                        }
                         
-                        
-                        Button("Coming Soon") {
+                        .buttonStyle(CustomButtonStyle())
+                        .onTapGesture {
+                            withTransaction(Transaction(animation: nil)) {
+                                scene.state = .game
+                                isDivisionButtonPressed = true
+                            }
                             heavyHaptic()
                         }
-                        .font(.custom("RoundsBlack", size: 25))
-                        .foregroundColor(Color("textColor"))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 80)
-                        .background(Color("pauseColor"))
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color("WhiteDM"), lineWidth: 6)
-                        )
-                        .shadow(
-                            color: Color.white.opacity(0.5),
-                            radius: 6,
-                            x: 0,
-                            y: 0
-                        )
-                        
-                        .disabled(true)
-                        .opacity(0.5)
                         .frame(height: 0.1 * UIScreen.main.bounds.height)
                     }
                     .offset(y: 25)
