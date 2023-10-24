@@ -32,13 +32,12 @@ struct ContentView: View {
                             Text("Score: \(game.score)")
                                 .font(Font.custom("RoundsBlack", size: 30))
                                 .padding(40)
-                            //.frame(width: 200, height: 50)
+                          
                             Group {
                                 buttonsForAnswers(startIndex: 0, endIndex: 1)
                                 buttonsForAnswers(startIndex: 1, endIndex: 3)
                                 buttonsForAnswers(startIndex: 3, endIndex: 6)
                                 buttonsForAnswers(startIndex: 6, endIndex: 10)
-                                //TEXT FOR PROBLEMS
                                 
                                 
                                 Text("\(game.firstNum) \(operationSymbol(for: game.operation)) \(game.secondNum)")
