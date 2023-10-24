@@ -70,8 +70,34 @@ class Math: ObservableObject{
     func generateAnswers() {
         switch operation {
         case .addition:
-        generateAnswersForAddition()
+            additionLogic()
         case .subtraction:
+            subtractionLogic()
+        case .multi:
+            multiLogic()
+        case .div:
+            divLogic()
+        }
+    }
+    
+        func additionLogic(){
+            var answerList = [Int]()
+            self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+            
+            correctAnswer = self.firstNum + self.secondNum
+            
+            while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
+                self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+                self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+                correctAnswer = self.firstNum + self.secondNum
+            }
+            correctAnsArry.append(correctAnswer)
+            
+            incorrectAns()
+        }
+        
+        func subtractionLogic(){
             var answerList = [Int]()
             let maxAttempts = 100 // Maximum number of attempts to find a valid subtraction question
             var attemptCount = 0
@@ -97,43 +123,12 @@ class Math: ObservableObject{
             
             if !questionSkipped {
                 correctAnsArry.append(correctAnswer)
-                
-                let upperBound = correctAnswer + max(difficulty, 10) // Adjust the maximum range based on your needs
-                let incorrectRange = max(correctAnswer - 4, 0)...upperBound
-                
-                answerList.removeAll() // Clear the answerList before generating new incorrect answers
-                
-                for _ in 0...9 {
-                    var randomIncorrectAnswer: Int
-                    repeat {
-                        randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: (correctAnsArry + choicearry))
-                    } while answerList.contains(randomIncorrectAnswer)
-                    answerList.append(randomIncorrectAnswer)
-                }
-                
-                var incorrectAnswers: [Int] = []
-                for index in 0...9 {
-                    let currentChoice = choicearry[index]
-                    
-                    if correctAnsArry.contains(currentChoice) && currentChoice != correctAnswer && !answerList.contains(currentChoice) {
-                        answerList[index] = currentChoice
-                    } else {
-                        incorrectAnswers.append(index)
-                    }
-                }
-                
-                // Grab a random index from the array of wrong answer indexes
-                if let randomIndex = incorrectAnswers.randomElement() {
-                    // Set the new correct answer at that index
-                    answerList[randomIndex] = correctAnswer
-                }
-                
-                choicearry = answerList
-                
-                
+                incorrectAns()
             }
             
-        case .multi:
+        }
+        
+        func multiLogic(){
             var answerList = [Int]()
             self.firstNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
             self.secondNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
@@ -146,95 +141,49 @@ class Math: ObservableObject{
                 correctAnswer = self.firstNum * self.secondNum
             }
             correctAnsArry.append(correctAnswer)
-            
-            
-            let upperBound = correctAnswer + max(difficulty/2, 10) // Adjust the maximum range based on your needs
-            let incorrectRange = max(correctAnswer - 4, 0)...upperBound
-            
-            for _ in 0...9 {
-                var randomIncorrectAnswer: Int
-                repeat {
-                    randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
-                } while answerList.contains(randomIncorrectAnswer)
-                answerList.append(randomIncorrectAnswer)
-            }
-            var incorrectAnswers: [Int] = []
-            for index in 0...9 {
-                let currentChoice = choicearry[index]
-                
-                if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
-                    answerList[index] = currentChoice
-                } else {
-                    incorrectAnswers.append(index)
-                }
-            }
-            
-            // grab a random index from the array of wrong answer indexes
-            if let randomIndex = incorrectAnswers.randomElement() {
-                // set the new correct answer at that index
-                answerList[randomIndex] = correctAnswer
-            }
-            
-            choicearry = answerList
-            
-        case .div:
+           incorrectAns()
+        }
+        
+        func divLogic(){
             var answerList = [Int]()
+            let maxAttempts = 150 // Maximum number of attempts to find a valid division question
+            var attemptCount = 0
+            var questionSkipped = false
             
-            self.secondNum = Int.random(in: 1...(difficulty/2), excluding: correctAnsArry)
-            self.firstNum = self.secondNum * Int.random(in: 1...(difficulty/2), excluding: correctAnsArry) // Ensure the first number is a multiple of the second
-            
-            correctAnswer = self.firstNum / self.secondNum
-            
-            while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-                self.secondNum = Int.random(in: 1...(difficulty/2), excluding: correctAnsArry)
-                self.firstNum = self.secondNum * Int.random(in: 1...(difficulty/2), excluding: correctAnsArry)
-                correctAnswer = self.firstNum / self.secondNum
-            }
-            correctAnsArry.append(correctAnswer)
-            
-            let upperBound = correctAnswer + max(difficulty/2, 10) // Adjust the maximum range based on your needs
-            let incorrectRange = max(correctAnswer - 4, 1)...upperBound
-            
-            for _ in 0...9 {
-                var randomIncorrectAnswer: Int
-                repeat {
-                    randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
-                } while answerList.contains(randomIncorrectAnswer)
-                answerList.append(randomIncorrectAnswer)
-            }
-            var incorrectAnswers: [Int] = []
-            for index in 0...9 {
-                let currentChoice = choicearry[index]
+            repeat {
+                self.firstNum = Int.random(in: 1...difficulty, excluding: correctAnsArry)
+                self.secondNum = Int.random(in: 1...difficulty, excluding: correctAnsArry)
                 
-                if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
-                    answerList[index] = currentChoice
-                } else {
-                    incorrectAnswers.append(index)
-                }
+                correctAnswer = self.firstNum / self.secondNum
+                
+                attemptCount += 1
+                
+            } while (firstNum % secondNum != 0 || choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
+            
+            if attemptCount >= maxAttempts {
+                // Handle the case where a valid division question couldn't be generated within the maximum attempts
+                
+                self.firstNum = Int.random(in: 1...difficulty, excluding: correctAnsArry)
+                self.secondNum = Int.random(in: 1...difficulty,excluding: correctAnsArry)
+                
+               var product = self.firstNum * self.secondNum
+               correctAnswer = correctAnswer / self.secondNum
+                
+                correctAnsArry.append(correctAnswer)
+                incorrectAns()
+                questionSkipped = true
             }
             
-            if let randomIndex = incorrectAnswers.randomElement() {
-                answerList[randomIndex] = correctAnswer
+            if !questionSkipped {
+                correctAnsArry.append(correctAnswer)
+                
+                incorrectAns()
+                
             }
-            choicearry = answerList
         }
-    }
-    func generateAnswersForAddition(){
+    func incorrectAns(){
         var answerList = [Int]()
-        self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-        self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-        
-        correctAnswer = self.firstNum + self.secondNum
-        
-        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-            self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-            correctAnswer = self.firstNum + self.secondNum
-        }
-        correctAnsArry.append(correctAnswer)
-        
-        
-        let upperBound = correctAnswer + max(difficulty, 10) // Adjust the maximum range based on your needs
+        let upperBound = correctAnswer + max(difficulty/2, 10) // Adjust the maximum range based on your needs
         let incorrectRange = max(correctAnswer - 4, 0)...upperBound
         
         for _ in 0...9 {
@@ -264,7 +213,6 @@ class Math: ObservableObject{
         choicearry = answerList
     }
     
-    
     func endGame(){
         self.score = 0
         timeRemaining = 20
@@ -272,6 +220,7 @@ class Math: ObservableObject{
         difficulty = 30
         levelnum =  1
         greenButtonCount = 0
+        
     }
     
     func newLevel() {
@@ -288,17 +237,16 @@ class Math: ObservableObject{
         correctAnsArry = []
         levelnum = 1
         greenButtonCount = 0
-        
-        // Gradually increase the difficulty level with each retry
-        difficulty = 30 + (levelnum - 1) * 10
-        
-        // Generate answers with the updated difficulty level
-        generateAnswers()
     }
-    
-    func newQuestion(){
-        generateAnswers()
-    }
+//    func wholeDivisionCheck() {
+//        self.firstNum = Int.random(in: 1...difficulty)
+//        self.secondNum = Int.random(in: 1...difficulty)
+//        
+//       correctAnswer = self.firstNum * self.secondNum
+//       var quotient = correctAnswer / self.secondNum
+//        
+//        
+//    }
     func authenticateUser() {
         GKLocalPlayer.local.authenticateHandler = { [self] viewController, error in
             if GKLocalPlayer.local.isAuthenticated {
