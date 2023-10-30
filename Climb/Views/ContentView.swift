@@ -100,14 +100,8 @@ struct ContentView: View {
 //                                               // scene.state = .pauseMenu
 //                                                game.isPaused = true
 //                                                isPauseButtonPressed  = true
-                                                
-                                            
-                                         
-                                        
                                 }
                             }
-                          
-                            
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Text("\(game.timeRemaining)s")
                                     .font(.custom("RoundsBlack", size: 30))

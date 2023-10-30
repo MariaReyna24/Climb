@@ -9,6 +9,7 @@ import GameKit
 import SwiftUI
 
 class Math: ObservableObject{
+    @Published var questionCounter = 0
     @Published var isGameCenterAuthenticated = false
     @Published var isShowingPauseMenu = false // Added state
     @Published var isOperationSelected = false
@@ -44,6 +45,7 @@ class Math: ObservableObject{
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
             self.score += 1
+            questionCounter += 1
             if self.timeRemaining <= 28 {
                 self.timeRemaining += 2
             }else{
@@ -80,107 +82,105 @@ class Math: ObservableObject{
         }
     }
     
-        func additionLogic(){
-            var answerList = [Int]()
+    func additionLogic(){
+        self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+        self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+        
+        correctAnswer = self.firstNum + self.secondNum
+        
+        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
             self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
             self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-            
             correctAnswer = self.firstNum + self.secondNum
+        }
+        correctAnsArry.append(correctAnswer)
+        
+        incorrectAns()
+    }
+    
+    func subtractionLogic(){
+        let maxAttempts = 100 // Maximum number of attempts to find a valid subtraction question
+        var attemptCount = 0
+        var questionSkipped = false
+        
+        repeat {
+            self.firstNum = Int.random(in: 0...difficulty, excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...difficulty/2, excluding: correctAnsArry)
             
-            while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-                self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-                self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-                correctAnswer = self.firstNum + self.secondNum
-            }
+            correctAnswer = self.firstNum - self.secondNum
+            
+            attemptCount += 1
+            
+        } while (firstNum < secondNum || choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
+        
+        if attemptCount >= maxAttempts {
+            // Handle the case where a valid subtraction question couldn't be generated within the maximum attempts
+            print("Unable to generate a valid subtraction question.")
+            
+            // Take appropriate action in your game logic (e.g., show an error message, skip the question, etc.)
+            questionSkipped = true
+        }
+        
+        if !questionSkipped {
             correctAnsArry.append(correctAnswer)
-            
             incorrectAns()
         }
         
-        func subtractionLogic(){
-            var answerList = [Int]()
-            let maxAttempts = 100 // Maximum number of attempts to find a valid subtraction question
-            var attemptCount = 0
-            var questionSkipped = false
-            
-            repeat {
-                self.firstNum = Int.random(in: 0...difficulty, excluding: correctAnsArry)
-                self.secondNum = Int.random(in: 0...difficulty/2, excluding: correctAnsArry)
-                
-                correctAnswer = self.firstNum - self.secondNum
-                
-                attemptCount += 1
-                
-            } while (firstNum < secondNum || choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
-            
-            if attemptCount >= maxAttempts {
-                // Handle the case where a valid subtraction question couldn't be generated within the maximum attempts
-                print("Unable to generate a valid subtraction question.")
-                
-                // Take appropriate action in your game logic (e.g., show an error message, skip the question, etc.)
-                questionSkipped = true
-            }
-            
-            if !questionSkipped {
-                correctAnsArry.append(correctAnswer)
-                incorrectAns()
-            }
-            
-        }
+    }
+    
+    func multiLogic(){
+        self.firstNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
+        self.secondNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
         
-        func multiLogic(){
-            var answerList = [Int]()
+        correctAnswer = self.firstNum * self.secondNum
+        
+        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
             self.firstNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
             self.secondNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
-            
             correctAnswer = self.firstNum * self.secondNum
+        }
+        correctAnsArry.append(correctAnswer)
+        incorrectAns()
+    }
+    
+    func divLogic(){
+        let maxAttempts = 10 // Maximum number of attempts to find a valid division question
+        var attemptCount = 0
+        var questionSkipped = false
+        
+        repeat {
+            let twoNums = isDivisible()
             
-            while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-                self.firstNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
-                self.secondNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
-                correctAnswer = self.firstNum * self.secondNum
-            }
+            self.firstNum = twoNums.1
+            self.secondNum = twoNums.0
+            
+            correctAnswer = divideNumbers(twoNums)
+            attemptCount += 1
+            
+        } while (choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
+        
+        if attemptCount >= maxAttempts {
+            // Handle the case where a valid division question couldn't be generated within the maximum attempts
+            
+            print("Unable to generate a valid subtraction question.")
+            self.firstNum = 4
+            self.secondNum = 2
+            
+            correctAnswer = self.firstNum / self.secondNum
+            
             correctAnsArry.append(correctAnswer)
-           incorrectAns()
+            incorrectAns()
+           
+            
+            questionSkipped = true
         }
         
-        func divLogic(){
-            var answerList = [Int]()
-            let maxAttempts = 150 // Maximum number of attempts to find a valid division question
-            var attemptCount = 0
-            var questionSkipped = false
-            
-            repeat {
-                self.firstNum = Int.random(in: 1...difficulty, excluding: correctAnsArry)
-                self.secondNum = Int.random(in: 1...difficulty, excluding: correctAnsArry)
-                
-                correctAnswer = self.firstNum / self.secondNum
-                
-                attemptCount += 1
-                
-            } while (firstNum % secondNum != 0 || choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
-            
-            if attemptCount >= maxAttempts {
-                // Handle the case where a valid division question couldn't be generated within the maximum attempts
-                
-                self.firstNum = Int.random(in: 1...difficulty, excluding: correctAnsArry)
-                self.secondNum = Int.random(in: 1...difficulty,excluding: correctAnsArry)
-                
-               var product = self.firstNum * self.secondNum
-               correctAnswer = correctAnswer / self.secondNum
-                
-                correctAnsArry.append(correctAnswer)
-                incorrectAns()
-                questionSkipped = true
-            }
-            
-            if !questionSkipped {
-                correctAnsArry.append(correctAnswer)
-                
-                incorrectAns()
-                
-            }
+        if !questionSkipped {
+            correctAnsArry.append(correctAnswer)
+            incorrectAns()
         }
+    }
+    
     func incorrectAns(){
         var answerList = [Int]()
         let upperBound = correctAnswer + max(difficulty/2, 10) // Adjust the maximum range based on your needs
@@ -213,6 +213,19 @@ class Math: ObservableObject{
         choicearry = answerList
     }
     
+    func isDivisible() -> (Int,Int) {
+        let x = Int.random(in: 1...difficulty/3, excluding: correctAnsArry)
+        let y = Int.random(in: 1...difficulty/3, excluding: correctAnsArry)
+        let z = x * y
+        return (x, z)
+    }
+    
+    func divideNumbers(_ numbers: (Int, Int)) -> Int {
+        let (x, y) = numbers
+        return y / x
+    }
+    
+    
     func endGame(){
         self.score = 0
         timeRemaining = 20
@@ -220,6 +233,7 @@ class Math: ObservableObject{
         difficulty = 30
         levelnum =  1
         greenButtonCount = 0
+        questionCounter = 0
         
     }
     
@@ -229,6 +243,7 @@ class Math: ObservableObject{
         levelnum += 1
         difficulty += 10
         generateAnswers()
+        questionCounter = 0
     }
     
     func retryLevel() {
@@ -237,16 +252,11 @@ class Math: ObservableObject{
         correctAnsArry = []
         levelnum = 1
         greenButtonCount = 0
+        questionCounter = 0
     }
-//    func wholeDivisionCheck() {
-//        self.firstNum = Int.random(in: 1...difficulty)
-//        self.secondNum = Int.random(in: 1...difficulty)
-//        
-//       correctAnswer = self.firstNum * self.secondNum
-//       var quotient = correctAnswer / self.secondNum
-//        
-//        
-//    }
+    
+    
+    
     func authenticateUser() {
         GKLocalPlayer.local.authenticateHandler = { [self] viewController, error in
             if GKLocalPlayer.local.isAuthenticated {
