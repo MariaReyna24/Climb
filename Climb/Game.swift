@@ -28,7 +28,7 @@ class Math: ObservableObject{
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
     private(set) var secondNum = 0
-    private(set) var difficulty = 32
+    private(set) var difficulty = 0
     var levelnum = 1
     var leaderboardIdentifierAdd = "climb.Leaderboard"
     var leaderboardIdentiferSub = "climbSubtraction.Leaderboard"
@@ -40,6 +40,18 @@ class Math: ObservableObject{
         case subtraction
         case multi
         case div
+        var difficulty: Int {
+            switch self{
+            case .addition:
+               return 16
+            case .subtraction:
+                return 16
+            case .multi:
+                return 15
+            case .div:
+                return 14
+            }
+        }
     }
     
     func answerCorreect(answer:Int) -> Bool {
@@ -83,14 +95,14 @@ class Math: ObservableObject{
     }
     
     func additionLogic(){
-        self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-        self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+        self.firstNum = Int.random(in: 0...(Operation.addition.difficulty), excluding: correctAnsArry)
+        self.secondNum = Int.random(in: 0...(Operation.addition.difficulty), excluding: correctAnsArry)
         
         correctAnswer = self.firstNum + self.secondNum
         
         while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-            self.firstNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...(difficulty/2), excluding: correctAnsArry)
+            self.firstNum = Int.random(in: 0...(Operation.addition.difficulty), excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...(Operation.addition.difficulty), excluding: correctAnsArry)
             correctAnswer = self.firstNum + self.secondNum
         }
         correctAnsArry.append(correctAnswer)
@@ -104,8 +116,8 @@ class Math: ObservableObject{
         var questionSkipped = false
         
         repeat {
-            self.firstNum = Int.random(in: 0...difficulty, excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...difficulty/2, excluding: correctAnsArry)
+            self.firstNum = Int.random(in: 0...Operation.subtraction.difficulty, excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...Operation.subtraction.difficulty, excluding: correctAnsArry)
             
             correctAnswer = self.firstNum - self.secondNum
             
@@ -125,18 +137,17 @@ class Math: ObservableObject{
             correctAnsArry.append(correctAnswer)
             incorrectAns()
         }
-        
     }
     
     func multiLogic(){
-        self.firstNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
-        self.secondNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
+        self.firstNum = Int.random(in: 0...(Operation.multi.difficulty), excluding: correctAnsArry)
+        self.secondNum = Int.random(in: 0...(Operation.multi.difficulty), excluding: correctAnsArry)
         
         correctAnswer = self.firstNum * self.secondNum
         
         while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-            self.firstNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...(difficulty/3), excluding: correctAnsArry)
+            self.firstNum = Int.random(in: 0...(Operation.multi.difficulty), excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...(Operation.multi.difficulty), excluding: correctAnsArry)
             correctAnswer = self.firstNum * self.secondNum
         }
         correctAnsArry.append(correctAnswer)
@@ -163,6 +174,7 @@ class Math: ObservableObject{
             // Handle the case where a valid division question couldn't be generated within the maximum attempts
             
             print("Unable to generate a valid subtraction question.")
+            
             self.firstNum = 4
             self.secondNum = 2
             
@@ -181,9 +193,12 @@ class Math: ObservableObject{
         }
     }
     
+ 
+    
     func incorrectAns(){
         var answerList = [Int]()
-        let upperBound = correctAnswer + max(difficulty/2, 10) // Adjust the maximum range based on your needs
+        
+        let upperBound = correctAnswer + max(difficulty, 15) // Adjust the maximum range based on your needs
         let incorrectRange = max(correctAnswer - 4, 0)...upperBound
         
         for _ in 0...9 {
@@ -214,8 +229,8 @@ class Math: ObservableObject{
     }
     
     func isDivisible() -> (Int,Int) {
-        let x = Int.random(in: 1...difficulty/3, excluding: correctAnsArry)
-        let y = Int.random(in: 1...difficulty/3, excluding: correctAnsArry)
+        let x = Int.random(in: 1...Operation.div.difficulty, excluding: correctAnsArry)
+        let y = Int.random(in: 1...Operation.div.difficulty, excluding: correctAnsArry)
         let z = x * y
         return (x, z)
     }
@@ -225,25 +240,68 @@ class Math: ObservableObject{
         return y / x
     }
     
-    
-    func endGame(){
+    func endGameLogic(){
         self.score = 0
         timeRemaining = 20
         correctAnsArry = []
-        difficulty = 30
         levelnum =  1
         greenButtonCount = 0
         questionCounter = 0
-        
     }
-    
+   
+    func endGame(){
+        switch operation {
+        case .addition:
+            difficulty = Operation.addition.difficulty
+           endGameLogic()
+        case .subtraction:
+            difficulty = Operation.subtraction.difficulty
+           endGameLogic()
+        case .multi:
+            difficulty = Operation.multi.difficulty
+            endGameLogic()
+        case .div:
+            difficulty = Operation.div.difficulty
+            endGameLogic()
+        }
+    }
+   
     func newLevel() {
-        correctAnsArry = []
-        greenButtonCount = 0
-        levelnum += 1
-        difficulty += 10
-        generateAnswers()
-        questionCounter = 0
+        switch operation {
+        case .addition:
+            difficulty = Operation.addition.difficulty
+            correctAnsArry = []
+            greenButtonCount = 0
+            levelnum += 1
+            difficulty += 10
+            generateAnswers()
+            questionCounter = 0
+        case .subtraction:
+            difficulty = Operation.subtraction.difficulty
+            correctAnsArry = []
+            greenButtonCount = 0
+            levelnum += 1
+            difficulty += 10
+            generateAnswers()
+            questionCounter = 0
+        case .multi:
+            difficulty = Operation.multi.difficulty
+            correctAnsArry = []
+            greenButtonCount = 0
+            levelnum += 1
+            difficulty += 10
+            generateAnswers()
+            questionCounter = 0
+        case .div:
+            difficulty = Operation.div.difficulty
+            correctAnsArry = []
+            greenButtonCount = 0
+            levelnum += 1
+            difficulty += 5
+            generateAnswers()
+            questionCounter = 0
+        }
+       
     }
     
     func retryLevel() {
@@ -253,9 +311,8 @@ class Math: ObservableObject{
         levelnum = 1
         greenButtonCount = 0
         questionCounter = 0
+        generateAnswers()
     }
-    
-    
     
     func authenticateUser() {
         GKLocalPlayer.local.authenticateHandler = { [self] viewController, error in
@@ -295,9 +352,10 @@ class Math: ObservableObject{
 extension Int {
     static func random(in range: ClosedRange<Self>, excluding numbers: [Int]) -> Int {
         var randomInt = Int.random(in: range)
-        
-        while numbers.contains(randomInt) {
+        var count = 0
+        while numbers.contains(randomInt) || count < 10 {
             randomInt = Int.random(in: range)
+            count += 1
         }
         
         return randomInt
