@@ -46,7 +46,6 @@ struct ContentView: View {
                                     .offset(y:30)
                             }
                             
-                            //  .offset(y:0)
                             Spacer()
                          
                             
@@ -93,13 +92,6 @@ struct ContentView: View {
                                         .fullScreenCover(isPresented: $showingSheet) {
                                             Pause_menu(scene: scene, game: game)
                                         }
-//                                        .scaleEffect(isPauseButtonPressed ? 0.0 : 1.0)
-//                                        .buttonStyle(CustomButtonStyle())
-//                                        .onTapGesture {
-//                                            withTransaction(Transaction(animation: nil)) {
-//                                               // scene.state = .pauseMenu
-//                                                game.isPaused = true
-//                                                isPauseButtonPressed  = true
                                 }
                             }
                             ToolbarItem(placement: .navigationBarTrailing) {

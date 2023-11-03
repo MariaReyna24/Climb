@@ -48,6 +48,7 @@ struct ClimbButton: View {
                     game.isAnswerCorrect = true
                   } else if game.questionCounter < 10 {
                     game.isAnswerCorrect = true
+                      //also here maybe
                     game.generateAnswers()
                 } else {
                     game.isAnswerCorrect = false

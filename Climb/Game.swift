@@ -28,7 +28,8 @@ class Math: ObservableObject{
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
     private(set) var secondNum = 0
-    private(set) var difficulty = 0
+    private(set) var sharedDifficultyforAddSub = 16
+    private(set) var sharedDifficultyforMultDiv = 14
     var levelnum = 1
     var leaderboardIdentifierAdd = "climb.Leaderboard"
     var leaderboardIdentiferSub = "climbSubtraction.Leaderboard"
@@ -40,20 +41,20 @@ class Math: ObservableObject{
         case subtraction
         case multi
         case div
-        var difficulty: Int {
-            switch self{
-            case .addition:
-               return 16
-            case .subtraction:
-                return 16
-            case .multi:
-                return 15
-            case .div:
-                return 14
-            }
-        }
+        
+//        var difficulty: Int {
+//            switch self{
+//            case .addition:
+//               return 16
+//            case .subtraction:
+//                return 16
+//            case .multi:
+//                return 15
+//            case .div:
+//                return 14
+//            }
+       // }
     }
-    
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
             self.score += 1
@@ -95,115 +96,27 @@ class Math: ObservableObject{
     }
     
     func additionLogic(){
-        self.firstNum = Int.random(in: 0...(Operation.addition.difficulty), excluding: correctAnsArry)
-        self.secondNum = Int.random(in: 0...(Operation.addition.difficulty), excluding: correctAnsArry)
+        self.firstNum = Int.random(in: 0...(sharedDifficultyforAddSub), excluding: correctAnsArry)
+        self.secondNum = Int.random(in: 0...(sharedDifficultyforAddSub), excluding: correctAnsArry)
         
         correctAnswer = self.firstNum + self.secondNum
         
         while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-            self.firstNum = Int.random(in: 0...(Operation.addition.difficulty), excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...(Operation.addition.difficulty), excluding: correctAnsArry)
+            self.firstNum = Int.random(in: 0...(sharedDifficultyforAddSub), excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...(sharedDifficultyforAddSub), excluding: correctAnsArry)
             correctAnswer = self.firstNum + self.secondNum
         }
         correctAnsArry.append(correctAnswer)
         
-        incorrectAns()
-    }
-    
-    func subtractionLogic(){
-        let maxAttempts = 100 // Maximum number of attempts to find a valid subtraction question
-        var attemptCount = 0
-        var questionSkipped = false
-        
-        repeat {
-            self.firstNum = Int.random(in: 0...Operation.subtraction.difficulty, excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...Operation.subtraction.difficulty, excluding: correctAnsArry)
-            
-            correctAnswer = self.firstNum - self.secondNum
-            
-            attemptCount += 1
-            
-        } while (firstNum < secondNum || choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
-        
-        if attemptCount >= maxAttempts {
-            // Handle the case where a valid subtraction question couldn't be generated within the maximum attempts
-            print("Unable to generate a valid subtraction question.")
-            
-            // Take appropriate action in your game logic (e.g., show an error message, skip the question, etc.)
-            questionSkipped = true
-        }
-        
-        if !questionSkipped {
-            correctAnsArry.append(correctAnswer)
-            incorrectAns()
-        }
-    }
-    
-    func multiLogic(){
-        self.firstNum = Int.random(in: 0...(Operation.multi.difficulty), excluding: correctAnsArry)
-        self.secondNum = Int.random(in: 0...(Operation.multi.difficulty), excluding: correctAnsArry)
-        
-        correctAnswer = self.firstNum * self.secondNum
-        
-        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-            self.firstNum = Int.random(in: 0...(Operation.multi.difficulty), excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...(Operation.multi.difficulty), excluding: correctAnsArry)
-            correctAnswer = self.firstNum * self.secondNum
-        }
-        correctAnsArry.append(correctAnswer)
-        incorrectAns()
-    }
-    
-    func divLogic(){
-        let maxAttempts = 10 // Maximum number of attempts to find a valid division question
-        var attemptCount = 0
-        var questionSkipped = false
-        
-        repeat {
-            let twoNums = isDivisible()
-            
-            self.firstNum = twoNums.1
-            self.secondNum = twoNums.0
-            
-            correctAnswer = divideNumbers(twoNums)
-            attemptCount += 1
-            
-        } while (choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
-        
-        if attemptCount >= maxAttempts {
-            // Handle the case where a valid division question couldn't be generated within the maximum attempts
-            
-            print("Unable to generate a valid subtraction question.")
-            
-            self.firstNum = 4
-            self.secondNum = 2
-            
-            correctAnswer = self.firstNum / self.secondNum
-            
-            correctAnsArry.append(correctAnswer)
-            incorrectAns()
-           
-            
-            questionSkipped = true
-        }
-        
-        if !questionSkipped {
-            correctAnsArry.append(correctAnswer)
-            incorrectAns()
-        }
-    }
-    
- 
-    
-    func incorrectAns(){
         var answerList = [Int]()
-        
-        let upperBound = correctAnswer + max(difficulty, 15) // Adjust the maximum range based on your needs
+        //freezing might be here too
+        let upperBound = correctAnswer + max(sharedDifficultyforAddSub, 22) // Adjust the maximum range based on your needs
         let incorrectRange = max(correctAnswer - 4, 0)...upperBound
         
         for _ in 0...9 {
             var randomIncorrectAnswer: Int
             repeat {
+                //also still might be freezing here
                 randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
             } while answerList.contains(randomIncorrectAnswer)
             answerList.append(randomIncorrectAnswer)
@@ -226,11 +139,218 @@ class Math: ObservableObject{
         }
         
         choicearry = answerList
+        print(correctAnswer)
     }
     
-    func isDivisible() -> (Int,Int) {
-        let x = Int.random(in: 1...Operation.div.difficulty, excluding: correctAnsArry)
-        let y = Int.random(in: 1...Operation.div.difficulty, excluding: correctAnsArry)
+    func subtractionLogic(){
+        let maxAttempts = 100 // Maximum number of attempts to find a valid subtraction question
+        var attemptCount = 0
+        var questionSkipped = false
+        
+        repeat {
+            self.firstNum = Int.random(in: 0...sharedDifficultyforAddSub, excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...sharedDifficultyforAddSub, excluding: correctAnsArry)
+            
+            correctAnswer = self.firstNum - self.secondNum
+            
+            attemptCount += 1
+            
+        } while (firstNum < secondNum || choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
+        
+        if attemptCount >= maxAttempts {
+            // Handle the case where a valid subtraction question couldn't be generated within the maximum attempts
+            print("Unable to generate a valid subtraction question.")
+            
+            // Take appropriate action in your game logic (e.g., show an error message, skip the question, etc.)
+            questionSkipped = true
+        }
+        
+        if !questionSkipped {
+            correctAnsArry.append(correctAnswer)
+            var answerList = [Int]()
+            //freezing might be here too
+            let upperBound = correctAnswer + max(sharedDifficultyforAddSub, 22) // Adjust the maximum range based on your needs
+            let incorrectRange = max(correctAnswer - 4, 0)...upperBound
+            
+            for _ in 0...9 {
+                var randomIncorrectAnswer: Int
+                repeat {
+                    //also still might be freezing here
+                    randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
+                } while answerList.contains(randomIncorrectAnswer)
+                answerList.append(randomIncorrectAnswer)
+            }
+            var incorrectAnswers: [Int] = []
+            for index in 0...9 {
+                let currentChoice = choicearry[index]
+                
+                if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
+                    answerList[index] = currentChoice
+                } else {
+                    incorrectAnswers.append(index)
+                }
+            }
+            
+            // grab a random index from the array of wrong answer indexes
+            if let randomIndex = incorrectAnswers.randomElement() {
+                // set the new correct answer at that index
+                answerList[randomIndex] = correctAnswer
+            }
+            
+            choicearry = answerList
+        }
+    }
+    
+    func multiLogic(){
+        self.firstNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
+        self.secondNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
+        
+        correctAnswer = self.firstNum * self.secondNum
+        
+        while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
+            self.firstNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
+            correctAnswer = self.firstNum * self.secondNum
+        }
+        correctAnsArry.append(correctAnswer)
+        var answerList = [Int]()
+        //freezing might be here too
+        let upperBound = correctAnswer + max(sharedDifficultyforMultDiv, 22) // Adjust the maximum range based on your needs
+        let incorrectRange = max(correctAnswer - 4, 0)...upperBound
+        
+        for _ in 0...9 {
+            var randomIncorrectAnswer: Int
+            repeat {
+                //also still might be freezing here
+                randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
+            } while answerList.contains(randomIncorrectAnswer)
+            answerList.append(randomIncorrectAnswer)
+        }
+        var incorrectAnswers: [Int] = []
+        for index in 0...9 {
+            let currentChoice = choicearry[index]
+            
+            if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
+                answerList[index] = currentChoice
+            } else {
+                incorrectAnswers.append(index)
+            }
+        }
+        
+        // grab a random index from the array of wrong answer indexes
+        if let randomIndex = incorrectAnswers.randomElement() {
+            // set the new correct answer at that index
+            answerList[randomIndex] = correctAnswer
+        }
+        
+        choicearry = answerList    }
+    
+    func divLogic(){
+        let maxAttempts = 15 // Maximum number of attempts to find a valid division question
+        var attemptCount = 0
+        var questionSkipped = false
+        
+        repeat {
+            let twoNums = isDivisible(operation: .div)
+            
+            self.firstNum = twoNums.1
+            self.secondNum = twoNums.0
+            
+            correctAnswer = divideNumbers(twoNums)
+            attemptCount += 1
+            
+        } while (choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer)) && attemptCount < maxAttempts
+        
+        if attemptCount >= maxAttempts {
+            // Handle the case where a valid division question couldn't be generated within the maximum attempts
+            
+            print("Unable to generate a valid divison question.")
+            
+            self.firstNum = 4
+            self.secondNum = 2
+            
+            correctAnswer = self.firstNum / self.secondNum
+            
+            correctAnsArry.append(correctAnswer)
+            var answerList = [Int]()
+            //freezing might be here too
+            let upperBound = correctAnswer + max(sharedDifficultyforMultDiv, 22) // Adjust the maximum range based on your needs
+            let incorrectRange = max(correctAnswer - 4, 0)...upperBound
+            
+            for _ in 0...9 {
+                var randomIncorrectAnswer: Int
+                repeat {
+                    //also still might be freezing here
+                    randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
+                } while answerList.contains(randomIncorrectAnswer)
+                answerList.append(randomIncorrectAnswer)
+            }
+            var incorrectAnswers: [Int] = []
+            for index in 0...9 {
+                let currentChoice = choicearry[index]
+                
+                if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
+                    answerList[index] = currentChoice
+                } else {
+                    incorrectAnswers.append(index)
+                }
+            }
+            
+            // grab a random index from the array of wrong answer indexes
+            if let randomIndex = incorrectAnswers.randomElement() {
+                // set the new correct answer at that index
+                answerList[randomIndex] = correctAnswer
+            }
+            
+            choicearry = answerList
+           
+            
+            questionSkipped = true
+        }
+        
+        if !questionSkipped {
+            correctAnsArry.append(correctAnswer)
+            var answerList = [Int]()
+            //freezing might be here too
+            let upperBound = correctAnswer + max(sharedDifficultyforAddSub, 22) // Adjust the maximum range based on your needs
+            let incorrectRange = max(correctAnswer - 4, 0)...upperBound
+            
+            for _ in 0...9 {
+                var randomIncorrectAnswer: Int
+                repeat {
+                    //also still might be freezing here
+                    randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
+                } while answerList.contains(randomIncorrectAnswer)
+                answerList.append(randomIncorrectAnswer)
+            }
+            var incorrectAnswers: [Int] = []
+            for index in 0...9 {
+                let currentChoice = choicearry[index]
+                
+                if correctAnsArry.contains(currentChoice) && !answerList.contains(currentChoice) {
+                    answerList[index] = currentChoice
+                } else {
+                    incorrectAnswers.append(index)
+                }
+            }
+            
+            // grab a random index from the array of wrong answer indexes
+            if let randomIndex = incorrectAnswers.randomElement() {
+                // set the new correct answer at that index
+                answerList[randomIndex] = correctAnswer
+            }
+            
+            choicearry = answerList
+            print(correctAnswer)
+        }
+    }
+    
+ 
+    
+    
+    func isDivisible(operation: Operation) -> (Int,Int) {
+        let x = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
+        let y = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
         let z = x * y
         return (x, z)
     }
@@ -240,66 +360,40 @@ class Math: ObservableObject{
         return y / x
     }
     
-    func endGameLogic(){
+    func endGame(){
         self.score = 0
         timeRemaining = 20
         correctAnsArry = []
         levelnum =  1
         greenButtonCount = 0
         questionCounter = 0
-    }
-   
-    func endGame(){
         switch operation {
         case .addition:
-            difficulty = Operation.addition.difficulty
-           endGameLogic()
+            sharedDifficultyforAddSub = 16
         case .subtraction:
-            difficulty = Operation.subtraction.difficulty
-           endGameLogic()
+            sharedDifficultyforAddSub = 16
         case .multi:
-            difficulty = Operation.multi.difficulty
-            endGameLogic()
+            sharedDifficultyforMultDiv = 14
         case .div:
-            difficulty = Operation.div.difficulty
-            endGameLogic()
+            sharedDifficultyforMultDiv = 14
         }
     }
    
     func newLevel() {
+        correctAnsArry = []
+        greenButtonCount = 0
+        levelnum += 1
+        generateAnswers()
+        questionCounter = 0
         switch operation {
         case .addition:
-            difficulty = Operation.addition.difficulty
-            correctAnsArry = []
-            greenButtonCount = 0
-            levelnum += 1
-            difficulty += 10
-            generateAnswers()
-            questionCounter = 0
+            sharedDifficultyforAddSub += 10
         case .subtraction:
-            difficulty = Operation.subtraction.difficulty
-            correctAnsArry = []
-            greenButtonCount = 0
-            levelnum += 1
-            difficulty += 10
-            generateAnswers()
-            questionCounter = 0
+            sharedDifficultyforAddSub += 10
         case .multi:
-            difficulty = Operation.multi.difficulty
-            correctAnsArry = []
-            greenButtonCount = 0
-            levelnum += 1
-            difficulty += 10
-            generateAnswers()
-            questionCounter = 0
+            sharedDifficultyforMultDiv += 5
         case .div:
-            difficulty = Operation.div.difficulty
-            correctAnsArry = []
-            greenButtonCount = 0
-            levelnum += 1
-            difficulty += 5
-            generateAnswers()
-            questionCounter = 0
+            sharedDifficultyforMultDiv += 5
         }
        
     }
@@ -353,11 +447,14 @@ extension Int {
     static func random(in range: ClosedRange<Self>, excluding numbers: [Int]) -> Int {
         var randomInt = Int.random(in: range)
         var count = 0
-        while numbers.contains(randomInt) || count < 10 {
+        //might be freezing still here as well
+        while numbers.contains(randomInt) || count > 12 {
             randomInt = Int.random(in: range)
             count += 1
+          //  print(randomInt)
         }
-        
+        //print(count)
         return randomInt
+        
     }
 }
