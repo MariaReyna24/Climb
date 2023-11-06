@@ -29,7 +29,7 @@ class Math: ObservableObject{
     private(set) var firstNum = 0
     private(set) var secondNum = 0
     private(set) var sharedDifficultyforAddSub = 16
-    private(set) var sharedDifficultyforMultDiv = 14
+    private(set) var sharedDifficultyforMultDiv = 12
     var levelnum = 1
     var leaderboardIdentifierAdd = "climb.Leaderboard"
     var leaderboardIdentiferSub = "climbSubtraction.Leaderboard"
@@ -42,18 +42,6 @@ class Math: ObservableObject{
         case multi
         case div
         
-//        var difficulty: Int {
-//            switch self{
-//            case .addition:
-//               return 16
-//            case .subtraction:
-//                return 16
-//            case .multi:
-//                return 15
-//            case .div:
-//                return 14
-//            }
-       // }
     }
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
