@@ -28,8 +28,8 @@ class Math: ObservableObject{
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
     private(set) var secondNum = 0
-    private(set) var sharedDifficultyforAddSub = 16
-    private(set) var sharedDifficultyforMultDiv = 12
+    private(set) var sharedDifficultyforAddSub = 14
+    private(set) var sharedDifficultyforMultDiv = 10
     var levelnum = 1
     var leaderboardIdentifierAdd = "climb.Leaderboard"
     var leaderboardIdentiferSub = "climbSubtraction.Leaderboard"
@@ -260,9 +260,10 @@ class Math: ObservableObject{
             correctAnswer = self.firstNum / self.secondNum
             
             correctAnsArry.append(correctAnswer)
+            
             var answerList = [Int]()
             //freezing might be here too
-            let upperBound = correctAnswer + max(sharedDifficultyforMultDiv, 22) // Adjust the maximum range based on your needs
+            let upperBound = correctAnswer + max(sharedDifficultyforMultDiv, 18) // Adjust the maximum range based on your needs
             let incorrectRange = max(correctAnswer - 4, 0)...upperBound
             
             for _ in 0...9 {
@@ -283,16 +284,7 @@ class Math: ObservableObject{
                     incorrectAnswers.append(index)
                 }
             }
-            
-            // grab a random index from the array of wrong answer indexes
-            if let randomIndex = incorrectAnswers.randomElement() {
-                // set the new correct answer at that index
-                answerList[randomIndex] = correctAnswer
-            }
-            
             choicearry = answerList
-           
-            
             questionSkipped = true
         }
         
@@ -300,7 +292,7 @@ class Math: ObservableObject{
             correctAnsArry.append(correctAnswer)
             var answerList = [Int]()
             //freezing might be here too
-            let upperBound = correctAnswer + max(sharedDifficultyforAddSub, 22) // Adjust the maximum range based on your needs
+            let upperBound = correctAnswer + max(sharedDifficultyforMultDiv, 22) // Adjust the maximum range based on your needs
             let incorrectRange = max(correctAnswer - 4, 0)...upperBound
             
             for _ in 0...9 {
@@ -357,13 +349,13 @@ class Math: ObservableObject{
         questionCounter = 0
         switch operation {
         case .addition:
-            sharedDifficultyforAddSub = 16
+            sharedDifficultyforAddSub = 14
         case .subtraction:
-            sharedDifficultyforAddSub = 16
+            sharedDifficultyforAddSub = 14
         case .multi:
-            sharedDifficultyforMultDiv = 14
+            sharedDifficultyforMultDiv = 10
         case .div:
-            sharedDifficultyforMultDiv = 14
+            sharedDifficultyforMultDiv = 10
         }
     }
    
@@ -371,19 +363,19 @@ class Math: ObservableObject{
         correctAnsArry = []
         greenButtonCount = 0
         levelnum += 1
-        generateAnswers()
+//        generateAnswers()
         questionCounter = 0
         switch operation {
         case .addition:
-            sharedDifficultyforAddSub += 10
+            sharedDifficultyforAddSub += 6
         case .subtraction:
-            sharedDifficultyforAddSub += 10
+            sharedDifficultyforAddSub += 6
         case .multi:
-            sharedDifficultyforMultDiv += 5
+            sharedDifficultyforMultDiv += 3
         case .div:
-            sharedDifficultyforMultDiv += 5
+            sharedDifficultyforMultDiv += 3
         }
-       
+        generateAnswers()
     }
     
     func retryLevel() {
@@ -394,6 +386,8 @@ class Math: ObservableObject{
         greenButtonCount = 0
         questionCounter = 0
         generateAnswers()
+        sharedDifficultyforAddSub = 14
+        sharedDifficultyforMultDiv = 10
     }
     
     func authenticateUser() {
@@ -436,7 +430,7 @@ extension Int {
         var randomInt = Int.random(in: range)
         var count = 0
         //might be freezing still here as well
-        while numbers.contains(randomInt) || count > 12 {
+        while numbers.contains(randomInt) || count < 12 {
             randomInt = Int.random(in: range)
             count += 1
           //  print(randomInt)
