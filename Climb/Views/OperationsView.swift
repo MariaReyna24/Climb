@@ -186,6 +186,48 @@ struct OperationsView: View {
                             heavyHaptic()
                         }
                         .frame(height: 0.1 * UIScreen.main.bounds.height)
+                        
+                        Button(action: {
+                            withAnimation {
+                                scene.state = .game
+                                game.operation = .random
+                                game.isOperationSelected = true
+                                isMultiplicationButtonPressed = true
+                                if isSoundEnabled {
+                                    SoundManager.instance.playSound(sound: .click)
+                                }
+                            }
+                            heavyHaptic()
+                        }) {
+                            Text("Random")
+                                .font(.custom("RoundsBlack", size: 40))
+                                .foregroundColor(Color("textColor"))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 80)
+                                .background(Color("pauseColor"))
+                                .cornerRadius(25)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .stroke(Color("WhiteDM"), lineWidth: 6)
+                                )
+                                .shadow(
+                                    color: Color.white.opacity(0.5),
+                                    radius: 6,
+                                    x: 0,
+                                    y: 0
+                                )
+                                .scaleEffect(isMultiplicationButtonPressed ? 0.0 : 1.0)
+                            
+                        }
+                        
+                        .buttonStyle(CustomButtonStyle())
+                        .onTapGesture {
+                            withTransaction(Transaction(animation: nil)) {
+                                scene.state = .game
+                                isMultiplicationButtonPressed = true
+                            }
+                            heavyHaptic()
+                        }
                     }
                     .offset(y: 25)
                     .padding(.horizontal, 80)

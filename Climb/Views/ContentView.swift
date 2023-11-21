@@ -17,12 +17,12 @@ struct ContentView: View {
     @State private var showinglevelComplete = false
     @State private var isPauseButtonPressed = false
     var body: some View {
-            GeometryReader { geometry in
-                NavigationStack {
-                    ZStack {
-                        GameBackground()
-                            .ignoresSafeArea()
-                            //.offset(x: 3)
+        GeometryReader { geometry in
+            NavigationStack {
+                ZStack {
+                    GameBackground()
+                        .ignoresSafeArea()
+                    //.offset(x: 3)
                     if game.isOperationSelected {
                         VStack {
                             Text("Level \(game.levelnum)")
@@ -32,7 +32,7 @@ struct ContentView: View {
                             Text("Score: \(game.score)")
                                 .font(Font.custom("RoundsBlack", size: 30))
                                 .padding(40)
-                          
+                            
                             Group {
                                 buttonsForAnswers(startIndex: 0, endIndex: 1)
                                 buttonsForAnswers(startIndex: 1, endIndex: 3)
@@ -40,14 +40,14 @@ struct ContentView: View {
                                 buttonsForAnswers(startIndex: 6, endIndex: 10)
                                 
                                 
-                                Text("\(game.firstNum) \(operationSymbol(for: game.operation)) \(game.secondNum)")
+                                Text("\(game.firstNum) \(game.currentOperation.symbol) \(game.secondNum)")
                                     .fontWeight(.bold)
                                     .font(.custom("RoundsBlack", size: 40))
                                     .offset(y:30)
                             }
                             
                             Spacer()
-                         
+                            
                             
                         }
                         .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
@@ -75,8 +75,8 @@ struct ContentView: View {
                                         game.timer.upstream.connect().cancel()
                                         heavyHaptic()
                                         showingSheet.toggle()
-//                                        scene.state = .pauseMenu
-//                                        game.isPaused = true
+                                        //                                        scene.state = .pauseMenu
+                                        //                                        game.isPaused = true
                                         isPauseButtonPressed = true
                                         if isSoundEnabled {
                                             SoundManager.instance.playSound(sound: .click)
@@ -143,22 +143,7 @@ struct ContentView: View {
             }
         }
     }
-    
-    // Function to get the symbol corresponding to the operation
-    func operationSymbol(for operation: Math.Operation) -> String {
-        switch operation {
-        case .addition:
-            return "+"
-        case .subtraction:
-            return "-"
-        case .multi:
-            return "*"
-        case .div:
-            return "/"
-        }
-    }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

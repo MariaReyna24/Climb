@@ -9,6 +9,7 @@ import GameKit
 import SwiftUI
 
 class Math: ObservableObject{
+    @Published var currentOperation: Operation = .addition
     @Published var questionCounter = 0
     @Published var isGameCenterAuthenticated = false
     @Published var isShowingPauseMenu = false // Added state
@@ -35,14 +36,30 @@ class Math: ObservableObject{
     var leaderboardIdentiferSub = "climbSubtraction.Leaderboard"
     var leaderboardIdentiferMulti =  "Climb.multi"
     var leaderboardIdentiferDiv = "div.leaderboard"
+    var leaderboardIdentifierRand = "randomLeaderboard"
     
-    enum Operation {
+    enum Operation: CaseIterable{
         case addition
         case subtraction
         case multi
         case div
-        
+        case random
+        var symbol: String {
+            switch self {
+            case .addition:
+                return "+"
+            case .subtraction:
+                return "-"
+            case .multi:
+                return "*"
+            case .div:
+                return "/"
+            case .random :
+                return "/"
+            }
+        }
     }
+    
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
             self.score += 1
@@ -80,6 +97,8 @@ class Math: ObservableObject{
             multiLogic()
         case .div:
             divLogic()
+        case .random:
+            randomLogic()
         }
     }
     
@@ -186,6 +205,7 @@ class Math: ObservableObject{
             }
             
             choicearry = answerList
+            print(correctAnswer)
         }
     }
     
@@ -231,7 +251,9 @@ class Math: ObservableObject{
             answerList[randomIndex] = correctAnswer
         }
         
-        choicearry = answerList    }
+        choicearry = answerList  
+        print(correctAnswer)
+    }
     
     func divLogic(){
         let maxAttempts = 15 // Maximum number of attempts to find a valid division question
@@ -323,10 +345,32 @@ class Math: ObservableObject{
             choicearry = answerList
             print(correctAnswer)
         }
+    }  
+    func randomOperation() -> Operation {
+        var newOp = Operation.addition
+        if let newOperation = Operation.allCases.randomElement(){
+            newOp = newOperation
+        }
+        return newOp
     }
     
- 
-    
+    func randomLogic(){
+        let randOperation = randomOperation()
+        currentOperation = randOperation
+        print(randOperation)
+        switch randOperation {
+        case .addition:
+            additionLogic()
+        case .subtraction:
+            subtractionLogic()
+        case .multi:
+            multiLogic()
+        case .div:
+            divLogic()
+        default:
+            divLogic()
+        }
+    }
     
     func isDivisible(operation: Operation) -> (Int,Int) {
         let x = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
@@ -356,6 +400,8 @@ class Math: ObservableObject{
             sharedDifficultyforMultDiv = 10
         case .div:
             sharedDifficultyforMultDiv = 10
+        case .random:
+            sharedDifficultyforMultDiv = 10
         }
     }
    
@@ -367,13 +413,16 @@ class Math: ObservableObject{
         questionCounter = 0
         switch operation {
         case .addition:
-            sharedDifficultyforAddSub += 6
+            sharedDifficultyforAddSub += 5
         case .subtraction:
-            sharedDifficultyforAddSub += 6
+            sharedDifficultyforAddSub += 5
         case .multi:
             sharedDifficultyforMultDiv += 3
         case .div:
             sharedDifficultyforMultDiv += 3
+        case .random:
+            sharedDifficultyforMultDiv += 3
+            sharedDifficultyforAddSub += 5
         }
         generateAnswers()
     }
@@ -411,6 +460,8 @@ class Math: ObservableObject{
             leaderboardIdentifier = leaderboardIdentiferMulti
         case .div:
             leaderboardIdentifier = leaderboardIdentiferDiv
+        case .random:
+            leaderboardIdentifier = leaderboardIdentifierRand
         }
         
         Task {
