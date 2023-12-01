@@ -199,7 +199,7 @@ struct OperationsView: View {
                             }
                             heavyHaptic()
                         }) {
-                            Text("Random")
+                            Text("Frenzy")
                                 .font(.custom("RoundsBlack", size: 40))
                                 .foregroundColor(Color("textColor"))
                                 .frame(maxWidth: .infinity)
@@ -235,6 +235,15 @@ struct OperationsView: View {
                     
                 }
                 .toolbar {
+                    ToolbarItem(placement: .topBarTrailing){
+                        HStack{
+                            
+                              
+                            Image(.coin)
+                                .resizable()
+                                .scaledToFit()
+                        }
+                    }
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
                             scene.state = .mainmenu

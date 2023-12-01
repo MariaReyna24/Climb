@@ -9,11 +9,11 @@ import GameKit
 import SwiftUI
 
 class Math: ObservableObject{
-    @Published var currentOperation: Operation = .addition
-    @Published var questionCounter = 0
+    @Published var currentOperation: Operation = .addition // helpes keep track of current operation
+    @Published var questionCounter = 0 
     @Published var isGameCenterAuthenticated = false
-    @Published var isShowingPauseMenu = false // Added state
-    @Published var isOperationSelected = false
+    @Published var isShowingPauseMenu = false // keeps track of if pause menu is up
+    @Published var isOperationSelected = false // keeps track of if operation is selected
     @Published var operation: Operation = .addition
     @Published var isGameMenuShowing =  false
     @Published var isLevelComplete =  false
@@ -59,17 +59,24 @@ class Math: ObservableObject{
             }
         }
     }
-    
+    //this func generates the correct answer
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
+            //increases the score by 1
             self.score += 1
+            //increases the question counter for going to next level
             questionCounter += 1
+            //this is increasing or decreasing the time based on if you get the question right or wrong
+            //time will not go above 30 secs tho
             if self.timeRemaining <= 28 {
                 self.timeRemaining += 2
             }else{
                 self.timeRemaining += 0
             }
+            // this marks that this is the correct answer
             self.isAnswerCorrect = true
+            //the correct answer is stored in an array to keep track of correct answers
+            // so they dont appear
             correctAnsArry.append(correctAnswer)
             greenButtonCount += 1
             leaderboard()
@@ -86,7 +93,7 @@ class Math: ObservableObject{
         }
         
     }
-    
+    //this function will generate the answers based on the operation that is selected
     func generateAnswers() {
         switch operation {
         case .addition:
@@ -101,7 +108,7 @@ class Math: ObservableObject{
             randomLogic()
         }
     }
-    
+    //addition logic
     func additionLogic(){
         self.firstNum = Int.random(in: 0...(sharedDifficultyforAddSub), excluding: correctAnsArry)
         self.secondNum = Int.random(in: 0...(sharedDifficultyforAddSub), excluding: correctAnsArry)
@@ -148,7 +155,7 @@ class Math: ObservableObject{
         choicearry = answerList
         print(correctAnswer)
     }
-    
+    //this is the subtraction logic
     func subtractionLogic(){
         let maxAttempts = 100 // Maximum number of attempts to find a valid subtraction question
         var attemptCount = 0
@@ -208,7 +215,7 @@ class Math: ObservableObject{
             print(correctAnswer)
         }
     }
-    
+    //this is the multiplcation logic
     func multiLogic(){
         self.firstNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
         self.secondNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
@@ -254,7 +261,7 @@ class Math: ObservableObject{
         choicearry = answerList  
         print(correctAnswer)
     }
-    
+    // this is all the divison logic
     func divLogic(){
         let maxAttempts = 15 // Maximum number of attempts to find a valid division question
         var attemptCount = 0
@@ -346,6 +353,7 @@ class Math: ObservableObject{
             print(correctAnswer)
         }
     }  
+    //this will return a random operation from the enum Operation
     func randomOperation() -> Operation {
         var newOp = Operation.addition
         if let newOperation = Operation.allCases.randomElement(){
@@ -353,7 +361,7 @@ class Math: ObservableObject{
         }
         return newOp
     }
-    
+    //this func decides what logic should be done based on the random operation that was choose in the randomOperation func
     func randomLogic(){
         let randOperation = randomOperation()
         currentOperation = randOperation
@@ -371,19 +379,20 @@ class Math: ObservableObject{
             divLogic()
         }
     }
-    
+    //in this func we multiply two numbers then we return the product and the second number.
     func isDivisible(operation: Operation) -> (Int,Int) {
         let x = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
         let y = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
         let z = x * y
         return (x, z)
     }
-    
+    //this is a function used to divide two numebers in a tuple
     func divideNumbers(_ numbers: (Int, Int)) -> Int {
         let (x, y) = numbers
         return y / x
     }
-    
+    // called when you end the game and return to the main menu
+    //just sets everything back to normal
     func endGame(){
         self.score = 0
         timeRemaining = 20
@@ -404,13 +413,13 @@ class Math: ObservableObject{
             sharedDifficultyforMultDiv = 10
         }
     }
-   
+   //a func for new levels called when you complete a level
     func newLevel() {
         correctAnsArry = []
         greenButtonCount = 0
         levelnum += 1
-//        generateAnswers()
         questionCounter = 0
+//        coins = score/2
         switch operation {
         case .addition:
             sharedDifficultyforAddSub += 5
@@ -426,7 +435,7 @@ class Math: ObservableObject{
         }
         generateAnswers()
     }
-    
+    //used to retry the level when you run out of time
     func retryLevel() {
         self.score = 0
         timeRemaining = 20
@@ -438,7 +447,7 @@ class Math: ObservableObject{
         sharedDifficultyforAddSub = 14
         sharedDifficultyforMultDiv = 10
     }
-    
+    //authenticates the user for GameCenter
     func authenticateUser() {
         GKLocalPlayer.local.authenticateHandler = { [self] viewController, error in
             if GKLocalPlayer.local.isAuthenticated {
@@ -448,7 +457,11 @@ class Math: ObservableObject{
             }
         }
     }
+    func calculateCoins(){
+        
+    }
     
+    //used to change the leaderboard depending on what game mode you are in
     func leaderboard() {
         let leaderboardIdentifier: String
         switch operation {
@@ -475,7 +488,8 @@ class Math: ObservableObject{
         }
     }
 }
-
+//this is an extention of the built in Int data type
+//it makes the random fucntion on a Int exclude numbers in a certain range
 extension Int {
     static func random(in range: ClosedRange<Self>, excluding numbers: [Int]) -> Int {
         var randomInt = Int.random(in: range)

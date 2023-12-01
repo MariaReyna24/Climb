@@ -68,9 +68,9 @@ struct LeaderBoardView: View {
                         Text("Sub").tag(Math.Operation.subtraction)
                         Text("Multi").tag(Math.Operation.multi)
                         Text("Div").tag(Math.Operation.div)
-                        Text("Rand").tag(Math.Operation.random)
+                        Text("Frenzy").tag(Math.Operation.random)
                         
-                    } //.offset(y:100)
+                    } 
                     .onChange(of: game.operation) { _ in
                         Task{
                          await loadLeaderboard()

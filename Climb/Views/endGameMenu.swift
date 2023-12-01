@@ -30,11 +30,16 @@ struct End_Game_menu: View {
                             .font(.custom("RoundsBlack", size: 25))
                             .fontWeight(.bold)
                         Text("\(game.score)")
-                            .foregroundColor(.yellow)
+                            .foregroundColor(.red)
                             .font(.custom("RoundsBlack", size: 25))
                             .fontWeight(.bold)
                     }
-                    
+//                    HStack{
+//                        Text(" coins earned: ")
+//                            .foregroundColor(.white)
+//                            .font(.custom("RoundsBlack", size: 27))
+//                            .fontWeight(.bold)
+//                    }
                     HStack {
                         Button("Retry") {
                             gameRestarted = true
