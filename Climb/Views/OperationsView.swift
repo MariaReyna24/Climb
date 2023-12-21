@@ -190,7 +190,7 @@ struct OperationsView: View {
                         Button(action: {
                             withAnimation {
                                 scene.state = .game
-                                game.operation = .random
+                               // game.operation = .frenzy
                                 game.isOperationSelected = true
                                 isMultiplicationButtonPressed = true
                                 if isSoundEnabled {
@@ -235,15 +235,15 @@ struct OperationsView: View {
                     
                 }
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing){
-                        HStack{
-                            
-                              
-                            Image(.coin)
-                                .resizable()
-                                .scaledToFit()
-                        }
-                    }
+//                    ToolbarItem(placement: .topBarTrailing){
+//                        HStack{
+//                            
+//                              
+//                            Image(.coin)
+//                                .resizable()
+//                                .scaledToFit()
+//                        }
+//                    }
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
                             scene.state = .mainmenu

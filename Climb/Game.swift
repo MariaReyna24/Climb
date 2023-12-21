@@ -9,18 +9,19 @@ import GameKit
 import SwiftUI
 
 class Math: ObservableObject{
-    @Published var currentOperation: Operation = .addition // helpes keep track of current operation
-    @Published var questionCounter = 0 
+    @Published var currentGameState: GameMode = GameMode.adding
+    @Published var randOp: Operation = Operation.addition // for frenzy mode
+    @Published var questionCounter = 0
     @Published var isGameCenterAuthenticated = false
     @Published var isShowingPauseMenu = false // keeps track of if pause menu is up
     @Published var isOperationSelected = false // keeps track of if operation is selected
-    @Published var operation: Operation = .addition
+    @Published var operation: Operation = .addition // keeps track of current operation
     @Published var isGameMenuShowing =  false
     @Published var isLevelComplete =  false
     @Published var backgroundColor = Color("myColor")
     @Published var timeRemaining = 20 //this is in seconds naturally
-    @Published var isAnswerCorrect = false
-    @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @Published var isAnswerCorrect = false //keeps track of if the answer is correct
+    @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect() // timer for the game
     @Published var choicearry : [Int] = [0,1,2,3,4,5,6,7,8,9]
     @Published var score = 0
     @Published var isPaused = false
@@ -29,7 +30,7 @@ class Math: ObservableObject{
     private(set) var correctAnswer = 0
     private(set) var firstNum = 0
     private(set) var secondNum = 0
-    private(set) var sharedDifficultyforAddSub = 14
+    private(set) var sharedDifficultyforAddSub = 16
     private(set) var sharedDifficultyforMultDiv = 10
     var levelnum = 1
     var leaderboardIdentifierAdd = "climb.Leaderboard"
@@ -38,12 +39,19 @@ class Math: ObservableObject{
     var leaderboardIdentiferDiv = "div.leaderboard"
     var leaderboardIdentifierRand = "randomLeaderboard"
     
-    enum Operation: CaseIterable{
+    enum GameMode {
+        case adding
+        case subtracting
+        case multiplying
+        case dividing
+        case frenzy
+    }
+    
+    enum Operation: CaseIterable {
         case addition
         case subtraction
         case multi
         case div
-        case random
         var symbol: String {
             switch self {
             case .addition:
@@ -54,11 +62,12 @@ class Math: ObservableObject{
                 return "*"
             case .div:
                 return "/"
-            case .random :
-                return "/"
+                //here i need to figure out how to get the right symbol to return using the cases
             }
         }
     }
+    
+    
     //this func generates the correct answer
     func answerCorreect(answer:Int) -> Bool {
         if answer == correctAnswer {
@@ -93,20 +102,30 @@ class Math: ObservableObject{
         }
         
     }
+    
+   
     //this function will generate the answers based on the operation that is selected
-    func generateAnswers() {
-        switch operation {
-        case .addition:
-            additionLogic()
-        case .subtraction:
-            subtractionLogic()
-        case .multi:
-            multiLogic()
-        case .div:
-            divLogic()
-        case .random:
-            randomLogic()
-        }
+//    func generateAnswers() {
+//        switch GameMode {
+//        case .adding:
+//            additionLogic()
+//        case .subtracting:
+//            subtractionLogic()
+//        case .dividing:
+//            divLogic()
+//        case .frenzy:
+//            frenzyLogic()
+//        }
+//        switch operation {
+//        case .addition:
+//            additionLogic()
+//        case .subtraction:
+//            subtractionLogic()
+//        case .multi:
+//            multiLogic()
+//        case .div:
+//            divLogic()
+//        }
     }
     //addition logic
     func additionLogic(){
@@ -316,7 +335,6 @@ class Math: ObservableObject{
             choicearry = answerList
             questionSkipped = true
         }
-        
         if !questionSkipped {
             correctAnsArry.append(correctAnswer)
             var answerList = [Int]()
@@ -355,29 +373,18 @@ class Math: ObservableObject{
     }  
     //this will return a random operation from the enum Operation
     func randomOperation() -> Operation {
-        var newOp = Operation.addition
-        if let newOperation = Operation.allCases.randomElement(){
-            newOp = newOperation
+        let newOp = Operation.allCases.dropLast()
+       // print(newOp)
+        if let newOperation = newOp.randomElement(){
+            randOp = newOperation
         }
-        return newOp
+       return randOp
     }
+    
     //this func decides what logic should be done based on the random operation that was choose in the randomOperation func
-    func randomLogic(){
-        let randOperation = randomOperation()
-        currentOperation = randOperation
-        print(randOperation)
-        switch randOperation {
-        case .addition:
-            additionLogic()
-        case .subtraction:
-            subtractionLogic()
-        case .multi:
-            multiLogic()
-        case .div:
-            divLogic()
-        default:
-            divLogic()
-        }
+    func frenzyLogic(){
+        operation = randomOperation()
+        generateAnswers()
     }
     //in this func we multiply two numbers then we return the product and the second number.
     func isDivisible(operation: Operation) -> (Int,Int) {
@@ -409,8 +416,6 @@ class Math: ObservableObject{
             sharedDifficultyforMultDiv = 10
         case .div:
             sharedDifficultyforMultDiv = 10
-        case .random:
-            sharedDifficultyforMultDiv = 10
         }
     }
    //a func for new levels called when you complete a level
@@ -419,7 +424,6 @@ class Math: ObservableObject{
         greenButtonCount = 0
         levelnum += 1
         questionCounter = 0
-//        coins = score/2
         switch operation {
         case .addition:
             sharedDifficultyforAddSub += 5
@@ -429,9 +433,6 @@ class Math: ObservableObject{
             sharedDifficultyforMultDiv += 3
         case .div:
             sharedDifficultyforMultDiv += 3
-        case .random:
-            sharedDifficultyforMultDiv += 3
-            sharedDifficultyforAddSub += 5
         }
         generateAnswers()
     }
@@ -443,9 +444,19 @@ class Math: ObservableObject{
         levelnum = 1
         greenButtonCount = 0
         questionCounter = 0
-        generateAnswers()
         sharedDifficultyforAddSub = 14
         sharedDifficultyforMultDiv = 10
+        switch operation {
+        case .addition:
+            additionLogic()
+        case .subtraction:
+            subtractionLogic()
+        case .multi:
+            multiLogic()
+        case .div:
+            divLogic()
+        }
+       
     }
     //authenticates the user for GameCenter
     func authenticateUser() {
@@ -456,9 +467,6 @@ class Math: ObservableObject{
                 self.isGameCenterAuthenticated = false
             }
         }
-    }
-    func calculateCoins(){
-        
     }
     
     //used to change the leaderboard depending on what game mode you are in
@@ -473,8 +481,8 @@ class Math: ObservableObject{
             leaderboardIdentifier = leaderboardIdentiferMulti
         case .div:
             leaderboardIdentifier = leaderboardIdentiferDiv
-        case .random:
-            leaderboardIdentifier = leaderboardIdentifierRand
+//        case .frenzy:
+//            leaderboardIdentifier = leaderboardIdentifierRand
         }
         
         Task {
@@ -495,12 +503,10 @@ extension Int {
         var randomInt = Int.random(in: range)
         var count = 0
         //might be freezing still here as well
-        while numbers.contains(randomInt) || count < 12 {
+        while numbers.contains(randomInt) || count < 9 {
             randomInt = Int.random(in: range)
             count += 1
-          //  print(randomInt)
         }
-        //print(count)
         return randomInt
         
     }

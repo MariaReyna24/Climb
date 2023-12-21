@@ -14,8 +14,6 @@ struct ClimbApp: App {
     init() {
             configureAudioSession()
         }
-        
-       
     var body: some Scene {
         WindowGroup {
            NewView(game: Math())

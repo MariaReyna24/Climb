@@ -1,5 +1,5 @@
 import SwiftUI
-import GameKit
+//import GameKit
 
 
 struct MainMenuView: View {
@@ -137,7 +137,6 @@ struct MainMenuView: View {
         .onAppear {
             game.isOperationSelected = false
             game.authenticateUser()
-          //  game.endGame()
             game.isPaused = false
             if UserDefaults.standard.object(forKey: UserDefaultKeys.hapticsEnabled) == nil {
                 UserDefaults.standard.set(true, forKey: UserDefaultKeys.hapticsEnabled)

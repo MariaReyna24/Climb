@@ -40,7 +40,7 @@ struct ContentView: View {
                                 buttonsForAnswers(startIndex: 6, endIndex: 10)
                                 
                                 
-                                Text("\(game.firstNum) \(game.currentOperation.symbol) \(game.secondNum)")
+                                Text("\(game.firstNum) \(game.operation.symbol) \(game.secondNum)")
                                     .fontWeight(.bold)
                                     .font(.custom("RoundsBlack", size: 40))
                                     .offset(y:30)
@@ -110,12 +110,12 @@ struct ContentView: View {
                             GameBackground()
                                 .blur(radius: 10)
                         }
-                        if game.timeRemaining == 0 {
-                            End_Game_menu(game: game, scene: scene)
-                                .onAppear {
-                                    game.isGameMenuShowing = true
-                                }
-                        }
+//                        if game.timeRemaining == 0 {
+//                            End_Game_menu(game: game, scene: scene)
+//                                .onAppear {
+//                                    game.isGameMenuShowing = true
+//                                }
+//                        }
                         if game.greenButtonCount == 10 {
                             levelCompleted(scene: scene, game: game)
                                 .onAppear {

@@ -68,7 +68,7 @@ struct LeaderBoardView: View {
                         Text("Sub").tag(Math.Operation.subtraction)
                         Text("Multi").tag(Math.Operation.multi)
                         Text("Div").tag(Math.Operation.div)
-                        Text("Frenzy").tag(Math.Operation.random)
+                      //  Text("Frenzy").tag(Math.Operation.frenzy)
                         
                     } 
                     .onChange(of: game.operation) { _ in
@@ -161,8 +161,8 @@ struct LeaderBoardView: View {
                 leaderboardIdentifier = game.leaderboardIdentiferMulti
             case .div:
                 leaderboardIdentifier = game.leaderboardIdentiferDiv
-            case .random:
-                leaderboardIdentifier = game.leaderboardIdentifierRand
+//            case .frenzy:
+//                leaderboardIdentifier = game.leaderboardIdentifierRand
             }
             
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
