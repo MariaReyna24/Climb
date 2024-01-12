@@ -9,7 +9,7 @@ import GameKit
 import SwiftUI
 
 class Math: ObservableObject{
-    @Published var currentGameState: GameMode = GameMode.adding
+    // @Published var currentGameState: GameMode = GameMode.adding
     @Published var randOp: Operation = Operation.addition // for frenzy mode
     @Published var questionCounter = 0
     @Published var isGameCenterAuthenticated = false
@@ -39,13 +39,14 @@ class Math: ObservableObject{
     var leaderboardIdentiferDiv = "div.leaderboard"
     var leaderboardIdentifierRand = "randomLeaderboard"
     
-    enum GameMode {
-        case adding
-        case subtracting
-        case multiplying
-        case dividing
-        case frenzy
-    }
+    //    enum GameMode: CaseIterable {
+    //        case adding
+    //        case subtracting
+    //        case multiplying
+    //        case dividing
+    //        case frenzy
+    //    }
+    
     
     enum Operation: CaseIterable {
         case addition
@@ -103,29 +104,29 @@ class Math: ObservableObject{
         
     }
     
-   
-    //this function will generate the answers based on the operation that is selected
-//    func generateAnswers() {
-//        switch GameMode {
-//        case .adding:
-//            additionLogic()
-//        case .subtracting:
-//            subtractionLogic()
-//        case .dividing:
-//            divLogic()
-//        case .frenzy:
-//            frenzyLogic()
-//        }
-//        switch operation {
-//        case .addition:
-//            additionLogic()
-//        case .subtraction:
-//            subtractionLogic()
-//        case .multi:
-//            multiLogic()
-//        case .div:
-//            divLogic()
-//        }
+    
+   // this function will generate the answers based on the operation that is selected
+    func generateAnswers() {
+        //            switch GameMode {
+        //            case .adding:
+        //                additionLogic()
+        //            case .subtracting:
+        //                subtractionLogic()
+        //            case .dividing:
+        //                divLogic()
+        //            case .frenzy:
+        //                frenzyLogic()
+        //            }
+        switch operation {
+        case .addition:
+            additionLogic()
+        case .subtraction:
+            subtractionLogic()
+        case .multi:
+            multiLogic()
+        case .div:
+            divLogic()
+        }
     }
     //addition logic
     func additionLogic(){
@@ -277,7 +278,7 @@ class Math: ObservableObject{
             answerList[randomIndex] = correctAnswer
         }
         
-        choicearry = answerList  
+        choicearry = answerList
         print(correctAnswer)
     }
     // this is all the divison logic
@@ -370,15 +371,15 @@ class Math: ObservableObject{
             choicearry = answerList
             print(correctAnswer)
         }
-    }  
+    }
     //this will return a random operation from the enum Operation
     func randomOperation() -> Operation {
         let newOp = Operation.allCases.dropLast()
-       // print(newOp)
+        // print(newOp)
         if let newOperation = newOp.randomElement(){
             randOp = newOperation
         }
-       return randOp
+        return randOp
     }
     
     //this func decides what logic should be done based on the random operation that was choose in the randomOperation func
@@ -418,7 +419,7 @@ class Math: ObservableObject{
             sharedDifficultyforMultDiv = 10
         }
     }
-   //a func for new levels called when you complete a level
+    //a func for new levels called when you complete a level
     func newLevel() {
         correctAnsArry = []
         greenButtonCount = 0
@@ -456,7 +457,7 @@ class Math: ObservableObject{
         case .div:
             divLogic()
         }
-       
+        
     }
     //authenticates the user for GameCenter
     func authenticateUser() {
@@ -481,8 +482,8 @@ class Math: ObservableObject{
             leaderboardIdentifier = leaderboardIdentiferMulti
         case .div:
             leaderboardIdentifier = leaderboardIdentiferDiv
-//        case .frenzy:
-//            leaderboardIdentifier = leaderboardIdentifierRand
+            //        case .frenzy:
+            //            leaderboardIdentifier = leaderboardIdentifierRand
         }
         
         Task {
@@ -496,6 +497,7 @@ class Math: ObservableObject{
         }
     }
 }
+
 //this is an extention of the built in Int data type
 //it makes the random fucntion on a Int exclude numbers in a certain range
 extension Int {
