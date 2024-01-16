@@ -220,8 +220,8 @@
             filePath = "Climb/Views/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -332,8 +332,8 @@
             filePath = "Climb/Views/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -348,8 +348,8 @@
             filePath = "Climb/Game.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "506"
-            endingLineNumber = "506"
+            startingLineNumber = "508"
+            endingLineNumber = "508"
             landmarkName = "random(in:excluding:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -364,8 +364,8 @@
             filePath = "Climb/Game.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "423"
-            endingLineNumber = "423"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
             landmarkName = "newLevel()"
             landmarkType = "7">
             <Locations>
@@ -412,8 +412,8 @@
             filePath = "Climb/Game.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
             landmarkName = "divLogic()"
             landmarkType = "7">
             <Locations>
@@ -453,54 +453,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B1FD532-1F91-49F3-BEF6-1070B9848623"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Climb/Game.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
-            landmarkName = "newLevel()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9B1FD532-1F91-49F3-BEF6-1070B9848623 - 9a0e9a44f65fae82"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.newLevel() -&gt; ()"
-                  moduleName = "Climb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mariareyna/Desktop/Climb/Climb/Game.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "280"
-                  endingLineNumber = "280"
-                  offsetFromSymbolStart = "532">
-               </Location>
-               <Location
-                  uuid = "9B1FD532-1F91-49F3-BEF6-1070B9848623 - 9a0e9a44f65fbf50"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.newLevel() -&gt; ()"
-                  moduleName = "Climb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mariareyna/Desktop/Climb/Climb/Game.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "394"
-                  endingLineNumber = "394"
-                  offsetFromSymbolStart = "532">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FC774582-5520-4CF5-93C6-6A46AFA5F779"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -508,8 +460,8 @@
             filePath = "Climb/Game.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
+            startingLineNumber = "418"
+            endingLineNumber = "418"
             landmarkName = "newLevel()"
             landmarkType = "7">
             <Locations>
@@ -739,9 +691,9 @@
             filePath = "Climb/Game.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
-            landmarkName = "randomOperation()"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
+            landmarkName = "randomGamemode()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -780,22 +732,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FA41B277-81A0-46C1-9165-224E8DFC1898"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Climb/Game.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
-            landmarkName = "randomOperation()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -803,28 +739,28 @@
             filePath = "Climb/Game.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "frenzyLogic()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d655423360d9"
+                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 58db30a676a155d6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.frenzyLogic() -&gt; ()"
+                  symbolName = "Climb.Math.divLogic() -&gt; ()"
                   moduleName = "Climb"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/mariareyna/Desktop/Xcode%20Projects/Climb/Climb/Game.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "364"
-                  endingLineNumber = "364"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "375"
+                  endingLineNumber = "375"
+                  offsetFromSymbolStart = "5796">
                </Location>
                <Location
-                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d655423360f8"
+                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d65542336174"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -834,114 +770,9 @@
                   urlString = "file:///Users/mariareyna/Desktop/Xcode%20Projects/Climb/Climb/Game.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "363"
-                  endingLineNumber = "363"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d6554233603a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.frenzyLogic() -&gt; ()"
-                  moduleName = "Climb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mariareyna/Desktop/Xcode%20Projects/Climb/Climb/Game.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "365"
-                  endingLineNumber = "365"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d6554233601b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.frenzyLogic() -&gt; ()"
-                  moduleName = "Climb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mariareyna/Desktop/Xcode%20Projects/Climb/Climb/Game.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "366"
-                  endingLineNumber = "366"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d655423362b6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.frenzyLogic() -&gt; ()"
-                  moduleName = "Climb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mariareyna/Desktop/Xcode%20Projects/Climb/Climb/Game.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "377"
-                  endingLineNumber = "377"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d6554233638e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.frenzyLogic() -&gt; ()"
-                  moduleName = "Climb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mariareyna/Desktop/Xcode%20Projects/Climb/Climb/Game.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "385"
-                  endingLineNumber = "385"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d6554233619f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.frenzyLogic() -&gt; ()"
-                  moduleName = "Climb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mariareyna/Desktop/Xcode%20Projects/Climb/Climb/Game.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "370"
-                  endingLineNumber = "370"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d65542336d9e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.frenzyLogic() -&gt; ()"
-                  moduleName = "Climb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mariareyna/Desktop/Xcode%20Projects/Climb/Climb/Game.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "401"
-                  endingLineNumber = "401"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "78ACD9E2-046D-4ECB-9F50-B200F9650923 - 8775d655423361be"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Climb.Math.frenzyLogic() -&gt; ()"
-                  moduleName = "Climb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mariareyna/Desktop/Xcode%20Projects/Climb/Climb/Game.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "369"
-                  endingLineNumber = "369"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "375"
+                  endingLineNumber = "375"
+                  offsetFromSymbolStart = "52">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1004,9 +835,9 @@
             filePath = "Climb/Game.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
-            landmarkName = "randomOperation()"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
+            landmarkName = "randomGamemode()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1020,25 +851,9 @@
             filePath = "Climb/Views/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C27AACCE-1F78-41F3-85DD-ED73B7E2EADA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Climb/Game.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "symbol"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1052,8 +867,8 @@
             filePath = "Climb/Game.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "frenzyLogic()"
             landmarkType = "7">
          </BreakpointContent>
