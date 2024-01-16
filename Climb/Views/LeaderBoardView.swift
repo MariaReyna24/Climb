@@ -63,20 +63,20 @@ struct LeaderBoardView: View {
                 }
                 
                 VStack {
-                    Picker(selection: $game.operation, label: Text("Operation")) {
-                        Text("Add").tag(Math.Operation.addition)
-                        Text("Sub").tag(Math.Operation.subtraction)
-                        Text("Multi").tag(Math.Operation.multi)
-                        Text("Div").tag(Math.Operation.div)
-                      //  Text("Frenzy").tag(Math.Operation.frenzy)
+                    Picker(selection: $game.currentGamemode, label: Text("Operation")) {
+                        Text("Add").tag(Math.GameMode.add)
+                        Text("Sub").tag(Math.GameMode.sub)
+                        Text("Multi").tag(Math.GameMode.mul)
+                        Text("Div").tag(Math.GameMode.divide)
+                        Text("Frenzy").tag(Math.GameMode.frenzy)
                         
                     } 
-                    .onChange(of: game.operation) { _ in
+                    .onChange(of: game.currentGamemode) { _ in
                         Task{
                          await loadLeaderboard()
                         }
                     }
-                    .onChange(of: game.operation) { newValue in
+                    .onChange(of: game.currentGamemode) { newValue in
                         if playersList.isEmpty && isLeaderboardLoaded {
                             Task{
                              await loadLeaderboard()
@@ -152,17 +152,17 @@ struct LeaderBoardView: View {
             var playersListTemp: [Player] = []
             let leaderboardIdentifier: String
             
-            switch game.operation {
-            case .addition:
+            switch game.currentGamemode {
+            case .add:
                 leaderboardIdentifier = game.leaderboardIdentifierAdd
-            case .subtraction:
+            case .sub:
                 leaderboardIdentifier = game.leaderboardIdentiferSub
-            case .multi:
+            case .mul:
                 leaderboardIdentifier = game.leaderboardIdentiferMulti
-            case .div:
+            case .divide:
                 leaderboardIdentifier = game.leaderboardIdentiferDiv
-//            case .frenzy:
-//                leaderboardIdentifier = game.leaderboardIdentifierRand
+            case .frenzy:
+                leaderboardIdentifier = game.leaderboardIdentifierRand
             }
             
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])

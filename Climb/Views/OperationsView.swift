@@ -22,7 +22,7 @@ struct OperationsView: View {
                         Button(action: {
                             withAnimation {
                                 scene.state = .game
-                                game.operation = .addition
+                                game.currentGamemode = .add
                                 game.isOperationSelected = true
                                 isAdditionButtonPressed = true
                                 if isSoundEnabled {
@@ -63,7 +63,7 @@ struct OperationsView: View {
                         Button(action: {
                             withAnimation {
                                 scene.state = .game
-                                game.operation = .subtraction
+                                game.currentGamemode = .sub
                                 game.isOperationSelected = true
                                 isSubtractionButtonPressed = true
                                 if isSoundEnabled {
@@ -105,7 +105,7 @@ struct OperationsView: View {
                         Button(action: {
                             withAnimation {
                                 scene.state = .game
-                                game.operation = .multi
+                                game.currentGamemode = .mul
                                 game.isOperationSelected = true
                                 isMultiplicationButtonPressed = true
                                 if isSoundEnabled {
@@ -146,7 +146,7 @@ struct OperationsView: View {
                         Button(action: {
                             withAnimation {
                                 scene.state = .game
-                                game.operation = .div
+                                game.currentGamemode = .divide
                                 game.isOperationSelected = true
                                 isDivisionButtonPressed = true
                                 if isSoundEnabled {
@@ -190,7 +190,7 @@ struct OperationsView: View {
                         Button(action: {
                             withAnimation {
                                 scene.state = .game
-                               // game.operation = .frenzy
+                                game.currentGamemode = .frenzy
                                 game.isOperationSelected = true
                                 isMultiplicationButtonPressed = true
                                 if isSoundEnabled {

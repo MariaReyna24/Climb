@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct ContentView: View {
+    
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State private var showingSheet = false
@@ -40,7 +41,7 @@ struct ContentView: View {
                                 buttonsForAnswers(startIndex: 6, endIndex: 10)
                                 
                                 
-                                Text("\(game.firstNum) \(game.operation.symbol) \(game.secondNum)")
+                                Text("\(game.firstNum) \(game.chooseSymbol(gameMode: game.currentGamemode)) \(game.secondNum)")
                                     .fontWeight(.bold)
                                     .font(.custom("RoundsBlack", size: 40))
                                     .offset(y:30)
@@ -115,7 +116,7 @@ struct ContentView: View {
 //                                .onAppear {
 //                                    game.isGameMenuShowing = true
 //                                }
-//                        }
+                       // }
                         if game.greenButtonCount == 10 {
                             levelCompleted(scene: scene, game: game)
                                 .onAppear {

@@ -85,7 +85,7 @@ struct ClimbButton: View {
         .onChange(of: game.levelnum) { _ in
             backgroundColor = Color("myColor")
         }
-        .onChange(of: game.operation) { _ in
+        .onChange(of: game.currentGamemode) { _ in
             game.generateAnswers()
         }
     }

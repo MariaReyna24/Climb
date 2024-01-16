@@ -9,13 +9,14 @@ import GameKit
 import SwiftUI
 
 class Math: ObservableObject{
-    // @Published var currentGameState: GameMode = GameMode.adding
-    @Published var randOp: Operation = Operation.addition // for frenzy mode
+    @Published var currentGamemode: GameMode = .add
+    @Published var currentSymbol = "+"
+    @Published var randGame: GameMode = GameMode.add // for frenzy mode
     @Published var questionCounter = 0
     @Published var isGameCenterAuthenticated = false
     @Published var isShowingPauseMenu = false // keeps track of if pause menu is up
     @Published var isOperationSelected = false // keeps track of if operation is selected
-    @Published var operation: Operation = .addition // keeps track of current operation
+//    @Published var operation: Operation = .addition // keeps track of current operation
     @Published var isGameMenuShowing =  false
     @Published var isLevelComplete =  false
     @Published var backgroundColor = Color("myColor")
@@ -39,35 +40,31 @@ class Math: ObservableObject{
     var leaderboardIdentiferDiv = "div.leaderboard"
     var leaderboardIdentifierRand = "randomLeaderboard"
     
-    //    enum GameMode: CaseIterable {
-    //        case adding
-    //        case subtracting
-    //        case multiplying
-    //        case dividing
-    //        case frenzy
-    //    }
-    
-    
-    enum Operation: CaseIterable {
-        case addition
-        case subtraction
-        case multi
-        case div
-        var symbol: String {
-            switch self {
-            case .addition:
-                return "+"
-            case .subtraction:
-                return "-"
-            case .multi:
-                return "*"
-            case .div:
-                return "/"
-                //here i need to figure out how to get the right symbol to return using the cases
-            }
-        }
+    enum GameMode: String, CaseIterable {
+        case add = "+"
+        case sub = "-"
+        case mul = "*"
+        case divide = "/"
+        case frenzy
     }
     
+    func chooseSymbol(gameMode: GameMode) -> String {
+        switch gameMode {
+        case .add:
+            return GameMode.add.rawValue
+        case .sub:
+            return GameMode.sub.rawValue
+        case .mul:
+            return GameMode.mul.rawValue
+        case .divide:
+            return GameMode.divide.rawValue
+        case .frenzy:
+           return currentSymbol
+        }
+        
+    }
+    
+  
     
     //this func generates the correct answer
     func answerCorreect(answer:Int) -> Bool {
@@ -104,29 +101,21 @@ class Math: ObservableObject{
         
     }
     
-    
-   // this function will generate the answers based on the operation that is selected
+    // this function will generate the answers based on the operation that is selected
     func generateAnswers() {
-        //            switch GameMode {
-        //            case .adding:
-        //                additionLogic()
-        //            case .subtracting:
-        //                subtractionLogic()
-        //            case .dividing:
-        //                divLogic()
-        //            case .frenzy:
-        //                frenzyLogic()
-        //            }
-        switch operation {
-        case .addition:
+        switch currentGamemode {
+        case .add:
             additionLogic()
-        case .subtraction:
+        case .sub:
             subtractionLogic()
-        case .multi:
+        case .mul:
             multiLogic()
-        case .div:
+        case .divide:
             divLogic()
+        case .frenzy:
+            frenzyLogic()
         }
+        
     }
     //addition logic
     func additionLogic(){
@@ -288,7 +277,7 @@ class Math: ObservableObject{
         var questionSkipped = false
         
         repeat {
-            let twoNums = isDivisible(operation: .div)
+            let twoNums = isDivisible(currentGame: .divide)
             
             self.firstNum = twoNums.1
             self.secondNum = twoNums.0
@@ -373,22 +362,25 @@ class Math: ObservableObject{
         }
     }
     //this will return a random operation from the enum Operation
-    func randomOperation() -> Operation {
-        let newOp = Operation.allCases.dropLast()
-        // print(newOp)
-        if let newOperation = newOp.randomElement(){
-            randOp = newOperation
+    func randomGamemode() -> GameMode {
+        let newGame = GameMode.allCases.dropLast()
+        if let newGamemode = newGame.randomElement(){
+            randGame = newGamemode
         }
-        return randOp
+         print(randGame)
+        return randGame
     }
     
     //this func decides what logic should be done based on the random operation that was choose in the randomOperation func
-    func frenzyLogic(){
-        operation = randomOperation()
+    func frenzyLogic() {
+        currentGamemode = randomGamemode()
+        currentSymbol = currentGamemode.rawValue
+        print(currentSymbol)
+        print(currentSymbol)
         generateAnswers()
     }
     //in this func we multiply two numbers then we return the product and the second number.
-    func isDivisible(operation: Operation) -> (Int,Int) {
+    func isDivisible(currentGame: GameMode) -> (Int,Int) {
         let x = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
         let y = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
         let z = x * y
@@ -408,14 +400,17 @@ class Math: ObservableObject{
         levelnum =  1
         greenButtonCount = 0
         questionCounter = 0
-        switch operation {
-        case .addition:
+        switch currentGamemode {
+        case .add:
             sharedDifficultyforAddSub = 14
-        case .subtraction:
+        case .sub:
             sharedDifficultyforAddSub = 14
-        case .multi:
+        case .mul:
             sharedDifficultyforMultDiv = 10
-        case .div:
+        case .divide:
+            sharedDifficultyforMultDiv = 10
+        case .frenzy:
+            sharedDifficultyforAddSub = 14
             sharedDifficultyforMultDiv = 10
         }
     }
@@ -425,14 +420,17 @@ class Math: ObservableObject{
         greenButtonCount = 0
         levelnum += 1
         questionCounter = 0
-        switch operation {
-        case .addition:
+        switch currentGamemode {
+        case .add:
             sharedDifficultyforAddSub += 5
-        case .subtraction:
+        case .sub:
             sharedDifficultyforAddSub += 5
-        case .multi:
+        case .mul:
             sharedDifficultyforMultDiv += 3
-        case .div:
+        case .divide:
+            sharedDifficultyforMultDiv += 3
+        case .frenzy:
+            sharedDifficultyforAddSub += 5
             sharedDifficultyforMultDiv += 3
         }
         generateAnswers()
@@ -447,17 +445,18 @@ class Math: ObservableObject{
         questionCounter = 0
         sharedDifficultyforAddSub = 14
         sharedDifficultyforMultDiv = 10
-        switch operation {
-        case .addition:
+        switch currentGamemode {
+        case .add:
             additionLogic()
-        case .subtraction:
+        case .sub:
             subtractionLogic()
-        case .multi:
+        case .mul:
             multiLogic()
-        case .div:
+        case .divide:
             divLogic()
+        case .frenzy:
+            frenzyLogic()
         }
-        
     }
     //authenticates the user for GameCenter
     func authenticateUser() {
@@ -473,17 +472,18 @@ class Math: ObservableObject{
     //used to change the leaderboard depending on what game mode you are in
     func leaderboard() {
         let leaderboardIdentifier: String
-        switch operation {
-        case .addition:
+        switch currentGamemode {
+        case .add:
             leaderboardIdentifier = leaderboardIdentifierAdd
-        case .subtraction:
+        case .sub:
             leaderboardIdentifier = leaderboardIdentiferSub
-        case .multi:
+        case .mul:
             leaderboardIdentifier = leaderboardIdentiferMulti
-        case .div:
+        case .divide:
             leaderboardIdentifier = leaderboardIdentiferDiv
-            //        case .frenzy:
-            //            leaderboardIdentifier = leaderboardIdentifierRand
+          case .frenzy:
+            leaderboardIdentifier = leaderboardIdentifierRand
+       
         }
         
         Task {
