@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct ContentView: View {
+    
     @ObservedObject var scene: diffViews
     @ObservedObject var game: Math
     @State private var showingSheet = false
@@ -17,12 +18,12 @@ struct ContentView: View {
     @State private var showinglevelComplete = false
     @State private var isPauseButtonPressed = false
     var body: some View {
-            GeometryReader { geometry in
-                NavigationStack {
-                    ZStack {
-                        GameBackground()
-                            .ignoresSafeArea()
-                            //.offset(x: 3)
+        GeometryReader { geometry in
+            NavigationStack {
+                ZStack {
+                    GameBackground()
+                        .ignoresSafeArea()
+                    //.offset(x: 3)
                     if game.isOperationSelected {
                         VStack {
                             Text("Level \(game.levelnum)")
@@ -32,24 +33,22 @@ struct ContentView: View {
                             Text("Score: \(game.score)")
                                 .font(Font.custom("RoundsBlack", size: 30))
                                 .padding(40)
-                            //.frame(width: 200, height: 50)
+                            
                             Group {
                                 buttonsForAnswers(startIndex: 0, endIndex: 1)
                                 buttonsForAnswers(startIndex: 1, endIndex: 3)
                                 buttonsForAnswers(startIndex: 3, endIndex: 6)
                                 buttonsForAnswers(startIndex: 6, endIndex: 10)
-                                //TEXT FOR PROBLEMS
                                 
                                 
-                                Text("\(game.firstNum) \(operationSymbol(for: game.operation)) \(game.secondNum)")
+                                Text("\(game.firstNum) \(game.chooseSymbol(gameMode: game.currentGamemode)) \(game.secondNum)")
                                     .fontWeight(.bold)
                                     .font(.custom("RoundsBlack", size: 40))
                                     .offset(y:30)
                             }
                             
-                            //  .offset(y:0)
                             Spacer()
-                         
+                            
                             
                         }
                         .blur(radius: game.isGameMenuShowing || game.isLevelComplete ? 100 : 0)
@@ -77,8 +76,8 @@ struct ContentView: View {
                                         game.timer.upstream.connect().cancel()
                                         heavyHaptic()
                                         showingSheet.toggle()
-//                                        scene.state = .pauseMenu
-//                                        game.isPaused = true
+                                        //                                        scene.state = .pauseMenu
+                                        //                                        game.isPaused = true
                                         isPauseButtonPressed = true
                                         if isSoundEnabled {
                                             SoundManager.instance.playSound(sound: .click)
@@ -94,21 +93,8 @@ struct ContentView: View {
                                         .fullScreenCover(isPresented: $showingSheet) {
                                             Pause_menu(scene: scene, game: game)
                                         }
-//                                        .scaleEffect(isPauseButtonPressed ? 0.0 : 1.0)
-//                                        .buttonStyle(CustomButtonStyle())
-//                                        .onTapGesture {
-//                                            withTransaction(Transaction(animation: nil)) {
-//                                               // scene.state = .pauseMenu
-//                                                game.isPaused = true
-//                                                isPauseButtonPressed  = true
-                                                
-                                            
-                                         
-                                        
                                 }
                             }
-                          
-                            
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Text("\(game.timeRemaining)s")
                                     .font(.custom("RoundsBlack", size: 30))
@@ -158,18 +144,7 @@ struct ContentView: View {
             }
         }
     }
-    
-    // Function to get the symbol corresponding to the operation
-    func operationSymbol(for operation: Math.Operation) -> String {
-        switch operation {
-        case .addition:
-            return "+"
-        case .subtraction:
-            return "-"
-        }
-    }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

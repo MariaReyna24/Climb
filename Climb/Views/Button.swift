@@ -36,12 +36,25 @@ struct ClimbButton: View {
                     backgroundColor = Color("myColor")
                 }
             }
+            
+//            if isCorrect {
+//                game.isAnswerCorrect = true
+//                game.generateAnswers()
+//            } else {
+//                game.isAnswerCorrect = false
+//            }
             if isCorrect {
-                game.isAnswerCorrect = true
-                game.generateAnswers()
-            } else {
-                game.isAnswerCorrect = false
+                  if game.questionCounter == 10 {
+                    game.isAnswerCorrect = true
+                  } else if game.questionCounter < 10 {
+                    game.isAnswerCorrect = true
+                      //also here maybe
+                      game.generateAnswers()
+                } else {
+                    game.isAnswerCorrect = false
+                }
             }
+            
         } label: {
             Text("\(num)")
                 .frame(width: 88, height: 75)
@@ -72,9 +85,9 @@ struct ClimbButton: View {
         .onChange(of: game.levelnum) { _ in
             backgroundColor = Color("myColor")
         }
-        .onChange(of: game.operation) { _ in
-            game.generateAnswers()
-        }
+//        .onChange(of: game.currentGamemode) { _ in
+//            game.generateAnswers(game: game.currentGamemode)
+//        }
     }
     
    

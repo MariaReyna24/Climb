@@ -62,8 +62,6 @@ struct Pause_menu: View {
                                     .foregroundColor(Color("textColor"))
                                     .padding()
                                 
-                                //Spacer()
-                                
                                 Button(action: {
                                     isHapticsEnabled.toggle()
                                     if isSoundEnabled {
@@ -110,10 +108,6 @@ struct Pause_menu: View {
                                     .foregroundColor(Color("textColor"))
                                     .padding(23)
                                     .offset(x:-8)
-                                
-                                
-                                //Spacer()
-                                
                                 Button(action: {
                                     isSoundEnabled.toggle()
                                     if isSoundEnabled {
@@ -157,6 +151,7 @@ struct Pause_menu: View {
                         
                         Button(action: {
                             game.endGame()
+                            game.leaderboard()
                             scene.state = .mainmenu
                             heavyHaptic()
                             isMainMenuButtonPressed = true
@@ -181,7 +176,6 @@ struct Pause_menu: View {
                                     y: 0
                                 )
                         }
-                        
                     }
                 }
             }.toolbar{

@@ -42,11 +42,17 @@ struct levelCompleted: View {
                         .font(.custom("RoundsBlack", size: 27))
                         .fontWeight(.bold)
                     Text("\(game.score)")
-                        .foregroundColor(.yellow)
+                        .foregroundColor(.green)
                         .font(.custom("RoundsBlack", size: 27))
                         .fontWeight(.bold)
                 }
-                
+                HStack{
+//                    Text(" coins earned: ")
+//                        .foregroundColor(.white)
+//                        .font(.custom("RoundsBlack", size: 27))
+//                        .fontWeight(.bold)
+                   
+                }
                 HStack{
                     Button("Continue") {
                         game.newLevel()

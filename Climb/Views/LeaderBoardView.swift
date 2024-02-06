@@ -26,7 +26,6 @@ struct LeaderBoardView: View {
     @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State var playersList: [Player] = []
     @State var leaderboardPlace = 0
-    
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
@@ -64,43 +63,30 @@ struct LeaderBoardView: View {
                 }
                 
                 VStack {
-                    Picker(selection: $game.operation, label: Text("Operation")) {
-                        Text("Addition").tag(Math.Operation.addition)
-                        Text("Subtraction").tag(Math.Operation.subtraction)
+                    Picker(selection: $game.currentGamemode, label: Text("Operation")) {
+                        Text("Add").tag(Math.GameMode.add)
+                        Text("Sub").tag(Math.GameMode.sub)
+                        Text("Multi").tag(Math.GameMode.mul)
+                        Text("Div").tag(Math.GameMode.divide)
+                        Text("Frenzy").tag(Math.GameMode.frenzy)
                         
-                    } //.offset(y:100)
-                    .onChange(of: game.operation) { _ in
-                        loadLeaderboard()
+                    } 
+                    .onChange(of: game.currentGamemode) { _ in
+                        Task{
+                         await loadLeaderboard()
+                        }
                     }
-                    .onChange(of: game.operation) { newValue in
+                    .onChange(of: game.currentGamemode) { newValue in
                         if playersList.isEmpty && isLeaderboardLoaded {
-                            loadLeaderboard()
+                            Task{
+                             await loadLeaderboard()
+                            }
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(20)
                     .frame(maxWidth: .infinity)
                     
-//                    HStack(spacing: 134){
-//                        Text("Name")
-//                            .frame(width: 75, alignment: .leading)
-//                            .font(.custom("RoundsBlack", size: 20))
-//                            .foregroundColor(.white)
-//
-//                        Text("Score")
-//                            .frame(width: 75, alignment: .center)
-//                            .font(.custom("RoundsBlack", size: 20))
-//                            .foregroundColor(.white)
-//
-//                    } .offset(y:120)
-//                    Divider()
-//
-//                        .frame(height:5)
-//                        .overlay(
-//                            Color.primary
-//                                .opacity(0.5)
-//                        )
-//                        .offset(y:120)
                     ScrollView {
                         VStack() { // Add a spacing to separate the rows
                             HStack(spacing: 100) {
@@ -120,7 +106,7 @@ struct LeaderBoardView: View {
                                     Color.primary
                                         .opacity(0.5)
                                 )
-                            .padding(.vertical, 5) // Add some vertical padding
+                                .padding(.vertical, 5) // Add some vertical padding
                             
                             ForEach(playersList, id: \.id) { player in
                                 HStack(spacing: 74) {
@@ -150,7 +136,9 @@ struct LeaderBoardView: View {
                     if !GKLocalPlayer.local.isAuthenticated {
                         game.authenticateUser()
                     } else if playersList.isEmpty && !isLeaderboardLoaded {
-                        loadLeaderboard()
+                        Task{
+                         await loadLeaderboard()
+                        }
                     }
                 }
                 
@@ -159,16 +147,22 @@ struct LeaderBoardView: View {
             
         }
     }
-    func loadLeaderboard() {
-        Task {
+    func loadLeaderboard() async {
+        do {
             var playersListTemp: [Player] = []
             let leaderboardIdentifier: String
             
-            switch game.operation {
-            case .addition:
+            switch game.currentGamemode {
+            case .add:
                 leaderboardIdentifier = game.leaderboardIdentifierAdd
-            case .subtraction:
+            case .sub:
                 leaderboardIdentifier = game.leaderboardIdentiferSub
+            case .mul:
+                leaderboardIdentifier = game.leaderboardIdentiferMulti
+            case .divide:
+                leaderboardIdentifier = game.leaderboardIdentiferDiv
+            case .frenzy:
+                leaderboardIdentifier = game.leaderboardIdentifierRand
             }
             
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
@@ -189,11 +183,11 @@ struct LeaderBoardView: View {
                 playersList = playersListTemp
                 isLeaderboardLoaded = true
             }
+        } catch {
+            print("Error loading leaderboard: \(error)")
         }
     }
-    
 }
-
 
 struct LeaderBoardView_Previews: PreviewProvider {
     static var previews: some View {

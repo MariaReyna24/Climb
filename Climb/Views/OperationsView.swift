@@ -8,6 +8,8 @@ struct OperationsView: View {
     @AppStorage(UserDefaultKeys.soundEnabled) var isSoundEnabled: Bool = true
     @State private var isAdditionButtonPressed = false
     @State private var isSubtractionButtonPressed = false
+    @State private var isMultiplicationButtonPressed = false
+    @State private var isDivisionButtonPressed = false
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
@@ -20,7 +22,7 @@ struct OperationsView: View {
                         Button(action: {
                             withAnimation {
                                 scene.state = .game
-                                game.operation = .addition
+                                game.currentGamemode = .add
                                 game.isOperationSelected = true
                                 isAdditionButtonPressed = true
                                 if isSoundEnabled {
@@ -61,7 +63,7 @@ struct OperationsView: View {
                         Button(action: {
                             withAnimation {
                                 scene.state = .game
-                                game.operation = .subtraction
+                                game.currentGamemode = .sub
                                 game.isOperationSelected = true
                                 isSubtractionButtonPressed = true
                                 if isSoundEnabled {
@@ -100,52 +102,134 @@ struct OperationsView: View {
                             heavyHaptic()
                         }
                         
-                        Button("Coming Soon") {
+                        Button(action: {
+                            withAnimation {
+                                scene.state = .game
+                                game.currentGamemode = .mul
+                                game.isOperationSelected = true
+                                isMultiplicationButtonPressed = true
+                                if isSoundEnabled {
+                                    SoundManager.instance.playSound(sound: .click)
+                                }
+                            }
+                            heavyHaptic()
+                        }) {
+                            Text("x")
+                                .font(.custom("RoundsBlack", size: 40))
+                                .foregroundColor(Color("textColor"))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 80)
+                                .background(Color("pauseColor"))
+                                .cornerRadius(25)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .stroke(Color("WhiteDM"), lineWidth: 6)
+                                )
+                                .shadow(
+                                    color: Color.white.opacity(0.5),
+                                    radius: 6,
+                                    x: 0,
+                                    y: 0
+                                )
+                                .scaleEffect(isMultiplicationButtonPressed ? 0.0 : 1.0)
+                            
+                        }
+                        
+                        .buttonStyle(CustomButtonStyle())
+                        .onTapGesture {
+                            withTransaction(Transaction(animation: nil)) {
+                                scene.state = .game
+                                isMultiplicationButtonPressed = true
+                            }
                             heavyHaptic()
                         }
-                        .font(.custom("RoundsBlack", size: 25))
-                        .foregroundColor(Color("textColor"))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 80)
-                        .background(Color("pauseColor"))
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color("WhiteDM"), lineWidth: 6)
-                        )
-                        .shadow(
-                            color: Color.white.opacity(0.5),
-                            radius: 6,
-                            x: 0,
-                            y: 0
-                        )
+                        Button(action: {
+                            withAnimation {
+                                scene.state = .game
+                                game.currentGamemode = .divide
+                                game.isOperationSelected = true
+                                isDivisionButtonPressed = true
+                                if isSoundEnabled {
+                                    SoundManager.instance.playSound(sound: .click)
+                                }
+                            }
+                            heavyHaptic()
+                        }) {
+                            Text("/")
+                                .font(.custom("RoundsBlack", size: 40))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("textColor"))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 80)
+                                .background(Color("pauseColor"))
+                                .cornerRadius(25)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .stroke(Color("WhiteDM"), lineWidth: 6)
+                                )
+                                .shadow(
+                                    color: Color.white.opacity(0.5),
+                                    radius: 6,
+                                    x: 0,
+                                    y: 0
+                                )
+                                .scaleEffect(isDivisionButtonPressed ? 0.0 : 1.0)
+                            
+                        }
                         
-                        .disabled(true)
-                        .opacity(0.5)
-                        
-                        Button("Coming Soon") {
+                        .buttonStyle(CustomButtonStyle())
+                        .onTapGesture {
+                            withTransaction(Transaction(animation: nil)) {
+                                scene.state = .game
+                                isDivisionButtonPressed = true
+                            }
                             heavyHaptic()
                         }
-                        .font(.custom("RoundsBlack", size: 25))
-                        .foregroundColor(Color("textColor"))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 80)
-                        .background(Color("pauseColor"))
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color("WhiteDM"), lineWidth: 6)
-                        )
-                        .shadow(
-                            color: Color.white.opacity(0.5),
-                            radius: 6,
-                            x: 0,
-                            y: 0
-                        )
-                        
-                        .disabled(true)
-                        .opacity(0.5)
                         .frame(height: 0.1 * UIScreen.main.bounds.height)
+                        
+                        Button(action: {
+                            withAnimation {
+                                scene.state = .game
+                                game.currentGamemode = .frenzy
+                                game.isOperationSelected = true
+                                isMultiplicationButtonPressed = true
+                                if isSoundEnabled {
+                                    SoundManager.instance.playSound(sound: .click)
+                                }
+                            }
+                            heavyHaptic()
+                        }) {
+                            Text("Coming Soon")
+                                .font(.custom("RoundsBlack", size: 25))
+                                .foregroundColor(Color("textColor"))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 80)
+                                .background(Color("pauseColor"))
+                                .cornerRadius(25)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .stroke(Color("WhiteDM"), lineWidth: 6)
+                                )
+                                .disabled(true)
+                                .opacity(0.5)
+                                .shadow(
+                                    color: Color.white.opacity(0.5),
+                                    radius: 6,
+                                    x: 0,
+                                    y: 0
+                                )
+                                .scaleEffect(isMultiplicationButtonPressed ? 0.0 : 1.0)
+                            
+                        }
+                        
+                        .buttonStyle(CustomButtonStyle())
+                        .onTapGesture {
+                            withTransaction(Transaction(animation: nil)) {
+                                scene.state = .game
+                                isMultiplicationButtonPressed = true
+                            }
+                            heavyHaptic()
+                        }
                     }
                     .offset(y: 25)
                     .padding(.horizontal, 80)
@@ -153,6 +237,15 @@ struct OperationsView: View {
                     
                 }
                 .toolbar {
+//                    ToolbarItem(placement: .topBarTrailing){
+//                        HStack{
+//                            
+//                              
+//                            Image(.coin)
+//                                .resizable()
+//                                .scaledToFit()
+//                        }
+//                    }
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
                             scene.state = .mainmenu
