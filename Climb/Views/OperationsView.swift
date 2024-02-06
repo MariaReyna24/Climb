@@ -199,8 +199,8 @@ struct OperationsView: View {
                             }
                             heavyHaptic()
                         }) {
-                            Text("Frenzy")
-                                .font(.custom("RoundsBlack", size: 40))
+                            Text("Coming Soon")
+                                .font(.custom("RoundsBlack", size: 25))
                                 .foregroundColor(Color("textColor"))
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 80)
@@ -210,6 +210,8 @@ struct OperationsView: View {
                                     RoundedRectangle(cornerRadius: 25)
                                         .stroke(Color("WhiteDM"), lineWidth: 6)
                                 )
+                                .disabled(true)
+                                .opacity(0.5)
                                 .shadow(
                                     color: Color.white.opacity(0.5),
                                     radius: 6,

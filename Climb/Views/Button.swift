@@ -49,7 +49,7 @@ struct ClimbButton: View {
                   } else if game.questionCounter < 10 {
                     game.isAnswerCorrect = true
                       //also here maybe
-                    game.generateAnswers()
+                      game.generateAnswers()
                 } else {
                     game.isAnswerCorrect = false
                 }
@@ -85,9 +85,9 @@ struct ClimbButton: View {
         .onChange(of: game.levelnum) { _ in
             backgroundColor = Color("myColor")
         }
-        .onChange(of: game.currentGamemode) { _ in
-            game.generateAnswers()
-        }
+//        .onChange(of: game.currentGamemode) { _ in
+//            game.generateAnswers(game: game.currentGamemode)
+//        }
     }
     
    

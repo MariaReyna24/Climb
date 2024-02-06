@@ -42,7 +42,7 @@ struct levelCompleted: View {
                         .font(.custom("RoundsBlack", size: 27))
                         .fontWeight(.bold)
                     Text("\(game.score)")
-                        .foregroundColor(.red)
+                        .foregroundColor(.green)
                         .font(.custom("RoundsBlack", size: 27))
                         .fontWeight(.bold)
                 }

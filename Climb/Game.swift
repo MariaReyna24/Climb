@@ -9,14 +9,13 @@ import GameKit
 import SwiftUI
 
 class Math: ObservableObject{
-    @Published var currentGamemode: GameMode = .add
-    @Published var currentSymbol = "+"
-    @Published var randGame: GameMode = GameMode.add // for frenzy mode
+    @Published var currentGamemode: GameMode = .add // for the other 4 operations
+    @Published var currentSymbol = "-" // this is for keping track of the Symbol for frenzy mode
+   // @Published var randGame: GameMode = GameMode.add // for frenzy mode
     @Published var questionCounter = 0
     @Published var isGameCenterAuthenticated = false
     @Published var isShowingPauseMenu = false // keeps track of if pause menu is up
     @Published var isOperationSelected = false // keeps track of if operation is selected
-//    @Published var operation: Operation = .addition // keeps track of current operation
     @Published var isGameMenuShowing =  false
     @Published var isLevelComplete =  false
     @Published var backgroundColor = Color("myColor")
@@ -47,6 +46,9 @@ class Math: ObservableObject{
         case divide = "/"
         case frenzy
     }
+    enum Operations{
+        
+    }
     
     func chooseSymbol(gameMode: GameMode) -> String {
         switch gameMode {
@@ -63,8 +65,6 @@ class Math: ObservableObject{
         }
         
     }
-    
-  
     
     //this func generates the correct answer
     func answerCorreect(answer:Int) -> Bool {
@@ -98,24 +98,23 @@ class Math: ObservableObject{
             timeRemaining -= 1
             return false
         }
-        
     }
     
     // this function will generate the answers based on the operation that is selected
     func generateAnswers() {
-        switch currentGamemode {
-        case .add:
-            additionLogic()
-        case .sub:
-            subtractionLogic()
-        case .mul:
-            multiLogic()
-        case .divide:
-            divLogic()
-        case .frenzy:
-            frenzyLogic()
-        }
-        
+            switch currentGamemode {
+            case .add:
+                additionLogic()
+            case .sub:
+                subtractionLogic()
+            case .mul:
+                multiLogic()
+            case .divide:
+                divLogic()
+            case .frenzy:
+                break
+                //frenzyLogic()
+            }
     }
     //addition logic
     func additionLogic(){
@@ -198,7 +197,6 @@ class Math: ObservableObject{
             for _ in 0...9 {
                 var randomIncorrectAnswer: Int
                 repeat {
-                    //also still might be freezing here
                     randomIncorrectAnswer = Int.random(in: incorrectRange, excluding: correctAnsArry)
                 } while answerList.contains(randomIncorrectAnswer)
                 answerList.append(randomIncorrectAnswer)
@@ -362,23 +360,26 @@ class Math: ObservableObject{
         }
     }
     //this will return a random operation from the enum Operation
-    func randomGamemode() -> GameMode {
-        let newGame = GameMode.allCases.dropLast()
-        if let newGamemode = newGame.randomElement(){
-            randGame = newGamemode
-        }
-         print(randGame)
-        return randGame
+    func randomGamemodeGenerator()  {
+//        let newGame = GameMode.allCases.dropLast()
+//        if let newGamemode = newGame.randomElement(){
+//            randGame = newGamemode
+//        }
+//        print(randGame)
+//        return randGame
     }
+    // Refactor so current game mode stays frenzy mode
     
-    //this func decides what logic should be done based on the random operation that was choose in the randomOperation func
-    func frenzyLogic() {
-        currentGamemode = randomGamemode()
-        currentSymbol = currentGamemode.rawValue
-        print(currentSymbol)
-        print(currentSymbol)
-        generateAnswers()
-    }
+    //this func decides what logic should be done based on the random gameMode that was choose in the randomGamemode func
+//    func frenzyLogic() {
+//        // takes current game mode and randomizes it
+//        // sets the associated symbol to the random game mode selected
+//        let randomGame = randomGamemodeGenerator()
+//        currentSymbol = randomGame.rawValue
+//        print(currentSymbol)
+//        // now generates answers based on what gamemode it is.
+//        generateAnswers() //should i have generate answers accept a parameter??
+//    }
     //in this func we multiply two numbers then we return the product and the second number.
     func isDivisible(currentGame: GameMode) -> (Int,Int) {
         let x = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
@@ -455,8 +456,7 @@ class Math: ObservableObject{
         case .divide:
             divLogic()
         case .frenzy:
-            frenzyLogic()
-        }
+break        }
     }
     //authenticates the user for GameCenter
     func authenticateUser() {
