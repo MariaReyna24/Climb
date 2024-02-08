@@ -8,10 +8,10 @@ import Foundation
 import GameKit
 import SwiftUI
 
-class Math: ObservableObject{
+class Math: ObservableObject {
     @Published var currentGamemode: GameMode = .add // for the other 4 operations
     @Published var currentSymbol = "-" // this is for keping track of the Symbol for frenzy mode
-   // @Published var randGame: GameMode = GameMode.add // for frenzy mode
+    // @Published var randGame: GameMode = GameMode.add // for frenzy mode
     @Published var questionCounter = 0
     @Published var isGameCenterAuthenticated = false
     @Published var isShowingPauseMenu = false // keeps track of if pause menu is up
@@ -31,7 +31,8 @@ class Math: ObservableObject{
     private(set) var firstNum = 0
     private(set) var secondNum = 0
     private(set) var sharedDifficultyforAddSub = 16
-    private(set) var sharedDifficultyforMultDiv = 10
+    private(set) var diffcultyForDivision = 10
+    private(set) var sharedDifficultyforMult = 5
     var levelnum = 1
     var leaderboardIdentifierAdd = "climb.Leaderboard"
     var leaderboardIdentiferSub = "climbSubtraction.Leaderboard"
@@ -61,7 +62,7 @@ class Math: ObservableObject{
         case .divide:
             return GameMode.divide.rawValue
         case .frenzy:
-           return currentSymbol
+            return currentSymbol
         }
         
     }
@@ -102,19 +103,19 @@ class Math: ObservableObject{
     
     // this function will generate the answers based on the operation that is selected
     func generateAnswers() {
-            switch currentGamemode {
-            case .add:
-                additionLogic()
-            case .sub:
-                subtractionLogic()
-            case .mul:
-                multiLogic()
-            case .divide:
-                divLogic()
-            case .frenzy:
-                break
-                //frenzyLogic()
-            }
+        switch currentGamemode {
+        case .add:
+            additionLogic()
+        case .sub:
+            subtractionLogic()
+        case .mul:
+            multiLogic()
+        case .divide:
+            divLogic()
+        case .frenzy:
+            break
+            //frenzyLogic()
+        }
     }
     //addition logic
     func additionLogic(){
@@ -224,20 +225,21 @@ class Math: ObservableObject{
     }
     //this is the multiplcation logic
     func multiLogic(){
-        self.firstNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
-        self.secondNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
+        self.firstNum = Int.random(in: 0...(sharedDifficultyforMult), excluding: correctAnsArry)
+        self.secondNum = Int.random(in: 0...(sharedDifficultyforMult), excluding: correctAnsArry)
         
         correctAnswer = self.firstNum * self.secondNum
         
         while choicearry.contains(correctAnswer) || correctAnsArry.contains(correctAnswer) {
-            self.firstNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
-            self.secondNum = Int.random(in: 0...(sharedDifficultyforMultDiv), excluding: correctAnsArry)
+            self.firstNum = Int.random(in: 0...(sharedDifficultyforMult), excluding: correctAnsArry)
+            self.secondNum = Int.random(in: 0...(sharedDifficultyforMult), excluding: correctAnsArry)
             correctAnswer = self.firstNum * self.secondNum
         }
         correctAnsArry.append(correctAnswer)
         var answerList = [Int]()
         //freezing might be here too
-        let upperBound = correctAnswer + max(sharedDifficultyforMultDiv, 22) // Adjust the maximum range based on your needs
+        let upperBound = correctAnswer + max(sharedDifficultyforMult, 18) // Adjust the maximum range based on your needs
+        print("this is uppernound:\(upperBound)")
         let incorrectRange = max(correctAnswer - 4, 0)...upperBound
         
         for _ in 0...9 {
@@ -299,7 +301,7 @@ class Math: ObservableObject{
             
             var answerList = [Int]()
             //freezing might be here too
-            let upperBound = correctAnswer + max(sharedDifficultyforMultDiv, 18) // Adjust the maximum range based on your needs
+            let upperBound = correctAnswer + max(diffcultyForDivision, 18) // Adjust the maximum range based on your needs
             let incorrectRange = max(correctAnswer - 4, 0)...upperBound
             
             for _ in 0...9 {
@@ -327,7 +329,7 @@ class Math: ObservableObject{
             correctAnsArry.append(correctAnswer)
             var answerList = [Int]()
             //freezing might be here too
-            let upperBound = correctAnswer + max(sharedDifficultyforMultDiv, 22) // Adjust the maximum range based on your needs
+            let upperBound = correctAnswer + max(diffcultyForDivision, 22) // Adjust the maximum range based on your needs
             let incorrectRange = max(correctAnswer - 4, 0)...upperBound
             
             for _ in 0...9 {
@@ -361,29 +363,29 @@ class Math: ObservableObject{
     }
     //this will return a random operation from the enum Operation
     func randomGamemodeGenerator()  {
-//        let newGame = GameMode.allCases.dropLast()
-//        if let newGamemode = newGame.randomElement(){
-//            randGame = newGamemode
-//        }
-//        print(randGame)
-//        return randGame
+        //        let newGame = GameMode.allCases.dropLast()
+        //        if let newGamemode = newGame.randomElement(){
+        //            randGame = newGamemode
+        //        }
+        //        print(randGame)
+        //        return randGame
     }
     // Refactor so current game mode stays frenzy mode
     
     //this func decides what logic should be done based on the random gameMode that was choose in the randomGamemode func
-//    func frenzyLogic() {
-//        // takes current game mode and randomizes it
-//        // sets the associated symbol to the random game mode selected
-//        let randomGame = randomGamemodeGenerator()
-//        currentSymbol = randomGame.rawValue
-//        print(currentSymbol)
-//        // now generates answers based on what gamemode it is.
-//        generateAnswers() //should i have generate answers accept a parameter??
-//    }
+    //    func frenzyLogic() {
+    //        // takes current game mode and randomizes it
+    //        // sets the associated symbol to the random game mode selected
+    //        let randomGame = randomGamemodeGenerator()
+    //        currentSymbol = randomGame.rawValue
+    //        print(currentSymbol)
+    //        // now generates answers based on what gamemode it is.
+    //        generateAnswers() //should i have generate answers accept a parameter??
+    //    }
     //in this func we multiply two numbers then we return the product and the second number.
     func isDivisible(currentGame: GameMode) -> (Int,Int) {
-        let x = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
-        let y = Int.random(in: 1...sharedDifficultyforMultDiv, excluding: correctAnsArry)
+        let x = Int.random(in: 1...diffcultyForDivision, excluding: correctAnsArry)
+        let y = Int.random(in: 1...diffcultyForDivision, excluding: correctAnsArry)
         let z = x * y
         return (x, z)
     }
@@ -407,12 +409,13 @@ class Math: ObservableObject{
         case .sub:
             sharedDifficultyforAddSub = 14
         case .mul:
-            sharedDifficultyforMultDiv = 10
+            sharedDifficultyforMult = 5
         case .divide:
-            sharedDifficultyforMultDiv = 10
+            diffcultyForDivision = 10
         case .frenzy:
             sharedDifficultyforAddSub = 14
-            sharedDifficultyforMultDiv = 10
+            sharedDifficultyforMult = 5
+            diffcultyForDivision = 10
         }
     }
     //a func for new levels called when you complete a level
@@ -427,12 +430,13 @@ class Math: ObservableObject{
         case .sub:
             sharedDifficultyforAddSub += 5
         case .mul:
-            sharedDifficultyforMultDiv += 3
+            sharedDifficultyforMult += 2
         case .divide:
-            sharedDifficultyforMultDiv += 3
+            diffcultyForDivision += 3
         case .frenzy:
             sharedDifficultyforAddSub += 5
-            sharedDifficultyforMultDiv += 3
+            diffcultyForDivision += 2
+            sharedDifficultyforMult += 2
         }
         generateAnswers()
     }
@@ -445,7 +449,8 @@ class Math: ObservableObject{
         greenButtonCount = 0
         questionCounter = 0
         sharedDifficultyforAddSub = 14
-        sharedDifficultyforMultDiv = 10
+        sharedDifficultyforMult = 5
+        diffcultyForDivision = 10
         switch currentGamemode {
         case .add:
             additionLogic()
@@ -456,7 +461,7 @@ class Math: ObservableObject{
         case .divide:
             divLogic()
         case .frenzy:
-break        }
+            break        }
     }
     //authenticates the user for GameCenter
     func authenticateUser() {
@@ -481,9 +486,9 @@ break        }
             leaderboardIdentifier = leaderboardIdentiferMulti
         case .divide:
             leaderboardIdentifier = leaderboardIdentiferDiv
-          case .frenzy:
+        case .frenzy:
             leaderboardIdentifier = leaderboardIdentifierRand
-       
+            
         }
         
         Task {
